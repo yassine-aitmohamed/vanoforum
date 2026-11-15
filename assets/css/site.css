@@ -75,6 +75,7 @@ a.card:hover { text-decoration: none; border-color: rgba(63,163,221,.55); backgr
 .t-reading { color: var(--sky-light); border-color: rgba(63,163,221,.45); background: rgba(63,163,221,.08); }
 .t-writing { color: var(--orange-light); border-color: rgba(224,123,36,.45); background: rgba(224,123,36,.08); }
 .t-publishing { color: var(--royal-light); border-color: rgba(127,155,242,.45); background: rgba(43,79,179,.14); }
+.t-careers { color: var(--orange-light); border-color: rgba(63,163,221,.45); background: rgba(63,163,221,.10); }
 .t-method { color: #d4dcea; border-color: rgba(255,255,255,.25); background: rgba(255,255,255,.05); }
 
 /* sheets */
@@ -163,3 +164,7 @@ a.card:hover { text-decoration: none; border-color: rgba(63,163,221,.55); backgr
   .pn { grid-template-columns: 1fr; }
   .thumbs { grid-template-columns: 1fr; }
 }
+
+.res { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); margin-bottom: 8px; }
+.res li a b { color: var(--sky-light); }
+.res li a:hover b { color: var(--orange-light); }

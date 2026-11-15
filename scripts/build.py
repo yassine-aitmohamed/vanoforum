@@ -16,7 +16,7 @@ SITE_TITLE = 'VanoForum'
 SITE = 'https://yassine-aitmohamed.github.io/vanoforum/'
 YEAR = '2026'
 
-CATEGORIES = [('Reading', 'Reading papers'), ('Writing', 'Writing papers'), ('Publishing', 'Publishing'), ('Method', 'Research method')]
+CATEGORIES = [('Reading', 'Reading papers'), ('Writing', 'Writing papers'), ('Publishing', 'Publishing'), ('Method', 'Research method'), ('Careers', 'PhD and careers')]
 
 TOOLS = [
     ('VanoAtlas', 'vanoatlas', 'A local research workspace: projects, tasks, meetings, daily routine, notes, papers and LaTeX in one private app.', 'macOS · Windows · Linux'),
@@ -77,7 +77,7 @@ def load_guides():
 
 def page(title, body, rel='', intensity='0.5', offset='0', description='', active='', path=''):
     nav = [('Guides', f'{rel}index.html#guides', 'guides'), ('Sheets', f'{rel}index.html#sheets', 'sheets'),
-           ('Tools', f'{rel}tools.html', 'tools'), ('Forum', FORUM, 'forum')]
+           ('Resources', f'{rel}resources.html', 'resources'), ('Tools', f'{rel}tools.html', 'tools'), ('Forum', FORUM, 'forum')]
     def link(n, u, k):
         cls = ' class="on"' if k == active else ''
         ext = ' target="_blank" rel="noopener"' if u.startswith('http') else ''
@@ -94,7 +94,7 @@ def page(title, body, rel='', intensity='0.5', offset='0', description='', activ
 <link rel="canonical" href="{SITE}{path}">
 <meta name="robots" content="index, follow">
 <meta name="author" content="Yassine Ait Mohamed">
-<meta name="keywords" content="research, how to read a research paper, academic writing in English, writing an abstract, writing an introduction, choosing a journal, Q1 journal, peer review, referee report, PhD, mathematics, VanoForum">
+<meta name="keywords" content="research, how to read a research paper, academic writing in English, PhD abroad, PhD scholarships, contacting a professor, postdoc applications, writing an abstract, writing an introduction, choosing a journal, Q1 journal, peer review, referee report, PhD, mathematics, VanoForum">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="VanoForum">
 <meta property="og:url" content="{SITE}{path}">
@@ -192,21 +192,32 @@ def build_index(guides):
     sheets = ''.join(f'<li><a href="sheets/{g["slug"]}.pdf"><span class="pdf">PDF</span>{html.escape(g["title"])}</a></li>' for g in guides)
     diagrams = ''.join(f'<a class="thumb" href="assets/diagrams/{g["diagram"]}.svg" target="_blank" rel="noopener"><img src="assets/diagrams/{g["diagram"]}.svg" alt="{html.escape(g["title"])}"></a>' for g in guides)
     tools = ''.join(tool_card(t) for t in TOOLS[:3])
+    order = ['finding-a-phd-abroad', 'contacting-a-professor', 'choosing-a-supervisor', 'phd-application-documents', 'funding-and-scholarships', 'postdoc-applications']
+    careers = ''.join(guide_card(g) for s_ in order for g in guides if g['slug'] == s_)
     body = f'''<main>
 <section class="hero">
   <div class="hero-in">
     <p class="eyebrow">An open forum for researchers</p>
     <h1>Research, written down and shared.</h1>
-    <p class="lead">Practical guides on how to read papers, write them in clear English, choose a journal and answer referees. Free one-page sheets and diagrams, open-source tools, and a forum to ask the questions nobody teaches.</p>
+    <p class="lead">Practical guides on how to read papers, write them in clear English, choose a journal, answer referees, and find a PhD or a postdoc abroad. Free one-page sheets and diagrams, open-source tools, and a forum to ask the questions nobody teaches.</p>
     <div class="cta"><a class="btn" href="#guides">Read the guides</a><a class="btn ghost" href="{FORUM}" target="_blank" rel="noopener">Join the forum</a></div>
     <ul class="facts"><li><b>{len(guides)}</b> guides</li><li><b>{len(guides) + 1}</b> free PDFs</li><li><b>{len(TOOLS)}</b> open-source tools</li></ul>
+  </div>
+</section>
+
+<section id="careers" class="band">
+  <div class="band-in">
+    <h2>Doing a PhD abroad</h2>
+    <p class="sub">A complete path for students who want to do a doctorate in another country: where positions are advertised, how to write to a professor, how to choose a supervisor, what goes in the application file, and how to fund it.</p>
+    <div class="grid">{careers}</div>
+    <p class="all"><a class="btn ghost" href="resources.html">Portals, scholarships and reading list →</a></p>
   </div>
 </section>
 
 <section id="guides" class="band">
   <div class="band-in">
     <h2>Guides</h2>
-    <p class="sub">From the first reading of a paper to the answer to the referees. Each guide ends with a checklist and comes with a one-page sheet.</p>
+    <p class="sub">From the first reading of a paper to the answer to the referees, and from finding a PhD abroad to the postdoc market. Each guide ends with a checklist and comes with a one-page sheet.</p>
     {groups}
   </div>
 </section>
@@ -267,15 +278,76 @@ def build_tools():
     (ROOT / 'tools.html').write_text(page('Tools · ' + SITE_TITLE, body, intensity='0.55', active='tools', path='tools.html'), encoding='utf-8')
 
 
+RESOURCES = [
+    ('Finding a PhD or a postdoc', [
+        ('EURAXESS', 'https://euraxess.ec.europa.eu/', 'The European Commission portal for research jobs, funding and mobility in Europe, with practical help for researchers moving country.'),
+        ('FindAPhD', 'https://www.findaphd.com/', 'A large search engine for doctoral projects, strongest for the United Kingdom and Europe.'),
+        ('jobs.ac.uk', 'https://www.jobs.ac.uk/', 'Academic and research vacancies, including funded PhD studentships, mainly in the United Kingdom.'),
+        ('AcademicPositions', 'https://academicpositions.com/', 'International listings of PhD, postdoc and faculty positions, with many European universities.'),
+        ('ADUM', 'https://adum.fr/', 'The platform used by many French doctoral schools to publish thesis offers and manage applications.'),
+        ('MathJobs', 'https://www.mathjobs.org/', 'The American Mathematical Society system for academic mathematics positions, mainly in the United States and Canada.'),
+    ]),
+    ('Scholarships and funding', [
+        ('DAAD', 'https://www.daad.de/en/', 'The German Academic Exchange Service: scholarships and a searchable database of doctoral programmes in Germany.'),
+        ('Marie Skłodowska-Curie Actions', 'https://marie-sklodowska-curie-actions.ec.europa.eu/', 'European Union funding for doctoral networks and postdoctoral fellowships, open to all nationalities.'),
+        ('Mitacs Globalink', 'https://www.mitacs.ca/', 'Research internships in Canada for undergraduates abroad, often a first step towards graduate study there.'),
+        ('Campus France', 'https://www.campusfrance.org/en', 'The official guide to studying in France, with a catalogue of doctoral schools and scholarship information.'),
+    ]),
+    ('Classic essays on research and writing', [
+        ('Career advice, by Terence Tao', 'https://terrytao.wordpress.com/career-advice/', 'A long collection of short essays on how to work, learn, write and build a research career in mathematics.'),
+        ('You and your research, by Richard Hamming', 'https://www.cs.princeton.edu/~jrex/teaching/spring2005/fft/hamming.html', 'A famous talk on why some scientists do important work and others do not: courage, open doors, and the important problems of your field.'),
+        ('How to write mathematics, by Paul Halmos', 'https://faculty.washington.edu/heagerty/Courses/b572/public/HalmosHowToWrite.pdf', 'The classic short essay on mathematical exposition: say something, know your reader, write in spirals.'),
+        ('How to read a paper, by S. Keshav', 'https://doi.org/10.1145/1273445.1273458', 'The two-page note that introduced the three-pass method for reading research papers.'),
+    ]),
+    ('Newsletters on Substack', [
+        ('Research Writing', 'https://varanya.substack.com/', 'Varanya Chaubey writes on how to structure and revise academic prose.'),
+        ('Research Freedom', 'https://lennartnacke.substack.com/', 'Lennart Nacke writes on academic writing workflows, productivity and publishing, aimed at early-career researchers.'),
+        ('About academic writing', 'https://aboutacademicwritingandzo.substack.com/', 'Femke de Jong writes on the craft and habits of academic writing.'),
+        ('Write what you like', 'https://writewhatyoulike.substack.com/', 'Essays on writing habits and the writing life of researchers.'),
+    ]),
+    ('Finding and organising papers', [
+        ('arXiv', 'https://arxiv.org/', 'The open preprint server for mathematics, physics, computer science and neighbouring fields.'),
+        ('zbMATH Open', 'https://zbmath.org/', 'A free and open database of reviews of the mathematical literature since the nineteenth century.'),
+        ('Google Scholar', 'https://scholar.google.com/', 'Broad search with citation counts and the list of papers citing each work.'),
+        ('Semantic Scholar', 'https://www.semanticscholar.org/', 'A free search engine with citation graphs, author pages and paper alerts.'),
+        ('Connected Papers', 'https://www.connectedpapers.com/', 'A visual graph of papers related to one starting paper, useful for a literature review.'),
+        ('Zotero', 'https://www.zotero.org/', 'A free, open-source reference manager that exports to BibTeX.'),
+    ]),
+    ('Choosing a trustworthy journal', [
+        ('Think. Check. Submit.', 'https://thinkchecksubmit.org/', 'A checklist to decide whether a journal or a publisher can be trusted.'),
+        ('DOAJ', 'https://doaj.org/', 'The Directory of Open Access Journals, a curated list of reputable open-access journals.'),
+        ('SCImago Journal Rank', 'https://www.scimagojr.com/', 'Journal rankings and quartiles (Q1 to Q4) by subject area, based on Scopus data.'),
+    ]),
+]
+
+
+def build_resources():
+    secs = ''
+    for head, items in RESOURCES:
+        lis = ''.join(f'<li><a href="{u}" target="_blank" rel="noopener"><b>{html.escape(n)}</b></a><span>{html.escape(d)}</span></li>' for n, u, d in items)
+        secs += f'<h3 class="group">{html.escape(head)}</h3><ul class="cats res">{lis}</ul>'
+    body = f'''<main>
+<section class="band first">
+  <div class="band-in">
+    <h1 class="page-h">Resources</h1>
+    <p class="sub">A curated list of portals, scholarships, classic essays, newsletters and tools for researchers. Every link was checked by hand. Suggest a new one in the <a href="{FORUM}" target="_blank" rel="noopener">forum</a>.</p>
+    {secs}
+  </div>
+</section>
+</main>'''
+    (ROOT / 'resources.html').write_text(page('Resources for researchers · ' + SITE_TITLE, body, intensity='0.55', active='resources', path='resources.html', description='Curated resources for researchers: PhD and postdoc portals, scholarships, classic essays on research and writing, newsletters, paper search tools and journal checklists.'), encoding='utf-8')
+
+
 if __name__ == '__main__':
     gs = load_guides()
     build_guides(gs)
     build_index(gs)
     build_tools()
+    build_resources()
     (ROOT / 'guides' / 'index.json').write_text(json.dumps([{k: g[k] for k in ('title', 'slug', 'category', 'summary', 'diagram', 'source')} for g in gs], indent=2), encoding='utf-8')
     import datetime
     today = datetime.date.today().isoformat()
-    urls = [('', '1.0'), ('tools.html', '0.8')] + [(f'guides/{g["slug"]}.html', '0.9') for g in gs] + [('sheets/vanoforum-research-handbook.pdf', '0.7')] + [(f'sheets/{g["slug"]}.pdf', '0.5') for g in gs]
+    urls = [('', '1.0'), ('resources.html', '0.8'), ('tools.html', '0.8')] + [(f'guides/{g["slug"]}.html', '0.9') for g in gs] + [('sheets/vanoforum-research-handbook.pdf', '0.7')] + [(f'sheets/{g["slug"]}.pdf', '0.5') for g in gs]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     sm += ''.join(f'  <url><loc>{SITE}{u}</loc><lastmod>{today}</lastmod><priority>{p}</priority></url>\n' for u, p in urls)
     sm += '</urlset>\n'

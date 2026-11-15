@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://yassine-aitmohamed.github.io/vanoforum/</loc><lastmod>2026-11-15</lastmod><priority>1.0</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/resources.html</loc><lastmod>2026-11-15</lastmod><priority>0.8</priority></url>
   <url><loc>https://yassine-aitmohamed.github.io/vanoforum/tools.html</loc><lastmod>2026-11-15</lastmod><priority>0.8</priority></url>
   <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/reading-a-paper.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
   <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/tools-for-papers.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
@@ -12,6 +13,21 @@
   <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/choosing-a-journal.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
   <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/submission-and-peer-review.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
   <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/research-methodology.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/finding-a-phd-abroad.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/contacting-a-professor.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/choosing-a-supervisor.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/phd-application-documents.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/funding-and-scholarships.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/postdoc-applications.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/becoming-a-good-writer.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/academic-phrasebook.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/posting-on-arxiv.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/giving-a-research-talk.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/writing-a-literature-review.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/collaboration-and-authorship.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/conferences-and-networking.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/managing-your-phd.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/guides/writing-the-thesis.html</loc><lastmod>2026-11-15</lastmod><priority>0.9</priority></url>
   <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/vanoforum-research-handbook.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.7</priority></url>
   <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/reading-a-paper.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
   <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/tools-for-papers.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
@@ -23,4 +39,19 @@
   <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/choosing-a-journal.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
   <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/submission-and-peer-review.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
   <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/research-methodology.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/finding-a-phd-abroad.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/contacting-a-professor.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/choosing-a-supervisor.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/phd-application-documents.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/funding-and-scholarships.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/postdoc-applications.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/becoming-a-good-writer.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/academic-phrasebook.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/posting-on-arxiv.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/giving-a-research-talk.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/writing-a-literature-review.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/collaboration-and-authorship.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/conferences-and-networking.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/managing-your-phd.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
+  <url><loc>https://yassine-aitmohamed.github.io/vanoforum/sheets/writing-the-thesis.pdf</loc><lastmod>2026-11-15</lastmod><priority>0.5</priority></url>
 </urlset>

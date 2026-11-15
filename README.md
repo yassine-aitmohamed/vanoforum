@@ -2,13 +2,14 @@
 
 <h1 align="center">VanoForum</h1>
 <p align="center"><b>An open forum for researchers.</b><br>
-Practical guides on reading papers, writing them in clear English, choosing a journal and answering referees.<br>
+Practical guides on reading papers, writing them in clear English, choosing a journal, answering referees,<br>and finding a PhD or a postdoc abroad.<br>
 Free one-page sheets, diagrams, open-source tools, and a place to ask questions.</p>
 
 <p align="center">
 <a href="https://yassine-aitmohamed.github.io/vanoforum/"><b>Website</b></a> ·
 <a href="https://github.com/yassine-aitmohamed/vanoforum/discussions"><b>Forum</b></a> ·
 <a href="sheets/vanoforum-research-handbook.pdf"><b>The Research Handbook (PDF)</b></a> ·
+<a href="https://yassine-aitmohamed.github.io/vanoforum/resources.html"><b>Resources</b></a> ·
 <a href="https://yassine-aitmohamed.github.io/vanoforum/tools.html"><b>Tools</b></a>
 </p>
 
@@ -30,8 +31,23 @@ Each guide ends with a checklist and comes with a one-page sheet you can print.
 | 8 | [Choosing a journal](guides/08-choosing-a-journal.md) | Publishing | [PDF](sheets/choosing-a-journal.pdf) |
 | 9 | [Submission, cover letters and peer review](guides/09-submission-and-peer-review.md) | Publishing | [PDF](sheets/submission-and-peer-review.pdf) |
 | 10 | [A research method, from the first idea to the preprint](guides/10-research-methodology.md) | Method | [PDF](sheets/research-methodology.pdf) |
+| 11 | [Finding a PhD abroad](guides/11-finding-a-phd-abroad.md) | Careers | [PDF](sheets/finding-a-phd-abroad.pdf) |
+| 12 | [Contacting a professor](guides/12-contacting-a-professor.md) | Careers | [PDF](sheets/contacting-a-professor.pdf) |
+| 13 | [Choosing a supervisor](guides/13-choosing-a-supervisor.md) | Careers | [PDF](sheets/choosing-a-supervisor.pdf) |
+| 14 | [The PhD application file](guides/14-phd-application-documents.md) | Careers | [PDF](sheets/phd-application-documents.pdf) |
+| 15 | [Funding your PhD and finding scholarships](guides/15-funding-and-scholarships.md) | Careers | [PDF](sheets/funding-and-scholarships.pdf) |
+| 16 | [Applying for postdoctoral positions](guides/16-postdoc-applications.md) | Careers | [PDF](sheets/postdoc-applications.pdf) |
+| 17 | [Becoming a good scientific writer](guides/17-becoming-a-good-writer.md) | Writing | [PDF](sheets/becoming-a-good-writer.pdf) |
+| 18 | [The academic phrasebook](guides/18-academic-phrasebook.md) | Writing | [PDF](sheets/academic-phrasebook.pdf) |
+| 19 | [Posting a preprint on arXiv](guides/19-posting-on-arxiv.md) | Publishing | [PDF](sheets/posting-on-arxiv.pdf) |
+| 20 | [Giving a research talk](guides/20-giving-a-research-talk.md) | Method | [PDF](sheets/giving-a-research-talk.pdf) |
+| 21 | [Writing a literature review](guides/21-writing-a-literature-review.md) | Reading | [PDF](sheets/writing-a-literature-review.pdf) |
+| 22 | [Collaboration and authorship](guides/22-collaboration-and-authorship.md) | Method | [PDF](sheets/collaboration-and-authorship.pdf) |
+| 23 | [Conferences and networking](guides/23-conferences-and-networking.md) | Careers | [PDF](sheets/conferences-and-networking.pdf) |
+| 24 | [Managing your PhD](guides/24-managing-your-phd.md) | Method | [PDF](sheets/managing-your-phd.pdf) |
+| 25 | [Writing the thesis](guides/25-writing-the-thesis.md) | Writing | [PDF](sheets/writing-the-thesis.pdf) |
 
-All guides are also collected in **[The Research Handbook](sheets/vanoforum-research-handbook.pdf)**.
+All guides are also collected in **[The Research Handbook](sheets/vanoforum-research-handbook.pdf)**. A curated list of PhD portals, scholarships, classic essays, newsletters and paper tools is on the **[Resources](https://yassine-aitmohamed.github.io/vanoforum/resources.html)** page.
 
 ## The forum
 

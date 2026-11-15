@@ -13,7 +13,7 @@ OUT = ROOT / 'sheets'
 OUT.mkdir(exist_ok=True)
 
 LIST_SECTIONS = ('Checklist', 'Summary', 'In short', 'A minimal setup to start today')
-CAT_COLOR = {'Reading': 'sky', 'Writing': 'orange', 'Publishing': 'royal', 'Method': 'royal'}
+CAT_COLOR = {'Reading': 'sky', 'Writing': 'orange', 'Publishing': 'royal', 'Method': 'royal', 'Careers': 'sky'}
 
 
 def front_matter(text):

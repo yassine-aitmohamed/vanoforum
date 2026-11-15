@@ -124,7 +124,7 @@ def flow_v(name, title, subtitle, steps, gap=96, width=60, side=None, W=None):
                 body += f'<text x="{sx + 6:.1f}" y="{ys[i] + 10 + 17 * k:.1f}" font-family="{FONT}" font-size="13" fill="{GRAY}">{escape(ln)}</text>'
     for i in range(n - 1):
         body += curved(x, ys[i], x, ys[i + 1], -0.2)
-    W = W or (x + 30 + width * 7.1 + (330 if side else 40))
+    W = W or max(x + 30 + width * 7.1 + (330 if side else 40), 60 + len(subtitle) * 7.9)
     H = ys[-1] + 60 + 17 * len(wrap(steps[-1][1], width))
     open(f'{OUT}/{name}.svg', 'w').write(doc(W, H, body, title))
 
@@ -243,4 +243,108 @@ cycle('research-cycle', 'A research cycle', 'Most ideas fail. A method makes the
     ('Originality', 'Does a statement of this form exist? Keep it separate from difficulty.'),
     ('Write', 'Results first, introduction and abstract last.'),
     ('Preprint', 'Post, submit, start the next project.')], rx=320, ry=200, lenses={(1, 2)})
+
+flow_v('phd-search', 'Finding a PhD abroad', 'Two routes: advertised positions and projects built with a supervisor. Start twelve to eighteen months ahead.', [
+    ('Map the field', 'Which groups publish the papers you like? List ten to twenty people.'),
+    ('Read the systems', 'Funded positions in Europe, graduate programmes in North America, scholarships elsewhere.'),
+    ('Search portals', 'EURAXESS, FindAPhD, jobs.ac.uk, academicpositions, national portals.'),
+    ('Contact supervisors', 'Short, specific emails to a few well-chosen people.'),
+    ('Apply', 'Documents tailored to each position, before every deadline.'),
+    ('Interview and decide', 'Talk to current students before accepting an offer.')], gap=84, width=74)
+
+flow_h('cold-email', 'An email to a professor', 'Short, specific, and easy to answer. Under two hundred words.', [
+    ('Subject', 'Prospective PhD student: [topic]. Clear and specific.'),
+    ('Who you are', 'One or two sentences: degree, university, current project.'),
+    ('Why this person', 'One paper you actually read and what interested you in it.'),
+    ('The question', 'Are you taking students? Which funding route would fit?'),
+    ('Attachments', 'CV and transcript as PDF, with clear file names.')], step_w=230)
+
+cycle('supervisor', 'Choosing a supervisor', 'The topic matters, but the person matters more. Check every point before accepting.', [
+    ('Research fit', 'Papers you want to read and could build on.'),
+    ('Availability', 'How often students meet the supervisor.'),
+    ('Group', 'Other students, postdocs, a seminar to learn in.'),
+    ('Track record', 'Where former students went after the PhD.'),
+    ('Style', 'Close guidance or independence, and what you need.'),
+    ('Funding', 'Duration, salary, teaching, travel money.')], rx=310, ry=190)
+
+flow_v('application-file', 'The PhD application file', 'Each document answers a different question for the committee.', [
+    ('CV', 'What have you done? Education, research projects, talks, skills.'),
+    ('Statement of purpose', 'Why research, why this field, why this place.'),
+    ('Research proposal', 'Can you formulate a question and a plan? Two to five pages.'),
+    ('Transcripts', 'How solid is your background? Official, translated if needed.'),
+    ('Letters', 'What do researchers who know you think? Two or three referees.'),
+    ('Language and tests', 'English certificate or tests, only when required.')], gap=80, width=72)
+
+flow_h('funding', 'Funding a doctorate', 'Never accept an unfunded PhD without a clear plan. Many routes exist.', [
+    ('Funded positions', 'Salaried contracts attached to a grant or a doctoral school.'),
+    ('Fellowships', 'MSCA doctoral networks, DAAD, national scholarships.'),
+    ('Assistantships', 'Teaching or research assistant posts in North America.'),
+    ('Home country', 'Government scholarships for study abroad.'),
+    ('Industry', 'Joint doctorates with a company, such as CIFRE in France.')], step_w=225)
+
+flow_h('postdoc', 'The postdoc market', 'A yearly calendar. Prepare during the final year of the PhD.', [
+    ('Summer', 'Documents, list of positions, letter writers chosen.'),
+    ('Autumn', 'Most applications. Many deadlines in November and December.'),
+    ('Winter', 'Interviews and job talks. First offers.'),
+    ('Spring', 'Offers compared, decisions made, contract signed.')], step_w=250)
+
+cycle('writer-loop', 'Becoming a good writer', 'A habit built by practice. Each turn of the loop improves the next draft.', [
+    ('Read for style', 'Model papers reread for their writing.'),
+    ('Collect', 'A phrasebook sorted by function.'),
+    ('Draft', 'Every day, fast, without correcting.'),
+    ('Edit', 'Later, slowly, in four passes.'),
+    ('Feedback', 'Supervisor, peers, referee reports.')], rx=300, ry=180, lenses={(2, 3)})
+
+flow_h('phrasebook', 'Phrases by function', 'Every part of a paper has its own standard phrases. Adapt them, do not copy them.', [
+    ('Open', 'Context, history, and the question.'),
+    ('Gap', 'What is missing and why it is hard.'),
+    ('Announce', 'Main results and consequences.'),
+    ('Compare', 'Earlier work, fairly and precisely.'),
+    ('Prove', 'Reductions, cases, contradiction.'),
+    ('Conclude', 'Open questions and next steps.')], step_w=190)
+
+flow_h('arxiv', 'Posting on arXiv', 'Once announced, a paper cannot be removed. Check everything before submitting.', [
+    ('Agree', 'All authors approve the version and the timing.'),
+    ('Endorse', 'First submission in a category may need an endorser.'),
+    ('Prepare', 'TeX source, .bbl file, figures, no private comments.'),
+    ('Classify', 'One primary category, few cross-lists, a licence.'),
+    ('Update', 'New versions, then the journal reference and DOI.')], step_w=225)
+
+flow_v('talk-arc', 'The arc of a research talk', 'Every listener should leave with something. Most will remember only the beginning.', [
+    ('For everyone', 'The question, why it matters, one example anyone can follow.'),
+    ('For the field', 'Precise statements of the results and comparison with earlier work.'),
+    ('For the experts', 'An idea of the proof and the main new ingredient.'),
+    ('Summary', 'One slide with the main message, left on screen during questions.')], gap=86, width=72)
+
+cycle('lit-review', 'Building a literature review', 'An argument about a field, not a list of summaries.', [
+    ('Scope', 'Two sentences on what is in and out.'),
+    ('Search', 'Backward, forward, recent preprints.'),
+    ('Organise', 'Notes and a comparison table.'),
+    ('Structure', 'By theme, method, or history.'),
+    ('Write', 'Compare ideas, end with gaps.')], rx=300, ry=180)
+
+flow_h('collaboration', 'A healthy collaboration', 'Most conflicts come from things never said. Discuss them early.', [
+    ('Start', 'A shared note: the question, first tasks, next meeting.'),
+    ('Work', 'One repository, regular calls, written decisions.'),
+    ('Authorship', 'Agree on the convention. Alphabetical in mathematics.'),
+    ('Submit', 'Choose the journal and the preprint date together.')], step_w=245)
+
+cycle('networking', 'From a conference to a collaboration', 'Relationships are built after the event, not during the coffee break alone.', [
+    ('Prepare', 'Participants, their papers, people to meet.'),
+    ('Talk', 'Questions after talks, meals, short introductions.'),
+    ('Follow up', 'An email within a week, with a link.'),
+    ('Stay in touch', 'Send new preprints, meet again.')], rx=280, ry=170)
+
+flow_h('phd-timeline', 'Phases of a doctorate', 'Durations vary by country. The order of the phases does not.', [
+    ('Learn', 'Key papers, known proofs, a seminar talk, a research journal.'),
+    ('First result', 'A well-defined problem written up as a first preprint.'),
+    ('Independence', 'Own questions, conference talks, thesis plan.'),
+    ('Finish', 'Thesis, applications, defence.')], step_w=245, lenses={(1, 2)})
+
+flow_v('thesis', 'From papers to a thesis', 'Plan it as a book. The general introduction is read most closely.', [
+    ('Rules', 'Format, length, language, deadlines of the university.'),
+    ('General introduction', 'Field, background, main results, plan of the thesis.'),
+    ('Chapters', 'Papers adapted: unified notation, no repeated background.'),
+    ('Reviewers', 'A polished version, then corrections from the reports.'),
+    ('Defence', 'A talk in three parts, rehearsed with the group.')], gap=84, width=72)
 print('ok')

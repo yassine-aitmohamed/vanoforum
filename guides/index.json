@@ -78,5 +78,125 @@
     "summary": "Choosing a problem, working in examples, discussing the strategy before writing proofs, checking originality, keeping a research log, and writing to other researchers about their work.",
     "diagram": "research-cycle",
     "source": "10-research-methodology.md"
+  },
+  {
+    "title": "Finding a PhD abroad",
+    "slug": "finding-a-phd-abroad",
+    "category": "Careers",
+    "summary": "How doctoral admission works in the main systems, where funded positions are advertised, and a twelve-month plan from the first search to the first day in a new country.",
+    "diagram": "phd-search",
+    "source": "11-finding-a-phd-abroad.md"
+  },
+  {
+    "title": "Contacting a professor",
+    "slug": "contacting-a-professor",
+    "category": "Careers",
+    "summary": "How to write the first email to a potential supervisor or collaborator, what to attach, when to follow up, and the mistakes that send an email straight to the archive.",
+    "diagram": "cold-email",
+    "source": "12-contacting-a-professor.md"
+  },
+  {
+    "title": "Choosing a supervisor",
+    "slug": "choosing-a-supervisor",
+    "category": "Careers",
+    "summary": "The supervisor matters more than the university name. What to look for, the questions to ask, how to talk to current students, and the warning signs to take seriously.",
+    "diagram": "supervisor",
+    "source": "13-choosing-a-supervisor.md"
+  },
+  {
+    "title": "The PhD application file",
+    "slug": "phd-application-documents",
+    "category": "Careers",
+    "summary": "The academic CV, the statement of purpose, the research proposal, the letters of recommendation and the interview. What each document is for, and how to make it specific.",
+    "diagram": "application-file",
+    "source": "14-phd-application-documents.md"
+  },
+  {
+    "title": "Funding your PhD and finding scholarships",
+    "slug": "funding-and-scholarships",
+    "category": "Careers",
+    "summary": "Never start a PhD without funding. The kinds of funding that exist, the main national and international programmes, and how to make a scholarship application stand out.",
+    "diagram": "funding",
+    "source": "15-funding-and-scholarships.md"
+  },
+  {
+    "title": "Applying for postdoctoral positions",
+    "slug": "postdoc-applications",
+    "category": "Careers",
+    "summary": "The postdoc job market runs on a yearly calendar. Where positions are posted, what goes in the research statement, how to manage letters, and how to compare offers.",
+    "diagram": "postdoc",
+    "source": "16-postdoc-applications.md"
+  },
+  {
+    "title": "Becoming a good scientific writer",
+    "slug": "becoming-a-good-writer",
+    "category": "Writing",
+    "summary": "Good writing is a habit, not a talent. Read for style, keep a phrasebook, write every day, get feedback, and revise in passes. A practical training plan for researchers who write in a second language.",
+    "diagram": "writer-loop",
+    "source": "17-becoming-a-good-writer.md"
+  },
+  {
+    "title": "The academic phrasebook",
+    "slug": "academic-phrasebook",
+    "category": "Writing",
+    "summary": "Reusable English phrases for every part of a research paper, sorted by function. Announcing results, defining, comparing with earlier work, structuring proofs, hedging, and concluding.",
+    "diagram": "phrasebook",
+    "source": "18-academic-phrasebook.md"
+  },
+  {
+    "title": "Posting a preprint on arXiv",
+    "slug": "posting-on-arxiv",
+    "category": "Publishing",
+    "summary": "How to prepare, submit and update a preprint on arXiv. Accounts and endorsement, choosing categories, licences, TeX source, versions, and the link with journal submission.",
+    "diagram": "arxiv",
+    "source": "19-posting-on-arxiv.md"
+  },
+  {
+    "title": "Giving a research talk",
+    "slug": "giving-a-research-talk",
+    "category": "Method",
+    "summary": "How to plan, build and deliver a research talk. Know the audience, follow the three-part structure, design clear slides or board work, rehearse, and handle questions.",
+    "diagram": "talk-arc",
+    "source": "20-giving-a-research-talk.md"
+  },
+  {
+    "title": "Writing a literature review",
+    "slug": "writing-a-literature-review",
+    "category": "Reading",
+    "summary": "How to search the literature systematically, organise what you read, and write a review that compares ideas instead of listing papers. Useful for a thesis chapter, a survey or the background section of a paper.",
+    "diagram": "lit-review",
+    "source": "21-writing-a-literature-review.md"
+  },
+  {
+    "title": "Collaboration and authorship",
+    "slug": "collaboration-and-authorship",
+    "category": "Method",
+    "summary": "How to start and run a research collaboration, share work fairly, decide author order, and avoid the most common conflicts. Includes the conventions of mathematics and other fields.",
+    "diagram": "collaboration",
+    "source": "22-collaboration-and-authorship.md"
+  },
+  {
+    "title": "Conferences and networking",
+    "slug": "conferences-and-networking",
+    "category": "Careers",
+    "summary": "How to choose conferences, apply for travel funding, prepare a short talk or poster, talk to senior researchers, and turn meetings into lasting professional relationships.",
+    "diagram": "networking",
+    "source": "23-conferences-and-networking.md"
+  },
+  {
+    "title": "Managing your PhD",
+    "slug": "managing-your-phd",
+    "category": "Method",
+    "summary": "A year-by-year plan for the doctorate, how to work with your supervisor, keep a research journal, handle being stuck, protect your health, and finish on time.",
+    "diagram": "phd-timeline",
+    "source": "24-managing-your-phd.md"
+  },
+  {
+    "title": "Writing the thesis",
+    "slug": "writing-the-thesis",
+    "category": "Writing",
+    "summary": "How to turn your papers and notes into a coherent thesis. Structure, the general introduction, chapters built from papers, writing schedule, working with the committee, and preparing the defence.",
+    "diagram": "thesis",
+    "source": "25-writing-the-thesis.md"
   }
 ]
