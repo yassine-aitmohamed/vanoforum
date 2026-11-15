@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Presenting results and proofs · VanoForum</title>
+<meta name="description" content="How to organize sections, choose between Theorem, Proposition and Lemma, write proofs that read as prose, display equations, and keep the LaTeX source clean.">
+<meta property="og:title" content="Presenting results and proofs · VanoForum">
+<meta property="og:description" content="How to organize sections, choose between Theorem, Proposition and Lemma, write proofs that read as prose, display equations, and keep the LaTeX source clean.">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<div class="quantum" data-quantum data-intensity="0.42" data-offset="0"></div>
+<header class="top">
+  <a class="brand" href="../index.html"><svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M9 28 Q14 10 20 12" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><path d="M20 12 Q28 14 31 28" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><path d="M31 28 Q20 34 9 28" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><path d="M9 28 Q20 23 31 28" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><circle cx="20" cy="12" r="4" fill="#e07b24"/><circle cx="9" cy="28" r="4" fill="#3fa3dd"/><circle cx="31" cy="28" r="4" fill="#2b4fb3"/></svg><span>VanoForum</span></a>
+  <nav><a href="../index.html#guides" class="on">Guides</a><a href="../index.html#sheets">Sheets</a><a href="../tools.html">Tools</a><a href="https://github.com/yassine-aitmohamed/vanoforum/discussions" target="_blank" rel="noopener">Forum</a><a class="gh" href="https://github.com/yassine-aitmohamed/vanoforum" target="_blank" rel="noopener" aria-label="GitHub repository">GitHub</a></nav>
+</header>
+<main class="guide">
+  <aside class="toc"><div class="toc-in"><p class="toc-h">On this page</p><ol><li><a href="#sections">Sections</a></li><li><a href="#theorem-proposition-lemma-corollary">Theorem, Proposition, Lemma, Corollary</a></li><li><a href="#writing-proofs">Writing proofs</a></li><li><a href="#displayed-equations">Displayed equations</a></li><li><a href="#notation">Notation</a></li><li><a href="#figures">Figures</a></li><li><a href="#length">Length</a></li><li><a href="#latex-habits-that-editors-notice">LaTeX habits that editors notice</a></li><li><a href="#checklist">Checklist</a></li></ol>
+    <p class="toc-h">Guide 6 of 10</p>
+    <a class="btn small" href="../sheets/presenting-results.pdf">One-page sheet (PDF)</a>
+    <a class="btn small ghost" href="https://github.com/yassine-aitmohamed/vanoforum/discussions" target="_blank" rel="noopener">Discuss on the forum</a></div></aside>
+  <article class="panel prose">
+    <p class="crumbs"><a href="../index.html#guides">Guides</a> · <span class="tag t-writing">Writing</span></p>
+    <h1>Presenting results and proofs</h1>
+    <p class="lead">How to organize sections, choose between Theorem, Proposition and Lemma, write proofs that read as prose, display equations, and keep the LaTeX source clean.</p>
+    <figure class="diagram"><img src="../assets/diagrams/results-hierarchy.svg" alt="Diagram: Presenting results and proofs" loading="lazy"></figure>
+    <p>A paper can contain excellent results and still be hard to read because of how they are presented. Structure is not decoration. It tells the reader what matters, where to find it and what can be skipped.</p>
+<h2 id="sections">Sections</h2>
+<ul>
+<li><strong>Few sections, each with one job.</strong> A typical research paper has an introduction, a section of preliminaries, two to four sections of results, and sometimes a section of examples. Short papers can do with three sections in total.</li>
+<li><strong>Name sections after objects or tools</strong>: "Graded modules and their duals", "The blow-up groupoid", "A spectral sequence". Do not title a section "Proof of Theorem A". The title should tell the reader what the section is about.</li>
+<li><strong>Open each section with its goal.</strong> One or two sentences: "In this section, we construct… The main result is Proposition 3.5, which is the key input in the proof of Theorem B." The reader knows immediately why the section is there.</li>
+</ul>
+<h2 id="theorem-proposition-lemma-corollary">Theorem, Proposition, Lemma, Corollary</h2>
+<p>Use the environments as a hierarchy, not as decoration.</p>
+<ul>
+<li><strong>Theorem</strong> for the main results of the paper, the ones announced in the introduction. Usually two to four in a paper.</li>
+<li><strong>Proposition</strong> for important results of the paper that are not main results.</li>
+<li><strong>Lemma</strong> for technical steps used in proofs.</li>
+<li><strong>Corollary</strong> for direct consequences of a theorem or a proposition.</li>
+<li><strong>Remark</strong> and <strong>Example</strong> for comments and illustrations that are not used in proofs.</li>
+</ul>
+<p>If every result is a Theorem, nothing stands out. A standard or easy fact does not need an environment at all: state it in a sentence in the text, with a short justification.</p>
+<p><strong>Results from the literature are cited, not restated.</strong> If you use a known result, write "by [8, Theorem 2.1], the map is an isomorphism". Do not restate it as "Proposition 2.3 ([8])" and do not reprove it. Keep the paper focused on what is new.</p>
+<h2 id="writing-proofs">Writing proofs</h2>
+<ul>
+<li><strong>Continuous prose.</strong> Write proofs as connected paragraphs, not as "Step 1, Step 2, Step 3". If a proof is long, split it into lemmas with clear statements, then the proof of the theorem becomes short and readable.</li>
+<li><strong>Announce the strategy.</strong> For a long proof, the first sentence says how it goes: "We argue by induction on the length", "The proof reduces to the case of a point, which we treat with a local model".</li>
+<li><strong>Make the main proofs easy to find.</strong> When the proof of a main theorem comes much later than its statement, give it a visible heading: <strong>Proof of Theorem B.</strong> in bold. A reader looking for it should find it in seconds.</li>
+<li><strong>Be exact about what is used.</strong> Each step should be justified by a precise reference: an earlier equation, a numbered lemma, or an exact citation.</li>
+</ul>
+<h2 id="displayed-equations">Displayed equations</h2>
+<ul>
+<li><strong>Display the important equations.</strong> Center the key formulas on their own lines. Inline formulas should be short.</li>
+<li><strong>Number only what you refer to.</strong> An equation needs a number only if the text cites it later. Unnumbered displays are cleaner.</li>
+<li><strong>Punctuate equations.</strong> A displayed equation is part of a sentence. End it with a comma or a period when the sentence requires it.</li>
+<li><strong>Align multi-line computations</strong> on the relation symbol, so the reader follows the chain of equalities.</li>
+</ul>
+<h2 id="notation">Notation</h2>
+<ul>
+<li>Introduce all notation in one place when possible, usually the preliminaries.</li>
+<li>Use standard symbols for standard objects. Use simple letters ($U$, $V$, $W$ for open sets, $f$, $g$ for maps) and keep fancy alphabets for genuinely different types of objects.</li>
+<li>Never use the same symbol for two different things, and never change the symbol of an object halfway through the paper.</li>
+</ul>
+<h2 id="figures">Figures</h2>
+<p>Figures are often the fastest way to explain a construction. Keep captions short, one line if possible, and put the explanation in the text that cites the figure. Use the same colors and conventions in all figures of the paper.</p>
+<h2 id="length">Length</h2>
+<p>Clarity is worth a few pages. A 20-page paper that a referee reads in one afternoon is better than a 12-page paper that takes a week to decode. Do not condense to the point of losing the reader.</p>
+<h2 id="latex-habits-that-editors-notice">LaTeX habits that editors notice</h2>
+<ul>
+<li><strong>Use a standard class</strong> (for example <code>amsart</code> in mathematics) and the journal's class only at the end, when the paper is accepted.</li>
+<li><strong>Write references with their name</strong>: <code>Lemma~\ref{...}</code> or <code>Lemma \ref{...}</code>. Avoid packages that cause trouble on arXiv. Check that the source compiles on arXiv before submitting.</li>
+<li><strong>Use meaningful or stable labels</strong> and never reuse a label.</li>
+<li><strong>One bibliography style</strong> for the whole paper, with complete entries: authors, title, journal, volume, year, pages, DOI or arXiv number.</li>
+<li><strong>Clean the source before posting.</strong> Remove commented-out paragraphs, private notes and unused packages. arXiv makes the source public.</li>
+<li><strong>Do not fight the class.</strong> Avoid manual spacing such as <code>\vspace</code> and <code>\\</code> to adjust the layout. Let LaTeX do the typesetting.</li>
+</ul>
+<h2 id="checklist">Checklist</h2>
+<ul>
+<li class="task">Sections are named after objects, and each opens with its goal.</li>
+<li class="task">Theorem is reserved for the main results.</li>
+<li class="task">Known results are cited with exact numbers, not reproved.</li>
+<li class="task">Proofs are in prose, and main proofs have bold headings.</li>
+<li class="task">Only referenced equations are numbered.</li>
+<li class="task">Notation is introduced once and never changes.</li>
+<li class="task">The source is clean and compiles on arXiv.</li>
+</ul>
+    <div class="end-actions"><a class="btn" href="../sheets/presenting-results.pdf">Download the one-page sheet (PDF)</a><a class="btn ghost" href="https://github.com/yassine-aitmohamed/vanoforum/discussions" target="_blank" rel="noopener">Ask a question on the forum</a></div>
+    <nav class="pn"><a class="prev" href="writing-the-introduction.html"><small>Previous</small>Writing the introduction, the motivation and the contribution</a><a class="next" href="revising-paragraphs.html"><small>Next</small>Revising paragraphs, step by step</a></nav>
+  </article>
+</main>
+<footer class="foot">
+  <div class="foot-in">
+    <p><b>VanoForum</b> · an open forum for researchers, by <a href="https://yassine-aitmohamed.github.io" target="_blank" rel="noopener">Yassine Ait Mohamed</a>. Guides and sheets under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, code under MIT.</p>
+    <p class="about-field">The background is an exact solution of the Schrödinger equation: a superposition of eigenstates of the two-dimensional harmonic oscillator with frequency ratio √2, so the motion never repeats. Hue is the phase of ψ, brightness is |ψ|², the faint curves are level sets of |ψ|², and the particles follow Bohmian trajectories, dx/dt = Im(∇ψ/ψ).</p>
+  </div>
+</footer>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="../assets/js/site.js"></script>
+<script defer src="../assets/js/quantum.js"></script>
+</body>
+</html>

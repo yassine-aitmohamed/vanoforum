@@ -1,0 +1,82 @@
+[
+  {
+    "title": "How to read a research paper",
+    "slug": "reading-a-paper",
+    "category": "Reading",
+    "summary": "A three-pass method, a map of the results, and a one-page reading sheet. Read for what the paper proves and how, not line by line from page one.",
+    "diagram": "three-pass",
+    "source": "01-reading-a-paper.md"
+  },
+  {
+    "title": "Tools for finding, reading and managing papers",
+    "slug": "tools-for-papers",
+    "category": "Reading",
+    "summary": "Where to search, how to follow new work, how to read PDFs efficiently and how to keep a library you can still use in five years.",
+    "diagram": "literature-loop",
+    "source": "02-tools-for-papers.md"
+  },
+  {
+    "title": "Writing your first paper in English",
+    "slug": "first-paper-in-english",
+    "category": "Writing",
+    "summary": "The anatomy of a research paper, the order in which to write it, and the sentence-level habits that make English academic prose clear, even when English is not your first language.",
+    "diagram": "anatomy",
+    "source": "03-first-paper-in-english.md"
+  },
+  {
+    "title": "Writing the abstract",
+    "slug": "writing-the-abstract",
+    "category": "Writing",
+    "summary": "An abstract is a short, exact advertisement for the paper. Start with what you prove, give every main contribution, use strong verbs, and leave the symbols out.",
+    "diagram": "abstract",
+    "source": "04-writing-the-abstract.md"
+  },
+  {
+    "title": "Writing the introduction, the motivation and the contribution",
+    "slug": "writing-the-introduction",
+    "category": "Writing",
+    "summary": "An introduction tells a short story. Where the problem comes from, why it matters, what was missing, and what this paper adds, with the main results stated early and the proofs kept for later.",
+    "diagram": "introduction-arc",
+    "source": "05-writing-the-introduction.md"
+  },
+  {
+    "title": "Presenting results and proofs",
+    "slug": "presenting-results",
+    "category": "Writing",
+    "summary": "How to organize sections, choose between Theorem, Proposition and Lemma, write proofs that read as prose, display equations, and keep the LaTeX source clean.",
+    "diagram": "results-hierarchy",
+    "source": "06-presenting-results.md"
+  },
+  {
+    "title": "Revising paragraphs, step by step",
+    "slug": "revising-paragraphs",
+    "category": "Writing",
+    "summary": "A method to revise a paragraph without losing your voice. Check the content first, then the structure, then the sentences, then the words. Keep your notation and your structure intact.",
+    "diagram": "revision-passes",
+    "source": "07-revising-paragraphs.md"
+  },
+  {
+    "title": "Choosing a journal",
+    "slug": "choosing-a-journal",
+    "category": "Publishing",
+    "summary": "Scope first, then level, then the editor. What Q1 and Q2 really mean, how to read an editorial board, how to recognize a predatory journal, and how to build a realistic list of targets.",
+    "diagram": "journal-choice",
+    "source": "08-choosing-a-journal.md"
+  },
+  {
+    "title": "Submission, cover letters and peer review",
+    "slug": "submission-and-peer-review",
+    "category": "Publishing",
+    "summary": "What to check before submitting, how to write a short cover letter, what happens during review, and how to answer referees point by point. Also how to write a referee report yourself.",
+    "diagram": "review-pipeline",
+    "source": "09-submission-and-peer-review.md"
+  },
+  {
+    "title": "A research method, from the first idea to the preprint",
+    "slug": "research-methodology",
+    "category": "Method",
+    "summary": "Choosing a problem, working in examples, discussing the strategy before writing proofs, checking originality, keeping a research log, and writing to other researchers about their work.",
+    "diagram": "research-cycle",
+    "source": "10-research-methodology.md"
+  }
+]
