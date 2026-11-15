@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parent.parent
 REPO = 'https://github.com/yassine-aitmohamed/vanoforum'
 FORUM = REPO + '/discussions'
 SITE_TITLE = 'VanoForum'
+SITE = 'https://yassine-aitmohamed.github.io/vanoforum/'
 YEAR = '2026'
 
 CATEGORIES = [('Reading', 'Reading papers'), ('Writing', 'Writing papers'), ('Publishing', 'Publishing'), ('Method', 'Research method')]
@@ -24,6 +25,7 @@ TOOLS = [
     ('VanoNote', 'VanoNote', 'A handwritten notebook and classroom whiteboard: pen tablets, PDF annotation, a blackboard mode and a live link for students.', 'macOS · Windows · Linux'),
     ('VanoShelf', 'vanoshelf-extension', 'Order for the Overleaf projects page: sort projects into fields, hide the ones you do not want on screen, blur titles in a shared office.', 'Chrome · Edge · Brave'),
     ('VanoVeil', 'vanoveil', 'A private corner inside Chrome: a password-protected link bar, a hidden workspace for tabs and a one-key privacy veil.', 'Chrome · Edge · Brave'),
+    ('VanoLib', 'https://github.com/vanovamaths/vanolib', 'An open mathematics library in the browser: browse, read and annotate arXiv papers, with listings updated every day.', 'Web app', 'https://vanovamaths.github.io/vanolib/'),
 ]
 
 MARK = ('<svg class="mark" viewBox="0 0 40 40" aria-hidden="true">'
@@ -73,7 +75,7 @@ def load_guides():
     return guides
 
 
-def page(title, body, rel='', intensity='0.5', offset='0', description='', active=''):
+def page(title, body, rel='', intensity='0.5', offset='0', description='', active='', path=''):
     nav = [('Guides', f'{rel}index.html#guides', 'guides'), ('Sheets', f'{rel}index.html#sheets', 'sheets'),
            ('Tools', f'{rel}tools.html', 'tools'), ('Forum', FORUM, 'forum')]
     def link(n, u, k):
@@ -89,8 +91,19 @@ def page(title, body, rel='', intensity='0.5', offset='0', description='', activ
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)}</title>
 <meta name="description" content="{desc}">
+<link rel="canonical" href="{SITE}{path}">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Yassine Ait Mohamed">
+<meta name="keywords" content="research, how to read a research paper, academic writing in English, writing an abstract, writing an introduction, choosing a journal, Q1 journal, peer review, referee report, PhD, mathematics, VanoForum">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VanoForum">
+<meta property="og:url" content="{SITE}{path}">
 <meta property="og:title" content="{html.escape(title)}">
 <meta property="og:description" content="{desc}">
+<meta property="og:image" content="{SITE}assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{SITE}assets/img/og.png">
+<script type="application/ld+json">{json.dumps({"@context": "https://schema.org", "@type": "WebSite", "name": "VanoForum", "url": SITE, "description": "An open forum for researchers: guides on reading papers, writing them in English and getting them published, with free sheets, diagrams and open-source tools.", "inLanguage": "en", "author": {"@type": "Person", "name": "Yassine Ait Mohamed", "url": "https://yassine-aitmohamed.github.io"}})}</script>
 <link rel="icon" href="{rel}assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -153,16 +166,21 @@ def build_guides(guides):
   </article>
 </main>'''
         (ROOT / 'guides' / f'{g["slug"]}.html').write_text(
-            page(f'{g["title"]} · {SITE_TITLE}', body, rel='../', intensity='0.42', description=g['summary'], active='guides'), encoding='utf-8')
+            page(f'{g["title"]} · {SITE_TITLE}', body, rel='../', intensity='0.42', description=g['summary'], active='guides', path=f'guides/{g["slug"]}.html'), encoding='utf-8')
 
 
 def tool_card(t):
-    name, repo, desc, plat = t
-    url = f'https://github.com/yassine-aitmohamed/{repo}'
+    name, repo, desc, plat = t[:4]
+    url = repo if repo.startswith('http') else f'https://github.com/yassine-aitmohamed/{repo}'
+    if len(t) > 4:
+        second = f'<a href="{t[4]}" target="_blank" rel="noopener">Open the app</a>'
+        lic = ''
+    else:
+        second = f'<a href="{url}/releases/latest" target="_blank" rel="noopener">Download</a>'
+        lic = ' · MIT'
     return (f'<div class="card tool"><h3>{html.escape(name)}</h3><p>{html.escape(desc)}</p>'
-            f'<p class="plat">{html.escape(plat)} · MIT</p>'
-            f'<div class="tool-links"><a href="{url}" target="_blank" rel="noopener">Source on GitHub</a>'
-            f'<a href="{url}/releases/latest" target="_blank" rel="noopener">Download</a></div></div>')
+            f'<p class="plat">{html.escape(plat)}{lic}</p>'
+            f'<div class="tool-links"><a href="{url}" target="_blank" rel="noopener">Source on GitHub</a>{second}</div></div>')
 
 
 def build_index(guides):
@@ -240,13 +258,13 @@ def build_tools():
 <section class="band first">
   <div class="band-in">
     <h1 class="page-h">Open-source tools</h1>
-    <p class="sub">Free tools for researchers and teachers, all under the MIT license. Everything runs on your own computer or in your own browser: no account, no tracking, no server.</p>
+    <p class="sub">Free tools for researchers and teachers. Everything runs on your own computer or in your own browser: no account, no tracking, no server.</p>
     <div class="grid three">{cards}</div>
     <p class="sub small">Found a bug or have an idea? Open an issue on the tool's repository, or post in the <a href="{FORUM}" target="_blank" rel="noopener">Show and tell</a> category of the forum.</p>
   </div>
 </section>
 </main>'''
-    (ROOT / 'tools.html').write_text(page('Tools · ' + SITE_TITLE, body, intensity='0.55', active='tools'), encoding='utf-8')
+    (ROOT / 'tools.html').write_text(page('Tools · ' + SITE_TITLE, body, intensity='0.55', active='tools', path='tools.html'), encoding='utf-8')
 
 
 if __name__ == '__main__':
@@ -255,4 +273,12 @@ if __name__ == '__main__':
     build_index(gs)
     build_tools()
     (ROOT / 'guides' / 'index.json').write_text(json.dumps([{k: g[k] for k in ('title', 'slug', 'category', 'summary', 'diagram', 'source')} for g in gs], indent=2), encoding='utf-8')
+    import datetime
+    today = datetime.date.today().isoformat()
+    urls = [('', '1.0'), ('tools.html', '0.8')] + [(f'guides/{g["slug"]}.html', '0.9') for g in gs] + [('sheets/vanoforum-research-handbook.pdf', '0.7')] + [(f'sheets/{g["slug"]}.pdf', '0.5') for g in gs]
+    sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    sm += ''.join(f'  <url><loc>{SITE}{u}</loc><lastmod>{today}</lastmod><priority>{p}</priority></url>\n' for u, p in urls)
+    sm += '</urlset>\n'
+    (ROOT / 'sitemap.xml').write_text(sm, encoding='utf-8')
+    (ROOT / 'robots.txt').write_text(f'User-agent: *\nAllow: /\n\nSitemap: {SITE}sitemap.xml\n', encoding='utf-8')
     print('built', len(gs), 'guides')

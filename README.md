@@ -53,6 +53,7 @@ The forum lives in **[Discussions](https://github.com/yassine-aitmohamed/vanofor
 | [VanoNote](https://github.com/yassine-aitmohamed/VanoNote) | A handwritten notebook and classroom whiteboard for pen tablets. |
 | [VanoShelf](https://github.com/yassine-aitmohamed/vanoshelf-extension) | Fields, hidden projects and a discreet mode for the Overleaf projects page. |
 | [VanoVeil](https://github.com/yassine-aitmohamed/vanoveil) | A private corner inside Chrome: protected link bar, hidden workspace, privacy veil. |
+| [VanoLib](https://vanovamaths.github.io/vanolib/) | An open mathematics library: browse, read and annotate arXiv papers, updated daily ([source](https://github.com/vanovamaths/vanolib)). |
 
 ## Contributing
 
