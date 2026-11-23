@@ -347,4 +347,44 @@ flow_v('thesis', 'From papers to a thesis', 'Plan it as a book. The general intr
     ('Chapters', 'Papers adapted: unified notation, no repeated background.'),
     ('Reviewers', 'A polished version, then corrections from the reports.'),
     ('Defence', 'A talk in three parts, rehearsed with the group.')], gap=84, width=72)
+
+cycle('phd-expectations', 'Who brings what to a PhD', 'The supervisor supports. The student owns the project and brings the drive.', [
+    ('Questions', 'Bring them to every meeting, with or without results.'),
+    ('Should do?', 'Ask what a problem is worth before solving it.'),
+    ('Feedback', 'Expose ideas early and let the weak ones go.'),
+    ('Vision', 'From the supervisor: where the project fits.'),
+    ('Ownership', 'Answer every question about your project.')], rx=300, ry=180, lenses={(2, 3)})
+
+cycle('research-taste', 'Training research taste', 'A prediction followed by a correction, repeated hundreds of times.', [
+    ('Choose', 'A problem whose importance you can explain.'),
+    ('Predict', 'Write down what you expect before checking.'),
+    ('Test small', 'The smallest case, the cheapest test.'),
+    ('Log', 'Hypothesis, attempt, result, new belief.'),
+    ('Discuss', 'People who tell you an idea is weak.')], rx=300, ry=180)
+
+flow_h('skimming', 'Skimming a paper in five passes', 'Each pass is longer than the last. Stop as soon as you know enough.', [
+    ('Abstract', 'Title and abstract. Two minutes.'),
+    ('Objectives', 'End of the introduction and the figures or main theorems.'),
+    ('Pivots', 'First paragraph of the introduction, start and end of the discussion.'),
+    ('Topic sentences', 'The first sentence of every paragraph.'),
+    ('Deep read', 'Only if the paper deserves it.')], step_w=215)
+
+flow_v('peer-review', 'What peer review does, and does not', 'Its limits explain both harsh reports and errors in print.', [
+    ('Improves writing', 'Most requests concern clarity and presentation.'),
+    ('Tempers claims', 'Limitations stated, facts separated from speculation.'),
+    ('Gives readers', 'At least two experts read the paper.'),
+    ('Does not verify all', 'Correctness stays the authors\' responsibility.'),
+    ('Is partly random', 'Referees often disagree. Revise and resubmit.')], gap=84, width=70)
+
+flow_h('voice', 'What to take back from older papers', 'Keep modern precision. Recover the reader.', [
+    ('Why', 'Say what problem you struggled with and why it matters.'),
+    ('One idea', 'One main result, stated first.'),
+    ('Honesty', 'Proved, conjectured and open, clearly separated.'),
+    ('Images', 'An analogy only when it clarifies.')], step_w=245)
+
+flow_v('academic-career', 'The evidence a committee reads', 'Committees hire on visible evidence, not on potential.', [
+    ('Research', 'Excellent papers, published regularly. Finish projects.'),
+    ('Funding', 'Grants and fellowships, which depend on the papers.'),
+    ('Teaching', 'Courses taught well, with feedback.'),
+    ('Independence', 'Questions, claims and papers that you led.')], gap=86, width=70)
 print('ok')

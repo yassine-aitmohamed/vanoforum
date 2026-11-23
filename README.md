@@ -17,7 +17,7 @@ Free one-page sheets, diagrams, open-source tools, and a place to ask questions.
 
 ## Guides
 
-Each guide ends with a checklist and comes with a one-page sheet you can print.
+Most guides end with a checklist, and every guide comes with a one-page sheet you can print. Guides marked with a *Further reading* section build on essays by other researchers, credited and linked.
 
 | # | Guide | Topic | Sheet |
 |---|---|---|---|
@@ -46,6 +46,12 @@ Each guide ends with a checklist and comes with a one-page sheet you can print.
 | 23 | [Conferences and networking](guides/23-conferences-and-networking.md) | Careers | [PDF](sheets/conferences-and-networking.pdf) |
 | 24 | [Managing your PhD](guides/24-managing-your-phd.md) | Method | [PDF](sheets/managing-your-phd.pdf) |
 | 25 | [Writing the thesis](guides/25-writing-the-thesis.md) | Writing | [PDF](sheets/writing-the-thesis.pdf) |
+| 26 | [What a PhD expects from you](guides/26-phd-expectations.md) | Method | [PDF](sheets/phd-expectations.pdf) |
+| 27 | [Getting better at research](guides/27-research-taste.md) | Method | [PDF](sheets/research-taste.pdf) |
+| 28 | [Skimming a paper in twenty minutes](guides/28-skimming-a-paper.md) | Reading | [PDF](sheets/skimming-a-paper.pdf) |
+| 29 | [Understanding peer review](guides/29-understanding-peer-review.md) | Publishing | [PDF](sheets/understanding-peer-review.pdf) |
+| 30 | [What older papers teach about writing](guides/30-writing-with-a-voice.md) | Writing | [PDF](sheets/writing-with-a-voice.pdf) |
+| 31 | [Building an academic career](guides/31-academic-career.md) | Careers | [PDF](sheets/academic-career.pdf) |
 
 All guides are also collected in **[The Research Handbook](sheets/vanoforum-research-handbook.pdf)**. A curated list of PhD portals, scholarships, classic essays, newsletters and paper tools is on the **[Resources](https://yassine-aitmohamed.github.io/vanoforum/resources.html)** page.
 

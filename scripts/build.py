@@ -31,14 +31,14 @@ TOOLS = [
 PATHS = [
     ('Applying for a PhD abroad', 'From the first search to a funded offer.',
      ['finding-a-phd-abroad', 'contacting-a-professor', 'choosing-a-supervisor', 'phd-application-documents', 'funding-and-scholarships']),
-    ('Starting your PhD', 'The habits of the first year: reading, organising, working on a problem.',
-     ['managing-your-phd', 'reading-a-paper', 'tools-for-papers', 'research-methodology', 'writing-a-literature-review']),
+    ('Starting your PhD', 'The habits of the first year: expectations, reading, working on a problem.',
+     ['managing-your-phd', 'phd-expectations', 'reading-a-paper', 'skimming-a-paper', 'research-methodology', 'research-taste']),
     ('Writing your first paper', 'From the anatomy of a paper to the last revision.',
-     ['first-paper-in-english', 'writing-the-abstract', 'writing-the-introduction', 'presenting-results', 'revising-paragraphs', 'academic-phrasebook']),
+     ['first-paper-in-english', 'writing-the-abstract', 'writing-the-introduction', 'presenting-results', 'revising-paragraphs', 'writing-with-a-voice', 'academic-phrasebook']),
     ('Getting it published', 'The preprint, the journal, the referees and the talk.',
-     ['posting-on-arxiv', 'choosing-a-journal', 'submission-and-peer-review', 'giving-a-research-talk', 'conferences-and-networking']),
-    ('Finishing and moving on', 'The thesis, collaborations and the postdoc market.',
-     ['writing-the-thesis', 'collaboration-and-authorship', 'postdoc-applications', 'becoming-a-good-writer']),
+     ['posting-on-arxiv', 'choosing-a-journal', 'submission-and-peer-review', 'understanding-peer-review', 'giving-a-research-talk', 'conferences-and-networking']),
+    ('Finishing and moving on', 'The thesis, the academic market and the postdoc.',
+     ['writing-the-thesis', 'academic-career', 'postdoc-applications', 'collaboration-and-authorship', 'becoming-a-good-writer']),
 ]
 
 # Comments under each guide (giscus, backed by GitHub Discussions).

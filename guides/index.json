@@ -198,5 +198,53 @@
     "summary": "How to turn your papers and notes into a coherent thesis. Structure, the general introduction, chapters built from papers, writing schedule, working with the committee, and preparing the defence.",
     "diagram": "thesis",
     "source": "25-writing-the-thesis.md"
+  },
+  {
+    "title": "What a PhD expects from you",
+    "slug": "phd-expectations",
+    "category": "Method",
+    "summary": "The unwritten rules of the doctorate. Own your project, bring questions rather than answers, ask whether a problem is worth solving, and make every expectation with your supervisor explicit.",
+    "diagram": "phd-expectations",
+    "source": "26-phd-expectations.md"
+  },
+  {
+    "title": "Getting better at research",
+    "slug": "research-taste",
+    "category": "Method",
+    "summary": "Research is a set of skills that can be trained. Choose your own problems, train your taste by making predictions, read beyond the trending papers, write everything down, shorten the loop between idea and test, and find people who tell you the truth.",
+    "diagram": "research-taste",
+    "source": "27-research-taste.md"
+  },
+  {
+    "title": "Skimming a paper in twenty minutes",
+    "slug": "skimming-a-paper",
+    "category": "Reading",
+    "summary": "You cannot read every paper in full. Read the few paragraphs that carry the story, then the figures and the topic sentences, and decide in twenty minutes whether a paper deserves a deep reading.",
+    "diagram": "skimming",
+    "source": "28-skimming-a-paper.md"
+  },
+  {
+    "title": "Understanding peer review",
+    "slug": "understanding-peer-review",
+    "category": "Publishing",
+    "summary": "What peer review is for, where it comes from, what it does well and what it does not. Knowing its limits helps you write papers that pass it, read reports calmly, and review fairly yourself.",
+    "diagram": "peer-review",
+    "source": "29-understanding-peer-review.md"
+  },
+  {
+    "title": "What older papers teach about writing",
+    "slug": "writing-with-a-voice",
+    "category": "Writing",
+    "summary": "Papers written a century ago were often easier to read than today's. Keep the precision of modern writing, and take back what older papers did well. Say why you did the work, give one main idea, and state honestly what you do not know.",
+    "diagram": "voice",
+    "source": "30-writing-with-a-voice.md"
+  },
+  {
+    "title": "Building an academic career",
+    "slug": "academic-career",
+    "category": "Careers",
+    "summary": "Few doctoral graduates obtain a permanent academic position. Hiring committees decide on evidence, not potential. Know what evidence they look for, finish your projects, plan for the gaps in your record, and decide consciously whether to play.",
+    "diagram": "academic-career",
+    "source": "31-academic-career.md"
   }
 ]
