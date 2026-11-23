@@ -28,6 +28,33 @@ TOOLS = [
     ('VanoLib', 'https://github.com/vanovamaths/vanolib', 'An open mathematics library in the browser: browse, read and annotate arXiv papers, with listings updated every day.', 'Web app', 'https://vanovamaths.github.io/vanolib/'),
 ]
 
+PATHS = [
+    ('Applying for a PhD abroad', 'From the first search to a funded offer.',
+     ['finding-a-phd-abroad', 'contacting-a-professor', 'choosing-a-supervisor', 'phd-application-documents', 'funding-and-scholarships']),
+    ('Starting your PhD', 'The habits of the first year: reading, organising, working on a problem.',
+     ['managing-your-phd', 'reading-a-paper', 'tools-for-papers', 'research-methodology', 'writing-a-literature-review']),
+    ('Writing your first paper', 'From the anatomy of a paper to the last revision.',
+     ['first-paper-in-english', 'writing-the-abstract', 'writing-the-introduction', 'presenting-results', 'revising-paragraphs', 'academic-phrasebook']),
+    ('Getting it published', 'The preprint, the journal, the referees and the talk.',
+     ['posting-on-arxiv', 'choosing-a-journal', 'submission-and-peer-review', 'giving-a-research-talk', 'conferences-and-networking']),
+    ('Finishing and moving on', 'The thesis, collaborations and the postdoc market.',
+     ['writing-the-thesis', 'collaboration-and-authorship', 'postdoc-applications', 'becoming-a-good-writer']),
+]
+
+# Comments under each guide (giscus, backed by GitHub Discussions).
+# Fill both ids from https://giscus.app to switch them on; while empty, guides link to the forum instead.
+GISCUS = {'repo': 'yassine-aitmohamed/vanoforum', 'repo_id': '', 'category': 'General', 'category_id': ''}
+
+WIDGETS = {
+    'writing-the-abstract': '''<section class="widget" id="abstract-checker" aria-labelledby="ac-h">
+  <h2 id="ac-h">Check your abstract</h2>
+  <p>Paste an abstract. The checker applies the rules of this guide: it flags the openings, verbs, symbols and lengths discussed above. It is a first filter, not a referee, and nothing leaves your browser.</p>
+  <textarea id="ac-in" rows="7" spellcheck="true" placeholder="We prove that ..."></textarea>
+  <div class="ac-bar"><span id="ac-count">0 words</span><button type="button" class="btn small ghost" id="ac-demo">Try the “before” example</button></div>
+  <ul id="ac-out" class="ac-out" aria-live="polite"></ul>
+</section>''',
+}
+
 MARK = ('<svg class="mark" viewBox="0 0 40 40" aria-hidden="true">'
         '<path d="M9 28 Q14 10 20 12" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/>'
         '<path d="M20 12 Q28 14 31 28" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/>'
@@ -57,12 +84,30 @@ def md_to_html(src):
         return f'MATHTOKEN{len(maths) - 1}X'
     src = MATH_RE.sub(keep, src)
     md = markdown.Markdown(extensions=['tables', 'fenced_code', 'sane_lists', 'toc'],
-                           extension_configs={'toc': {'permalink': False}})
+                           extension_configs={'toc': {'permalink': '#', 'permalink_class': 'anchor', 'permalink_title': 'Link to this section'}})
     out = md.convert(src)
     out = re.sub(r'MATHTOKEN(\d+)X', lambda m: html.escape(maths[int(m.group(1))], quote=False), out)
     out = out.replace('<li>[ ] ', '<li class="task">').replace('<li>[x] ', '<li class="task done">')
     out = re.sub(r'<a href="(https?://[^"]+)"', r'<a href="\1" target="_blank" rel="noopener"', out)
     return out, md.toc_tokens
+
+
+def plain(md):
+    t = re.sub(r'```[\s\S]*?```', ' ', md)
+    t = re.sub(r'!?\[([^\]]*)\]\([^)]*\)', r'\1', t)
+    t = re.sub(r'^\s*(>|\d+\.|[-*]\s(\[[ x]\]\s)?)\s*', '', t, flags=re.M)
+    t = re.sub(r'[*_`#|]', '', t)
+    return re.sub(r'\s+', ' ', t).strip()
+
+
+def sections(md, toc):
+    """Split a guide at its level-2 headings, with the ids that the toc extension gave them."""
+    parts = re.split(r'^## +(.+)$', md, flags=re.M)
+    ids = [t['id'] for t in toc]
+    out = [{'id': '', 'name': '', 'text': plain(parts[0])}]
+    for k in range(1, len(parts), 2):
+        out.append({'id': ids[(k - 1) // 2] if (k - 1) // 2 < len(ids) else '', 'name': parts[k].strip(), 'text': plain(parts[k + 1])})
+    return out
 
 
 def load_guides():
@@ -71,7 +116,14 @@ def load_guides():
         meta, body = front_matter(f.read_text(encoding='utf-8'))
         meta['source'] = f.name
         meta['body_md'] = body
+        meta['minutes'] = max(1, round(len(plain(body).split()) / 220))
+        meta['tasks'] = len(re.findall(r'^- \[[ x]\] ', body, flags=re.M))
         guides.append(meta)
+    for n, (name, _, slugs) in enumerate(PATHS):
+        for k, s in enumerate(slugs):
+            for g in guides:
+                if g['slug'] == s:
+                    g['path'] = (n, k)
     return guides
 
 
@@ -110,17 +162,21 @@ def page(title, body, rel='', intensity='0.5', offset='0', description='', activ
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <link rel="stylesheet" href="{rel}assets/css/site.css">
+<link rel="alternate" type="application/atom+xml" title="VanoForum: new guides" href="{SITE}feed.xml">
 </head>
-<body>
+<body data-root="{rel}">
+<a class="skip" href="#main">Skip to content</a>
 <div class="quantum" data-quantum data-intensity="{intensity}" data-offset="{offset}"></div>
 <header class="top">
   <a class="brand" href="{rel}index.html">{MARK}<span>{SITE_TITLE}</span></a>
-  <nav>{links}<a class="gh" href="{REPO}" target="_blank" rel="noopener" aria-label="GitHub repository">GitHub</a></nav>
+  <button type="button" class="search-btn" data-search aria-label="Search the guides"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M13 13l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Search guides</span><kbd>/</kbd></button>
+  <button type="button" class="menu-btn" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span><span></span><span></span></button>
+  <nav id="site-nav">{links}<a class="gh" href="{REPO}" target="_blank" rel="noopener" aria-label="GitHub repository">GitHub</a></nav>
 </header>
 {body}
 <footer class="foot">
   <div class="foot-in">
-    <p><b>{SITE_TITLE}</b> · an open forum for researchers, by <a href="https://yassine-aitmohamed.github.io" target="_blank" rel="noopener">Yassine Ait Mohamed</a>. Guides and sheets under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, code under MIT.</p>
+    <p><b>{SITE_TITLE}</b> · an open forum for researchers, by <a href="https://yassine-aitmohamed.github.io" target="_blank" rel="noopener">Yassine Ait Mohamed</a>. Guides and sheets under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, code under MIT. <a href="{SITE}feed.xml">Atom feed</a> · <a href="{REPO}/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contribute</a></p>
     <p class="about-field">The background is an exact solution of the Schrödinger equation: a superposition of eigenstates of the two-dimensional harmonic oscillator with frequency ratio √2, so the motion never repeats. Hue is the phase of ψ, brightness is |ψ|², the faint curves are level sets of |ψ|², and the particles follow Bohmian trajectories, dx/dt = Im(∇ψ/ψ).</p>
   </div>
 </footer>
@@ -134,34 +190,79 @@ def page(title, body, rel='', intensity='0.5', offset='0', description='', activ
 
 
 def guide_card(g, rel=''):
-    return (f'<a class="card" href="{rel}guides/{g["slug"]}.html">'
+    return (f'<a class="card" href="{rel}guides/{g["slug"]}.html" data-cat="{g["category"].lower()}" data-slug="{g["slug"]}">'
             f'<span class="tag t-{g["category"].lower()}">{html.escape(g["category"])}</span>'
             f'<h3>{html.escape(g["title"])}</h3><p>{html.escape(g["summary"])}</p>'
-            f'<span class="more">Read the guide →</span></a>')
+            f'<span class="more"><span>Read the guide →</span><span class="meta">{g["minutes"]} min</span></span></a>')
+
+
+def by_slug(guides, s):
+    return next(g for g in guides if g['slug'] == s)
+
+
+def path_nav(guides, g):
+    if 'path' not in g:
+        return ''
+    n, k = g['path']
+    name, _, slugs = PATHS[n]
+    steps = ''.join(
+        f'<li class="{"here" if j == k else ""}"><a href="{s_}.html" data-slug="{s_}"><i></i>{html.escape(by_slug(guides, s_)["title"])}</a></li>'
+        for j, s_ in enumerate(slugs))
+    nxt = ''
+    if k + 1 < len(slugs):
+        ng = by_slug(guides, slugs[k + 1])
+        nxt = f'<a class="btn small ghost" href="{ng["slug"]}.html">Next in this path: {html.escape(ng["title"])} →</a>'
+    return (f'<section class="pathbox" aria-label="Learning path"><p class="toc-h">Path · {html.escape(name)} · step {k + 1} of {len(slugs)}</p>'
+            f'<ol class="steps">{steps}</ol>{nxt}</section>')
+
+
+def discussion(g):
+    q = html.escape(g['title']).replace(' ', '+')
+    if GISCUS['repo_id'] and GISCUS['category_id']:
+        return (f'<section class="discuss" id="discussion"><h2>Discussion</h2>'
+                f'<script src="https://giscus.app/client.js" data-repo="{GISCUS["repo"]}" data-repo-id="{GISCUS["repo_id"]}" '
+                f'data-category="{GISCUS["category"]}" data-category-id="{GISCUS["category_id"]}" data-mapping="pathname" data-strict="1" '
+                f'data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="transparent_dark" data-lang="en" '
+                f'data-loading="lazy" crossorigin="anonymous" async></script></section>')
+    return (f'<section class="discuss" id="discussion"><h2>Discussion</h2>'
+            f'<p>Questions, corrections and your own experience are welcome. Comments live in the forum, on GitHub Discussions, with Markdown and LaTeX.</p>'
+            f'<div class="discuss-links"><a class="btn ghost" href="{FORUM}?discussions_q={q}" target="_blank" rel="noopener">See the thread for this guide</a>'
+            f'<a class="btn ghost" href="{FORUM}/new?category=q-a" target="_blank" rel="noopener">Ask a new question</a></div></section>')
 
 
 def build_guides(guides):
     for i, g in enumerate(guides):
         body_html, toc = md_to_html(g['body_md'])
+        g['toc'] = toc
         toc_html = ''.join(f'<li><a href="#{t["id"]}">{html.escape(t["name"])}</a></li>' for t in toc)
+        toc_html += '<li><a href="#discussion">Discussion</a></li>'
         prev_g = guides[i - 1] if i > 0 else None
         next_g = guides[i + 1] if i + 1 < len(guides) else None
         pn = '<nav class="pn">'
         pn += f'<a class="prev" href="{prev_g["slug"]}.html"><small>Previous</small>{html.escape(prev_g["title"])}</a>' if prev_g else '<span></span>'
         pn += f'<a class="next" href="{next_g["slug"]}.html"><small>Next</small>{html.escape(next_g["title"])}</a>' if next_g else '<span></span>'
         pn += '</nav>'
-        body = f'''<main class="guide">
+        tasks = f' · <span data-checkcount>{g["tasks"]}-item checklist</span>' if g['tasks'] else ''
+        widget = WIDGETS.get(g['slug'], '')
+        edit = f'{REPO}/edit/main/guides/{g["source"]}'
+        body = f'''<div class="progress" aria-hidden="true"><span></span></div>
+<main id="main" class="guide" data-guide="{g["slug"]}">
   <aside class="toc"><div class="toc-in"><p class="toc-h">On this page</p><ol>{toc_html}</ol>
     <p class="toc-h">Guide {i + 1} of {len(guides)}</p>
     <a class="btn small" href="../sheets/{g["slug"]}.pdf">One-page sheet (PDF)</a>
-    <a class="btn small ghost" href="{FORUM}" target="_blank" rel="noopener">Discuss on the forum</a></div></aside>
+    <a class="btn small ghost" href="#discussion">Discuss this guide</a>
+    <a class="edit" href="{edit}" target="_blank" rel="noopener">Suggest an edit on GitHub</a></div></aside>
   <article class="panel prose">
     <p class="crumbs"><a href="../index.html#guides">Guides</a> · <span class="tag t-{g["category"].lower()}">{html.escape(g["category"])}</span></p>
     <h1>{html.escape(g["title"])}</h1>
     <p class="lead">{html.escape(g["summary"])}</p>
+    <p class="gmeta">{g["minutes"]} min read{tasks} · <span class="readstate" data-readstate>Not read yet</span></p>
+    {path_nav(guides, g)}
     <figure class="diagram"><img src="../assets/diagrams/{g["diagram"]}.svg" alt="Diagram: {html.escape(g["title"])}" loading="lazy"></figure>
     {body_html}
-    <div class="end-actions"><a class="btn" href="../sheets/{g["slug"]}.pdf">Download the one-page sheet (PDF)</a><a class="btn ghost" href="{FORUM}" target="_blank" rel="noopener">Ask a question on the forum</a></div>
+    {widget}
+    <div class="end-actions"><button type="button" class="btn" data-markread>Mark as read</button><a class="btn ghost" href="../sheets/{g["slug"]}.pdf">Download the one-page sheet (PDF)</a></div>
+    {discussion(g)}
     {pn}
   </article>
 </main>'''
@@ -183,41 +284,58 @@ def tool_card(t):
             f'<div class="tool-links"><a href="{url}" target="_blank" rel="noopener">Source on GitHub</a>{second}</div></div>')
 
 
+def path_card(guides, n, path):
+    name, blurb, slugs = path
+    steps = ''.join(
+        f'<li><a href="guides/{s_}.html" data-slug="{s_}"><i></i>{html.escape(by_slug(guides, s_)["title"])}</a></li>'
+        for s_ in slugs)
+    mins = sum(by_slug(guides, s_)['minutes'] for s_ in slugs)
+    return (f'<div class="card path" data-path="{n}"><h3>{html.escape(name)}</h3><p>{html.escape(blurb)}</p>'
+            f'<ol class="steps">{steps}</ol>'
+            f'<p class="path-foot"><span class="meta" data-pathcount>{len(slugs)} guides · {mins} min</span>'
+            f'<a class="btn small" href="guides/{slugs[0]}.html" data-pathstart>Start the path</a></p></div>')
+
+
 def build_index(guides):
     groups = ''
     for key, label in CATEGORIES:
         gs = [g for g in guides if g['category'] == key]
         if gs:
-            groups += f'<h3 class="group">{html.escape(label)}</h3><div class="grid">' + ''.join(guide_card(g) for g in gs) + '</div>'
+            groups += (f'<div class="gblock" data-group="{key.lower()}"><h3 class="group">{html.escape(label)}</h3><div class="grid">'
+                       + ''.join(guide_card(g) for g in gs) + '</div></div>')
+    chips = '<button type="button" class="chip on" data-filter="all">All</button>' + ''.join(
+        f'<button type="button" class="chip" data-filter="{k.lower()}">{html.escape(l)}</button>' for k, l in CATEGORIES)
+    paths = ''.join(path_card(guides, n, p_) for n, p_ in enumerate(PATHS))
     sheets = ''.join(f'<li><a href="sheets/{g["slug"]}.pdf"><span class="pdf">PDF</span>{html.escape(g["title"])}</a></li>' for g in guides)
-    diagrams = ''.join(f'<a class="thumb" href="assets/diagrams/{g["diagram"]}.svg" target="_blank" rel="noopener"><img src="assets/diagrams/{g["diagram"]}.svg" alt="{html.escape(g["title"])}"></a>' for g in guides)
+    diagrams = ''.join(f'<a class="thumb" href="assets/diagrams/{g["diagram"]}.svg" target="_blank" rel="noopener"><img src="assets/diagrams/{g["diagram"]}.svg" alt="{html.escape(g["title"])}" loading="lazy"></a>' for g in guides)
     tools = ''.join(tool_card(t) for t in TOOLS[:3])
-    order = ['finding-a-phd-abroad', 'contacting-a-professor', 'choosing-a-supervisor', 'phd-application-documents', 'funding-and-scholarships', 'postdoc-applications']
-    careers = ''.join(guide_card(g) for s_ in order for g in guides if g['slug'] == s_)
-    body = f'''<main>
+    latest = ''.join(f'<li><a href="guides/{g["slug"]}.html">{html.escape(g["title"])}</a></li>' for g in list(reversed(guides))[:4])
+    body = f'''<main id="main">
 <section class="hero">
   <div class="hero-in">
     <p class="eyebrow">An open forum for researchers</p>
     <h1>Research, written down and shared.</h1>
     <p class="lead">Practical guides on how to read papers, write them in clear English, choose a journal, answer referees, and find a PhD or a postdoc abroad. Free one-page sheets and diagrams, open-source tools, and a forum to ask the questions nobody teaches.</p>
-    <div class="cta"><a class="btn" href="#guides">Read the guides</a><a class="btn ghost" href="{FORUM}" target="_blank" rel="noopener">Join the forum</a></div>
-    <ul class="facts"><li><b>{len(guides)}</b> guides</li><li><b>{len(guides) + 1}</b> free PDFs</li><li><b>{len(TOOLS)}</b> open-source tools</li></ul>
+    <button type="button" class="hero-search" data-search><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M13 13l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Search the guides: cover letter, referee report, Q1, scholarships…</span><kbd>/</kbd></button>
+    <div class="cta"><a class="btn" href="#paths">Find your path</a><a class="btn ghost" href="{FORUM}" target="_blank" rel="noopener">Join the forum</a></div>
+    <ul class="facts"><li><b>{len(guides)}</b> guides</li><li><b>{len(PATHS)}</b> learning paths</li><li><b>{len(guides) + 1}</b> free PDFs</li><li><b>{len(TOOLS)}</b> open-source tools</li></ul>
   </div>
 </section>
 
-<section id="careers" class="band">
+<section id="paths" class="band">
   <div class="band-in">
-    <h2>Doing a PhD abroad</h2>
-    <p class="sub">A complete path for students who want to do a doctorate in another country: where positions are advertised, how to write to a professor, how to choose a supervisor, what goes in the application file, and how to fund it.</p>
-    <div class="grid">{careers}</div>
+    <h2>Start where you are</h2>
+    <p class="sub">Five paths through the guides, one for each stage of a research career. Read them in order, or jump to the step you need. Your progress is kept in this browser only.</p>
+    <div class="grid paths">{paths}</div>
     <p class="all"><a class="btn ghost" href="resources.html">Portals, scholarships and reading list →</a></p>
   </div>
 </section>
 
 <section id="guides" class="band">
   <div class="band-in">
-    <h2>Guides</h2>
-    <p class="sub">From the first reading of a paper to the answer to the referees, and from finding a PhD abroad to the postdoc market. Each guide ends with a checklist and comes with a one-page sheet.</p>
+    <h2>All guides</h2>
+    <p class="sub">From the first reading of a paper to the answer to the referees, and from finding a PhD abroad to the postdoc market. Most guides end with a checklist and all come with a one-page sheet. <span class="mine" data-mine></span></p>
+    <div class="chips" role="toolbar" aria-label="Filter the guides">{chips}</div>
     {groups}
   </div>
 </section>
@@ -247,8 +365,11 @@ def build_index(guides):
   <div class="band-in two">
     <div>
       <h2>The forum</h2>
-      <p class="sub">The forum runs on GitHub Discussions: posts and replies in Markdown with LaTeX formulas, reactions, and a free GitHub account is all you need.</p>
-      <a class="btn" href="{FORUM}" target="_blank" rel="noopener">Open the forum</a>
+      <p class="sub">The forum runs on GitHub Discussions: posts and replies in Markdown with LaTeX formulas, reactions, and a free GitHub account is all you need. Every guide has its own thread.</p>
+      <div class="cta"><a class="btn" href="{FORUM}" target="_blank" rel="noopener">Open the forum</a><a class="btn ghost" href="{FORUM}/new?category=q-a" target="_blank" rel="noopener">Ask a question</a></div>
+      <h3 class="group">New guides</h3>
+      <ul class="latest">{latest}</ul>
+      <p class="follow">Follow new guides with the <a href="{SITE}feed.xml">Atom feed</a>, or watch the <a href="{REPO}" target="_blank" rel="noopener">repository</a> on GitHub.</p>
     </div>
     <ul class="cats">
       <li><b>Announcements</b><span>New guides, sheets and tools.</span></li>
@@ -259,13 +380,58 @@ def build_index(guides):
     </ul>
   </div>
 </section>
+
+<section id="contribute" class="band">
+  <div class="band-in">
+    <h2>Write with us</h2>
+    <p class="sub">VanoForum grows with the experience of its readers. Every guide is a Markdown file in the repository, and every contribution is credited.</p>
+    <div class="grid three">
+      <a class="card" href="{REPO}/blob/main/CONTRIBUTING.md#fix-a-guide" target="_blank" rel="noopener"><h3>Fix or improve a guide</h3><p>Every guide has a “Suggest an edit” link. Correct a mistake, add an example or update a link, and send it as a pull request.</p><span class="more"><span>How to edit →</span></span></a>
+      <a class="card" href="{REPO}/blob/main/CONTRIBUTING.md#write-a-new-guide" target="_blank" rel="noopener"><h3>Write a new guide</h3><p>Know how admissions work in your country, or how your field publishes? Start from the guide template and propose it in the Ideas category.</p><span class="more"><span>The guide template →</span></span></a>
+      <a class="card" href="{FORUM}/categories/ideas" target="_blank" rel="noopener"><h3>Suggest a resource or a tool</h3><p>A portal, a scholarship, an essay or a tool that helped you. Post it in Ideas and it can join the Resources page.</p><span class="more"><span>Open Ideas →</span></span></a>
+    </div>
+    <p class="sub small">The forum follows a short <a href="{REPO}/blob/main/CODE_OF_CONDUCT.md" target="_blank" rel="noopener">code of conduct</a>: be precise, be kind, credit others.</p>
+  </div>
+</section>
 </main>'''
     (ROOT / 'index.html').write_text(page(SITE_TITLE + ' · Guides, sheets and tools for researchers', body, intensity='1', offset='2.6'), encoding='utf-8')
 
 
+def build_search(guides):
+    data = [{'t': g['title'], 's': g['slug'], 'c': g['category'], 'm': g['minutes'], 'd': g['summary'],
+             'x': [[sec['id'], sec['name'], sec['text']] for sec in sections(g['body_md'], g['toc'])]} for g in guides]
+    (ROOT / 'guides' / 'search.json').write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
+
+
+def build_feed(guides, today):
+    entries = ''.join(
+        f'<entry><title>{html.escape(g["title"])}</title><link href="{SITE}guides/{g["slug"]}.html"/>'
+        f'<id>{SITE}guides/{g["slug"]}.html</id><updated>{today}T00:00:00Z</updated>'
+        f'<category term="{g["category"]}"/><summary>{html.escape(g["summary"])}</summary></entry>\n'
+        for g in reversed(guides))
+    feed = (f'<?xml version="1.0" encoding="utf-8"?>\n<feed xmlns="http://www.w3.org/2005/Atom">\n'
+            f'<title>VanoForum</title><subtitle>Guides, sheets and tools for researchers</subtitle>\n'
+            f'<link href="{SITE}"/><link rel="self" href="{SITE}feed.xml"/><id>{SITE}</id><updated>{today}T00:00:00Z</updated>\n'
+            f'<author><name>Yassine Ait Mohamed</name></author>\n{entries}</feed>\n')
+    (ROOT / 'feed.xml').write_text(feed, encoding='utf-8')
+
+
+def build_404():
+    body = f'''<main id="main">
+<section class="band first">
+  <div class="band-in narrow">
+    <h1 class="page-h">This page does not exist</h1>
+    <p class="sub">The link may be old, or the guide may have moved. Search the guides, or start again from the home page.</p>
+    <div class="cta"><button type="button" class="btn" data-search>Search the guides</button><a class="btn ghost" href="{SITE}">Home page</a></div>
+  </div>
+</section>
+</main>'''
+    (ROOT / '404.html').write_text(page('Page not found · ' + SITE_TITLE, body, rel=SITE, intensity='0.55', path='404.html'), encoding='utf-8')
+
+
 def build_tools():
     cards = ''.join(tool_card(t) for t in TOOLS)
-    body = f'''<main>
+    body = f'''<main id="main">
 <section class="band first">
   <div class="band-in">
     <h1 class="page-h">Open-source tools</h1>
@@ -326,7 +492,7 @@ def build_resources():
     for head, items in RESOURCES:
         lis = ''.join(f'<li><a href="{u}" target="_blank" rel="noopener"><b>{html.escape(n)}</b></a><span>{html.escape(d)}</span></li>' for n, u, d in items)
         secs += f'<h3 class="group">{html.escape(head)}</h3><ul class="cats res">{lis}</ul>'
-    body = f'''<main>
+    body = f'''<main id="main">
 <section class="band first">
   <div class="band-in">
     <h1 class="page-h">Resources</h1>
@@ -344,6 +510,8 @@ if __name__ == '__main__':
     build_index(gs)
     build_tools()
     build_resources()
+    build_search(gs)
+    build_404()
     (ROOT / 'guides' / 'index.json').write_text(json.dumps([{k: g[k] for k in ('title', 'slug', 'category', 'summary', 'diagram', 'source')} for g in gs], indent=2), encoding='utf-8')
     import datetime
     today = datetime.date.today().isoformat()
@@ -352,5 +520,6 @@ if __name__ == '__main__':
     sm += ''.join(f'  <url><loc>{SITE}{u}</loc><lastmod>{today}</lastmod><priority>{p}</priority></url>\n' for u, p in urls)
     sm += '</urlset>\n'
     (ROOT / 'sitemap.xml').write_text(sm, encoding='utf-8')
+    build_feed(gs, today)
     (ROOT / 'robots.txt').write_text(f'User-agent: *\nAllow: /\n\nSitemap: {SITE}sitemap.xml\n', encoding='utf-8')
     print('built', len(gs), 'guides')

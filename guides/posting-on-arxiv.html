@@ -24,39 +24,47 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <link rel="stylesheet" href="../assets/css/site.css">
+<link rel="alternate" type="application/atom+xml" title="VanoForum: new guides" href="https://yassine-aitmohamed.github.io/vanoforum/feed.xml">
 </head>
-<body>
+<body data-root="../">
+<a class="skip" href="#main">Skip to content</a>
 <div class="quantum" data-quantum data-intensity="0.42" data-offset="0"></div>
 <header class="top">
   <a class="brand" href="../index.html"><svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M9 28 Q14 10 20 12" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><path d="M20 12 Q28 14 31 28" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><path d="M31 28 Q20 34 9 28" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><path d="M9 28 Q20 23 31 28" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><circle cx="20" cy="12" r="4" fill="#e07b24"/><circle cx="9" cy="28" r="4" fill="#3fa3dd"/><circle cx="31" cy="28" r="4" fill="#2b4fb3"/></svg><span>VanoForum</span></a>
-  <nav><a href="../index.html#guides" class="on">Guides</a><a href="../index.html#sheets">Sheets</a><a href="../resources.html">Resources</a><a href="../tools.html">Tools</a><a href="https://github.com/yassine-aitmohamed/vanoforum/discussions" target="_blank" rel="noopener">Forum</a><a class="gh" href="https://github.com/yassine-aitmohamed/vanoforum" target="_blank" rel="noopener" aria-label="GitHub repository">GitHub</a></nav>
+  <button type="button" class="search-btn" data-search aria-label="Search the guides"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M13 13l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Search guides</span><kbd>/</kbd></button>
+  <button type="button" class="menu-btn" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span><span></span><span></span></button>
+  <nav id="site-nav"><a href="../index.html#guides" class="on">Guides</a><a href="../index.html#sheets">Sheets</a><a href="../resources.html">Resources</a><a href="../tools.html">Tools</a><a href="https://github.com/yassine-aitmohamed/vanoforum/discussions" target="_blank" rel="noopener">Forum</a><a class="gh" href="https://github.com/yassine-aitmohamed/vanoforum" target="_blank" rel="noopener" aria-label="GitHub repository">GitHub</a></nav>
 </header>
-<main class="guide">
-  <aside class="toc"><div class="toc-in"><p class="toc-h">On this page</p><ol><li><a href="#before-you-submit">Before you submit</a></li><li><a href="#account-and-endorsement">Account and endorsement</a></li><li><a href="#choosing-categories">Choosing categories</a></li><li><a href="#preparing-the-files">Preparing the files</a></li><li><a href="#metadata">Metadata</a></li><li><a href="#licence">Licence</a></li><li><a href="#moderation-and-announcement">Moderation and announcement</a></li><li><a href="#versions">Versions</a></li><li><a href="#after-posting">After posting</a></li><li><a href="#checklist">Checklist</a></li></ol>
+<div class="progress" aria-hidden="true"><span></span></div>
+<main id="main" class="guide" data-guide="posting-on-arxiv">
+  <aside class="toc"><div class="toc-in"><p class="toc-h">On this page</p><ol><li><a href="#before-you-submit">Before you submit</a></li><li><a href="#account-and-endorsement">Account and endorsement</a></li><li><a href="#choosing-categories">Choosing categories</a></li><li><a href="#preparing-the-files">Preparing the files</a></li><li><a href="#metadata">Metadata</a></li><li><a href="#licence">Licence</a></li><li><a href="#moderation-and-announcement">Moderation and announcement</a></li><li><a href="#versions">Versions</a></li><li><a href="#after-posting">After posting</a></li><li><a href="#checklist">Checklist</a></li><li><a href="#discussion">Discussion</a></li></ol>
     <p class="toc-h">Guide 19 of 25</p>
     <a class="btn small" href="../sheets/posting-on-arxiv.pdf">One-page sheet (PDF)</a>
-    <a class="btn small ghost" href="https://github.com/yassine-aitmohamed/vanoforum/discussions" target="_blank" rel="noopener">Discuss on the forum</a></div></aside>
+    <a class="btn small ghost" href="#discussion">Discuss this guide</a>
+    <a class="edit" href="https://github.com/yassine-aitmohamed/vanoforum/edit/main/guides/19-posting-on-arxiv.md" target="_blank" rel="noopener">Suggest an edit on GitHub</a></div></aside>
   <article class="panel prose">
     <p class="crumbs"><a href="../index.html#guides">Guides</a> · <span class="tag t-publishing">Publishing</span></p>
     <h1>Posting a preprint on arXiv</h1>
     <p class="lead">How to prepare, submit and update a preprint on arXiv. Accounts and endorsement, choosing categories, licences, TeX source, versions, and the link with journal submission.</p>
+    <p class="gmeta">3 min read · <span data-checkcount>5-item checklist</span> · <span class="readstate" data-readstate>Not read yet</span></p>
+    <section class="pathbox" aria-label="Learning path"><p class="toc-h">Path · Getting it published · step 1 of 5</p><ol class="steps"><li class="here"><a href="posting-on-arxiv.html" data-slug="posting-on-arxiv"><i></i>Posting a preprint on arXiv</a></li><li class=""><a href="choosing-a-journal.html" data-slug="choosing-a-journal"><i></i>Choosing a journal</a></li><li class=""><a href="submission-and-peer-review.html" data-slug="submission-and-peer-review"><i></i>Submission, cover letters and peer review</a></li><li class=""><a href="giving-a-research-talk.html" data-slug="giving-a-research-talk"><i></i>Giving a research talk</a></li><li class=""><a href="conferences-and-networking.html" data-slug="conferences-and-networking"><i></i>Conferences and networking</a></li></ol><a class="btn small ghost" href="choosing-a-journal.html">Next in this path: Choosing a journal →</a></section>
     <figure class="diagram"><img src="../assets/diagrams/arxiv.svg" alt="Diagram: Posting a preprint on arXiv" loading="lazy"></figure>
     <p>arXiv is the main preprint server for mathematics, physics, computer science and several neighbouring fields. Posting there makes your work visible immediately, establishes a public date, and lets readers find it before the journal version appears.</p>
-<h2 id="before-you-submit">Before you submit</h2>
+<h2 id="before-you-submit">Before you submit<a class="anchor" href="#before-you-submit" title="Link to this section">#</a></h2>
 <ul>
 <li><strong>Check the journal policy.</strong> Almost all mathematics journals accept papers already posted on arXiv. Check the policy of your target journal anyway, especially in other fields.</li>
 <li><strong>Agree with your co-authors.</strong> All authors must agree on the version, the title, the abstract and the timing.</li>
 <li><strong>Polish the paper.</strong> The first version is the one most people will read. Do not post a rough draft.</li>
 </ul>
-<h2 id="account-and-endorsement">Account and endorsement</h2>
+<h2 id="account-and-endorsement">Account and endorsement<a class="anchor" href="#account-and-endorsement" title="Link to this section">#</a></h2>
 <p>You need an arXiv account. To submit to a category for the first time, you may need an <strong>endorsement</strong>: a confirmation from an established author in that category that you are part of the research community. arXiv has tightened this system over time, and an institutional email address on its own is no longer enough to be endorsed automatically in many cases. Read the current endorsement page on arXiv before your first submission. The usual route is to ask your supervisor or a co-author who already publishes in the category.</p>
-<h2 id="choosing-categories">Choosing categories</h2>
+<h2 id="choosing-categories">Choosing categories<a class="anchor" href="#choosing-categories" title="Link to this section">#</a></h2>
 <ul>
 <li>Choose one <strong>primary category</strong>, the one that best describes the paper. In mathematics, categories look like <code>math.AG</code> (algebraic geometry), <code>math.NT</code> (number theory), <code>math.PR</code> (probability).</li>
 <li>Add <strong>cross-lists</strong> only when the paper is genuinely relevant to another community. Too many cross-lists may be removed by moderators.</li>
 <li>Look at where similar papers are posted.</li>
 </ul>
-<h2 id="preparing-the-files">Preparing the files</h2>
+<h2 id="preparing-the-files">Preparing the files<a class="anchor" href="#preparing-the-files" title="Link to this section">#</a></h2>
 <ul>
 <li>Submit the <strong>TeX source</strong>, not only a PDF. arXiv compiles it with its own TeX installation.</li>
 <li>Include all files needed: <code>.tex</code>, <code>.bbl</code> (the compiled bibliography), figures, custom style files.</li>
@@ -64,31 +72,31 @@
 <li>Use standard packages. Compile locally with a clean, recent TeX distribution before uploading.</li>
 <li>Make figures in PDF or PNG for pdfLaTeX.</li>
 </ul>
-<h2 id="metadata">Metadata</h2>
+<h2 id="metadata">Metadata<a class="anchor" href="#metadata" title="Link to this section">#</a></h2>
 <ul>
 <li><strong>Title and abstract</strong>: the abstract field is plain text with limited TeX. Keep mathematics simple.</li>
 <li><strong>Authors</strong>: in the order agreed by all authors.</li>
 <li><strong>Comments field</strong>: number of pages and figures, and later the journal reference ("To appear in ...").</li>
 <li><strong>MSC classes</strong> for mathematics, and keywords.</li>
 </ul>
-<h2 id="licence">Licence</h2>
+<h2 id="licence">Licence<a class="anchor" href="#licence" title="Link to this section">#</a></h2>
 <p>arXiv asks you to choose a licence. The default arXiv licence gives arXiv the right to distribute the paper and leaves other rights to you. Creative Commons licences (such as CC BY) allow wider reuse. Some funders require a specific open licence. Check your funder's rules before choosing. A licence cannot be withdrawn once the paper is announced.</p>
-<h2 id="moderation-and-announcement">Moderation and announcement</h2>
+<h2 id="moderation-and-announcement">Moderation and announcement<a class="anchor" href="#moderation-and-announcement" title="Link to this section">#</a></h2>
 <p>Submissions are checked by moderators and announced on a fixed daily schedule. A paper may be reclassified to another category or put on hold. Once announced, a paper cannot be removed. It can only be withdrawn, and the earlier versions stay visible.</p>
-<h2 id="versions">Versions</h2>
+<h2 id="versions">Versions<a class="anchor" href="#versions" title="Link to this section">#</a></h2>
 <ul>
 <li>Post a <strong>new version</strong> when you correct errors or when the journal version is accepted. Each version keeps its number (v1, v2, v3).</li>
 <li>Add a short note in the comments field explaining the change.</li>
 <li>After acceptance, update the journal reference and the DOI fields.</li>
 <li>Respect the journal's rules about posting the final accepted manuscript.</li>
 </ul>
-<h2 id="after-posting">After posting</h2>
+<h2 id="after-posting">After posting<a class="anchor" href="#after-posting" title="Link to this section">#</a></h2>
 <ul>
 <li>Add the arXiv number to your CV and web page.</li>
 <li>Send the link to researchers who will be interested, with a short personal note.</li>
 <li>Submit to the journal. Most journals let you submit directly from the arXiv identifier.</li>
 </ul>
-<h2 id="checklist">Checklist</h2>
+<h2 id="checklist">Checklist<a class="anchor" href="#checklist" title="Link to this section">#</a></h2>
 <ul>
 <li class="task">All co-authors approved the version and the timing.</li>
 <li class="task">I have an endorsement for the primary category if needed.</li>
@@ -96,13 +104,15 @@
 <li class="task">I chose the licence deliberately.</li>
 <li class="task">I will update the journal reference after acceptance.</li>
 </ul>
-    <div class="end-actions"><a class="btn" href="../sheets/posting-on-arxiv.pdf">Download the one-page sheet (PDF)</a><a class="btn ghost" href="https://github.com/yassine-aitmohamed/vanoforum/discussions" target="_blank" rel="noopener">Ask a question on the forum</a></div>
+    
+    <div class="end-actions"><button type="button" class="btn" data-markread>Mark as read</button><a class="btn ghost" href="../sheets/posting-on-arxiv.pdf">Download the one-page sheet (PDF)</a></div>
+    <section class="discuss" id="discussion"><h2>Discussion</h2><p>Questions, corrections and your own experience are welcome. Comments live in the forum, on GitHub Discussions, with Markdown and LaTeX.</p><div class="discuss-links"><a class="btn ghost" href="https://github.com/yassine-aitmohamed/vanoforum/discussions?discussions_q=Posting+a+preprint+on+arXiv" target="_blank" rel="noopener">See the thread for this guide</a><a class="btn ghost" href="https://github.com/yassine-aitmohamed/vanoforum/discussions/new?category=q-a" target="_blank" rel="noopener">Ask a new question</a></div></section>
     <nav class="pn"><a class="prev" href="academic-phrasebook.html"><small>Previous</small>The academic phrasebook</a><a class="next" href="giving-a-research-talk.html"><small>Next</small>Giving a research talk</a></nav>
   </article>
 </main>
 <footer class="foot">
   <div class="foot-in">
-    <p><b>VanoForum</b> · an open forum for researchers, by <a href="https://yassine-aitmohamed.github.io" target="_blank" rel="noopener">Yassine Ait Mohamed</a>. Guides and sheets under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, code under MIT.</p>
+    <p><b>VanoForum</b> · an open forum for researchers, by <a href="https://yassine-aitmohamed.github.io" target="_blank" rel="noopener">Yassine Ait Mohamed</a>. Guides and sheets under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, code under MIT. <a href="https://yassine-aitmohamed.github.io/vanoforum/feed.xml">Atom feed</a> · <a href="https://github.com/yassine-aitmohamed/vanoforum/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contribute</a></p>
     <p class="about-field">The background is an exact solution of the Schrödinger equation: a superposition of eigenstates of the two-dimensional harmonic oscillator with frequency ratio √2, so the motion never repeats. Hue is the phase of ψ, brightness is |ψ|², the faint curves are level sets of |ψ|², and the particles follow Bohmian trajectories, dx/dt = Im(∇ψ/ψ).</p>
   </div>
 </footer>
