@@ -387,4 +387,48 @@ flow_v('academic-career', 'The evidence a committee reads', 'Committees hire on 
     ('Funding', 'Grants and fellowships, which depend on the papers.'),
     ('Teaching', 'Courses taught well, with feedback.'),
     ('Independence', 'Questions, claims and papers that you led.')], gap=86, width=70)
+
+cycle('justification', 'How a conjecture becomes a theorem', 'Discovery by examples and counterexamples. Justification by proof. After Lakatos.', [
+    ('Examples', 'Compute small cases and look for a pattern.'),
+    ('Conjecture', 'State the pattern precisely.'),
+    ('Counterexample', 'Test it. Each failure refines the statement.'),
+    ('Proof attempt', 'Shows which hypotheses are really used.'),
+    ('Refined theorem', 'The statement the proof supports.')], rx=300, ry=180, lenses={(1, 2)})
+
+flow_h('realism', 'What survives when a theory is replaced', 'The picture of what exists changes. The mathematical structure is kept as a limit.', [
+    ('Success', 'Precise predictions argue that theories are true.'),
+    ('History', 'Many successful theories turned out false.'),
+    ('Structure', 'Equations survive as limits of the new theory.'),
+    ('Calibrate', 'Trust structure and predictions more than pictures.')], step_w=245)
+
+flow_h('strong-link', 'Weak links and strong links', 'Know which kind of problem you face before choosing a method.', [
+    ('Weak link', 'The worst part decides. Raise the floor with checks.'),
+    ('Strong link', 'The best part decides. Raise the ceiling with attempts.'),
+    ('Science', 'Mostly strong-link: the best ideas last.'),
+    ('Your work', 'Aim high, and check what others will build on.')], step_w=245)
+
+flow_h('notebooks', 'A notebook practice', 'Think on paper, then keep a clean record of what is known.', [
+    ('Waste book', 'Fast, dated, messy: attempts and ideas.'),
+    ('Tags', 'Conjecture, example, verified, refuted.'),
+    ('Ledger', 'Weekly, clean statements of what is known.'),
+    ('Index', 'A monthly table of contents.')], step_w=235)
+
+flow_v('mental-health', 'Looking after your mind during a PhD', 'Common, not a personal failure, and easier to treat early.', [
+    ('Notice', 'Low mood, worry, poor sleep or withdrawal for more than two weeks.'),
+    ('Talk', 'A friend, a colleague, a mentor or your supervisor.'),
+    ('Get help', 'University counselling, a doctor, emergency services in a crisis.'),
+    ('Protect the base', 'Sleep, movement, meals, a life outside research.')], gap=86, width=70)
+
+cycle('impostor', 'From impostor feeling to evidence', 'Feelings are real, but they are not evidence.', [
+    ('Feeling', 'I do not belong. I was lucky.'),
+    ('Evidence', 'Results, papers, talks, others\' judgments.'),
+    ('Precise gap', 'What exactly do I not yet know?'),
+    ('Plan', 'A book, a course, a question to someone.'),
+    ('Record', 'Add what you learned to your file of work.')], rx=300, ry=180)
+
+cycle('incubation', 'The rhythm of hard problems', 'After Poincaré and Wallas. A break helps only after real preparation.', [
+    ('Preparation', 'Deep, uninterrupted work on the problem.'),
+    ('Incubation', 'A walk, light tasks, sleep.'),
+    ('Illumination', 'The idea arrives, often unexpectedly.'),
+    ('Verification', 'Check every step carefully.')], rx=280, ry=170)
 print('ok')

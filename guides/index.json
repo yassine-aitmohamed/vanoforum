@@ -246,5 +246,61 @@
     "summary": "Few doctoral graduates obtain a permanent academic position. Hiring committees decide on evidence, not potential. Know what evidence they look for, finish your projects, plan for the gaps in your record, and decide consciously whether to play.",
     "diagram": "academic-career",
     "source": "31-academic-career.md"
+  },
+  {
+    "title": "How science justifies its claims",
+    "slug": "how-science-justifies",
+    "category": "Philosophy",
+    "summary": "Falsification is the scientist's favourite philosophy, but it is not how science works. Theories are tested together with assumptions, supported by evidence in degrees, and replaced in long programmes. Mathematics adds its own path, from examples and conjectures to proofs.",
+    "diagram": "justification",
+    "source": "32-how-science-justifies.md"
+  },
+  {
+    "title": "Are our best theories true?",
+    "slug": "are-theories-true",
+    "category": "Philosophy",
+    "summary": "Scientific theories predict with astonishing precision, yet history is full of successful theories that turned out false. Structural realism offers a way out. Theories may be wrong about what exists and still right about the mathematical structure of the world.",
+    "diagram": "realism",
+    "source": "33-are-theories-true.md"
+  },
+  {
+    "title": "Science is a strong-link problem",
+    "slug": "strong-link-science",
+    "category": "Philosophy",
+    "summary": "In some problems the worst parts decide the outcome. In others only the best parts matter. Science is mostly of the second kind, and seeing it that way changes how to choose problems, how to judge others' work and how to spend a career.",
+    "diagram": "strong-link",
+    "source": "34-strong-link-science.md"
+  },
+  {
+    "title": "Thinking on paper: research notebooks",
+    "slug": "research-notebooks",
+    "category": "Philosophy",
+    "summary": "Published papers hide how research was done. Notebooks keep it. From Newton's Waste Book to Faraday's numbered diaries, the great experimenters thought on paper. Here is what they did, and a simple notebook practice for your own research.",
+    "diagram": "notebooks",
+    "source": "35-research-notebooks.md"
+  },
+  {
+    "title": "Mental health during the PhD",
+    "slug": "mental-health-phd",
+    "category": "Wellbeing",
+    "summary": "Depression and anxiety are common among doctoral students, and much of the risk comes from how the work is organised. Know the evidence, recognise the warning signs early, protect what helps, and ask for help before things become serious.",
+    "diagram": "mental-health",
+    "source": "36-mental-health-phd.md"
+  },
+  {
+    "title": "Impostor feelings in research",
+    "slug": "impostor-feelings",
+    "category": "Wellbeing",
+    "summary": "Many researchers feel they are frauds who will soon be found out, despite clear evidence of their competence. The feeling is common, it is not a diagnosis, and it can be managed. Separate feelings from evidence, keep a record of what you have done, and talk about it.",
+    "diagram": "impostor",
+    "source": "37-impostor-feelings.md"
+  },
+  {
+    "title": "Focus, rest and the unconscious work of research",
+    "slug": "focus-rest-incubation",
+    "category": "Wellbeing",
+    "summary": "Hard problems are solved in alternation. Concentrated work, then a step back while the mind keeps working, then new insight. Protect deep focus, accept that your time is finite, use breaks deliberately, and sleep on hard problems.",
+    "diagram": "incubation",
+    "source": "38-focus-rest-incubation.md"
   }
 ]

@@ -52,6 +52,13 @@ Most guides end with a checklist, and every guide comes with a one-page sheet yo
 | 29 | [Understanding peer review](guides/29-understanding-peer-review.md) | Publishing | [PDF](sheets/understanding-peer-review.pdf) |
 | 30 | [What older papers teach about writing](guides/30-writing-with-a-voice.md) | Writing | [PDF](sheets/writing-with-a-voice.pdf) |
 | 31 | [Building an academic career](guides/31-academic-career.md) | Careers | [PDF](sheets/academic-career.pdf) |
+| 32 | [How science justifies its claims](guides/32-how-science-justifies.md) | Philosophy | [PDF](sheets/how-science-justifies.pdf) |
+| 33 | [Are our best theories true?](guides/33-are-theories-true.md) | Philosophy | [PDF](sheets/are-theories-true.pdf) |
+| 34 | [Science is a strong-link problem](guides/34-strong-link-science.md) | Philosophy | [PDF](sheets/strong-link-science.pdf) |
+| 35 | [Thinking on paper: research notebooks](guides/35-research-notebooks.md) | Philosophy | [PDF](sheets/research-notebooks.pdf) |
+| 36 | [Mental health during the PhD](guides/36-mental-health-phd.md) | Wellbeing | [PDF](sheets/mental-health-phd.pdf) |
+| 37 | [Impostor feelings in research](guides/37-impostor-feelings.md) | Wellbeing | [PDF](sheets/impostor-feelings.pdf) |
+| 38 | [Focus, rest and the unconscious work of research](guides/38-focus-rest-incubation.md) | Wellbeing | [PDF](sheets/focus-rest-incubation.pdf) |
 
 All guides are also collected in **[The Research Handbook](sheets/vanoforum-research-handbook.pdf)**. A curated list of PhD portals, scholarships, classic essays, newsletters and paper tools is on the **[Resources](https://yassine-aitmohamed.github.io/vanoforum/resources.html)** page.
 

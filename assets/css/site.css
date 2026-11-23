@@ -76,6 +76,8 @@ a.card:hover { text-decoration: none; border-color: rgba(63,163,221,.55); backgr
 .t-writing { color: var(--orange-light); border-color: rgba(224,123,36,.45); background: rgba(224,123,36,.08); }
 .t-publishing { color: var(--royal-light); border-color: rgba(127,155,242,.45); background: rgba(43,79,179,.14); }
 .t-careers { color: var(--orange-light); border-color: rgba(63,163,221,.45); background: rgba(63,163,221,.10); }
+.t-philosophy { color: var(--sky-light); border-color: rgba(127,155,242,.5); background: rgba(43,79,179,.18); }
+.t-wellbeing { color: #ffd2ad; border-color: rgba(242,161,96,.5); background: rgba(224,123,36,.12); }
 .t-method { color: #d4dcea; border-color: rgba(255,255,255,.25); background: rgba(255,255,255,.05); }
 
 /* sheets */

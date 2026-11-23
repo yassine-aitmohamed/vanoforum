@@ -16,7 +16,7 @@ SITE_TITLE = 'VanoForum'
 SITE = 'https://yassine-aitmohamed.github.io/vanoforum/'
 YEAR = '2026'
 
-CATEGORIES = [('Reading', 'Reading papers'), ('Writing', 'Writing papers'), ('Publishing', 'Publishing'), ('Method', 'Research method'), ('Careers', 'PhD and careers')]
+CATEGORIES = [('Reading', 'Reading papers'), ('Writing', 'Writing papers'), ('Publishing', 'Publishing'), ('Method', 'Research method'), ('Careers', 'PhD and careers'), ('Philosophy', 'Science and philosophy'), ('Wellbeing', 'Mind and wellbeing')]
 
 TOOLS = [
     ('VanoAtlas', 'vanoatlas', 'A local research workspace: projects, tasks, meetings, daily routine, notes, papers and LaTeX in one private app.', 'macOS · Windows · Linux'),
@@ -39,6 +39,10 @@ PATHS = [
      ['posting-on-arxiv', 'choosing-a-journal', 'submission-and-peer-review', 'understanding-peer-review', 'giving-a-research-talk', 'conferences-and-networking']),
     ('Finishing and moving on', 'The thesis, the academic market and the postdoc.',
      ['writing-the-thesis', 'academic-career', 'postdoc-applications', 'collaboration-and-authorship', 'becoming-a-good-writer']),
+    ('Thinking about science', 'What justifies a theory, what it tells us, and how research really advances.',
+     ['how-science-justifies', 'are-theories-true', 'strong-link-science', 'research-notebooks']),
+    ('Taking care of your mind', 'Mental health, self-doubt, focus and rest during research.',
+     ['mental-health-phd', 'impostor-feelings', 'focus-rest-incubation']),
 ]
 
 # Comments under each guide (giscus, backed by GitHub Discussions).
@@ -128,7 +132,7 @@ def load_guides():
 
 
 def page(title, body, rel='', intensity='0.5', offset='0', description='', active='', path=''):
-    nav = [('Guides', f'{rel}index.html#guides', 'guides'), ('Sheets', f'{rel}index.html#sheets', 'sheets'),
+    nav = [('Guides', f'{rel}index.html#guides', 'guides'), ('Sheets', f'{rel}index.html#sheets', 'sheets'), ('Science & mind', f'{rel}index.html#mind', 'mind'),
            ('Resources', f'{rel}resources.html', 'resources'), ('Tools', f'{rel}tools.html', 'tools'), ('Forum', FORUM, 'forum')]
     def link(n, u, k):
         cls = ' class="on"' if k == active else ''
@@ -309,6 +313,8 @@ def build_index(guides):
     sheets = ''.join(f'<li><a href="sheets/{g["slug"]}.pdf"><span class="pdf">PDF</span>{html.escape(g["title"])}</a></li>' for g in guides)
     diagrams = ''.join(f'<a class="thumb" href="assets/diagrams/{g["diagram"]}.svg" target="_blank" rel="noopener"><img src="assets/diagrams/{g["diagram"]}.svg" alt="{html.escape(g["title"])}" loading="lazy"></a>' for g in guides)
     tools = ''.join(tool_card(t) for t in TOOLS[:3])
+    mind = ''.join(f'<h3 class="group">{html.escape(l)}</h3><div class="grid">' + ''.join(guide_card(g) for g in guides if g['category'] == k) + '</div>'
+                   for k, l in CATEGORIES if k in ('Philosophy', 'Wellbeing'))
     latest = ''.join(f'<li><a href="guides/{g["slug"]}.html">{html.escape(g["title"])}</a></li>' for g in list(reversed(guides))[:4])
     body = f'''<main id="main">
 <section class="hero">
@@ -325,9 +331,17 @@ def build_index(guides):
 <section id="paths" class="band">
   <div class="band-in">
     <h2>Start where you are</h2>
-    <p class="sub">Five paths through the guides, one for each stage of a research career. Read them in order, or jump to the step you need. Your progress is kept in this browser only.</p>
+    <p class="sub">{len(PATHS)} paths through the guides: one for each stage of a research career, and two on science itself and on your mind. Read them in order, or jump to the step you need. Your progress is kept in this browser only.</p>
     <div class="grid paths">{paths}</div>
     <p class="all"><a class="btn ghost" href="resources.html">Portals, scholarships and reading list →</a></p>
+  </div>
+</section>
+
+<section id="mind" class="band">
+  <div class="band-in">
+    <h2>Science, philosophy and the mind</h2>
+    <p class="sub">Research is also a way of thinking and a way of living. What justifies a scientific claim, what our theories tell us about the world, and how to keep a healthy mind through years of hard problems.</p>
+    {mind}
   </div>
 </section>
 
