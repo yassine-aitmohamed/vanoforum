@@ -5,7 +5,8 @@
     "category": "Reading",
     "summary": "A three-pass method, a map of the results, and a one-page reading sheet. Read for what the paper proves and how, not line by line from page one.",
     "diagram": "three-pass",
-    "source": "01-reading-a-paper.md"
+    "source": "01-reading-a-paper.md",
+    "author": ""
   },
   {
     "title": "Tools for finding, reading and managing papers",
@@ -13,7 +14,8 @@
     "category": "Reading",
     "summary": "Where to search, how to follow new work, how to read PDFs efficiently and how to keep a library you can still use in five years.",
     "diagram": "literature-loop",
-    "source": "02-tools-for-papers.md"
+    "source": "02-tools-for-papers.md",
+    "author": ""
   },
   {
     "title": "Writing your first paper in English",
@@ -21,7 +23,8 @@
     "category": "Writing",
     "summary": "The anatomy of a research paper, the order in which to write it, and the sentence-level habits that make English academic prose clear, even when English is not your first language.",
     "diagram": "anatomy",
-    "source": "03-first-paper-in-english.md"
+    "source": "03-first-paper-in-english.md",
+    "author": ""
   },
   {
     "title": "Writing the abstract",
@@ -29,7 +32,8 @@
     "category": "Writing",
     "summary": "An abstract is a short, exact advertisement for the paper. Start with what you prove, give every main contribution, use strong verbs, and leave the symbols out.",
     "diagram": "abstract",
-    "source": "04-writing-the-abstract.md"
+    "source": "04-writing-the-abstract.md",
+    "author": ""
   },
   {
     "title": "Writing the introduction, the motivation and the contribution",
@@ -37,7 +41,8 @@
     "category": "Writing",
     "summary": "An introduction tells a short story. Where the problem comes from, why it matters, what was missing, and what this paper adds, with the main results stated early and the proofs kept for later.",
     "diagram": "introduction-arc",
-    "source": "05-writing-the-introduction.md"
+    "source": "05-writing-the-introduction.md",
+    "author": ""
   },
   {
     "title": "Presenting results and proofs",
@@ -45,7 +50,8 @@
     "category": "Writing",
     "summary": "How to organize sections, choose between Theorem, Proposition and Lemma, write proofs that read as prose, display equations, and keep the LaTeX source clean.",
     "diagram": "results-hierarchy",
-    "source": "06-presenting-results.md"
+    "source": "06-presenting-results.md",
+    "author": ""
   },
   {
     "title": "Revising paragraphs, step by step",
@@ -53,7 +59,8 @@
     "category": "Writing",
     "summary": "A method to revise a paragraph without losing your voice. Check the content first, then the structure, then the sentences, then the words. Keep your notation and your structure intact.",
     "diagram": "revision-passes",
-    "source": "07-revising-paragraphs.md"
+    "source": "07-revising-paragraphs.md",
+    "author": ""
   },
   {
     "title": "Choosing a journal",
@@ -61,7 +68,8 @@
     "category": "Publishing",
     "summary": "Scope first, then level, then the editor. What Q1 and Q2 really mean, how to read an editorial board, how to recognize a predatory journal, and how to build a realistic list of targets.",
     "diagram": "journal-choice",
-    "source": "08-choosing-a-journal.md"
+    "source": "08-choosing-a-journal.md",
+    "author": ""
   },
   {
     "title": "Submission, cover letters and peer review",
@@ -69,7 +77,8 @@
     "category": "Publishing",
     "summary": "What to check before submitting, how to write a short cover letter, what happens during review, and how to answer referees point by point. Also how to write a referee report yourself.",
     "diagram": "review-pipeline",
-    "source": "09-submission-and-peer-review.md"
+    "source": "09-submission-and-peer-review.md",
+    "author": ""
   },
   {
     "title": "A research method, from the first idea to the preprint",
@@ -77,7 +86,8 @@
     "category": "Method",
     "summary": "Choosing a problem, working in examples, discussing the strategy before writing proofs, checking originality, keeping a research log, and writing to other researchers about their work.",
     "diagram": "research-cycle",
-    "source": "10-research-methodology.md"
+    "source": "10-research-methodology.md",
+    "author": ""
   },
   {
     "title": "Finding a PhD abroad",
@@ -85,7 +95,8 @@
     "category": "Careers",
     "summary": "How doctoral admission works in the main systems, where funded positions are advertised, and a twelve-month plan from the first search to the first day in a new country.",
     "diagram": "phd-search",
-    "source": "11-finding-a-phd-abroad.md"
+    "source": "11-finding-a-phd-abroad.md",
+    "author": ""
   },
   {
     "title": "Contacting a professor",
@@ -93,7 +104,8 @@
     "category": "Careers",
     "summary": "How to write the first email to a potential supervisor or collaborator, what to attach, when to follow up, and the mistakes that send an email straight to the archive.",
     "diagram": "cold-email",
-    "source": "12-contacting-a-professor.md"
+    "source": "12-contacting-a-professor.md",
+    "author": ""
   },
   {
     "title": "Choosing a supervisor",
@@ -101,7 +113,8 @@
     "category": "Careers",
     "summary": "The supervisor matters more than the university name. What to look for, the questions to ask, how to talk to current students, and the warning signs to take seriously.",
     "diagram": "supervisor",
-    "source": "13-choosing-a-supervisor.md"
+    "source": "13-choosing-a-supervisor.md",
+    "author": ""
   },
   {
     "title": "The PhD application file",
@@ -109,7 +122,8 @@
     "category": "Careers",
     "summary": "The academic CV, the statement of purpose, the research proposal, the letters of recommendation and the interview. What each document is for, and how to make it specific.",
     "diagram": "application-file",
-    "source": "14-phd-application-documents.md"
+    "source": "14-phd-application-documents.md",
+    "author": ""
   },
   {
     "title": "Funding your PhD and finding scholarships",
@@ -117,7 +131,8 @@
     "category": "Careers",
     "summary": "Never start a PhD without funding. The kinds of funding that exist, the main national and international programmes, and how to make a scholarship application stand out.",
     "diagram": "funding",
-    "source": "15-funding-and-scholarships.md"
+    "source": "15-funding-and-scholarships.md",
+    "author": ""
   },
   {
     "title": "Applying for postdoctoral positions",
@@ -125,7 +140,8 @@
     "category": "Careers",
     "summary": "The postdoc job market runs on a yearly calendar. Where positions are posted, what goes in the research statement, how to manage letters, and how to compare offers.",
     "diagram": "postdoc",
-    "source": "16-postdoc-applications.md"
+    "source": "16-postdoc-applications.md",
+    "author": ""
   },
   {
     "title": "Becoming a good scientific writer",
@@ -133,7 +149,8 @@
     "category": "Writing",
     "summary": "Good writing is a habit, not a talent. Read for style, keep a phrasebook, write every day, get feedback, and revise in passes. A practical training plan for researchers who write in a second language.",
     "diagram": "writer-loop",
-    "source": "17-becoming-a-good-writer.md"
+    "source": "17-becoming-a-good-writer.md",
+    "author": ""
   },
   {
     "title": "The academic phrasebook",
@@ -141,7 +158,8 @@
     "category": "Writing",
     "summary": "Reusable English phrases for every part of a research paper, sorted by function. Announcing results, defining, comparing with earlier work, structuring proofs, hedging, and concluding.",
     "diagram": "phrasebook",
-    "source": "18-academic-phrasebook.md"
+    "source": "18-academic-phrasebook.md",
+    "author": ""
   },
   {
     "title": "Posting a preprint on arXiv",
@@ -149,7 +167,8 @@
     "category": "Publishing",
     "summary": "How to prepare, submit and update a preprint on arXiv. Accounts and endorsement, choosing categories, licences, TeX source, versions, and the link with journal submission.",
     "diagram": "arxiv",
-    "source": "19-posting-on-arxiv.md"
+    "source": "19-posting-on-arxiv.md",
+    "author": ""
   },
   {
     "title": "Giving a research talk",
@@ -157,7 +176,8 @@
     "category": "Method",
     "summary": "How to plan, build and deliver a research talk. Know the audience, follow the three-part structure, design clear slides or board work, rehearse, and handle questions.",
     "diagram": "talk-arc",
-    "source": "20-giving-a-research-talk.md"
+    "source": "20-giving-a-research-talk.md",
+    "author": ""
   },
   {
     "title": "Writing a literature review",
@@ -165,7 +185,8 @@
     "category": "Reading",
     "summary": "How to search the literature systematically, organise what you read, and write a review that compares ideas instead of listing papers. Useful for a thesis chapter, a survey or the background section of a paper.",
     "diagram": "lit-review",
-    "source": "21-writing-a-literature-review.md"
+    "source": "21-writing-a-literature-review.md",
+    "author": ""
   },
   {
     "title": "Collaboration and authorship",
@@ -173,7 +194,8 @@
     "category": "Method",
     "summary": "How to start and run a research collaboration, share work fairly, decide author order, and avoid the most common conflicts. Includes the conventions of mathematics and other fields.",
     "diagram": "collaboration",
-    "source": "22-collaboration-and-authorship.md"
+    "source": "22-collaboration-and-authorship.md",
+    "author": ""
   },
   {
     "title": "Conferences and networking",
@@ -181,7 +203,8 @@
     "category": "Careers",
     "summary": "How to choose conferences, apply for travel funding, prepare a short talk or poster, talk to senior researchers, and turn meetings into lasting professional relationships.",
     "diagram": "networking",
-    "source": "23-conferences-and-networking.md"
+    "source": "23-conferences-and-networking.md",
+    "author": ""
   },
   {
     "title": "Managing your PhD",
@@ -189,7 +212,8 @@
     "category": "Method",
     "summary": "A year-by-year plan for the doctorate, how to work with your supervisor, keep a research journal, handle being stuck, protect your health, and finish on time.",
     "diagram": "phd-timeline",
-    "source": "24-managing-your-phd.md"
+    "source": "24-managing-your-phd.md",
+    "author": ""
   },
   {
     "title": "Writing the thesis",
@@ -197,7 +221,8 @@
     "category": "Writing",
     "summary": "How to turn your papers and notes into a coherent thesis. Structure, the general introduction, chapters built from papers, writing schedule, working with the committee, and preparing the defence.",
     "diagram": "thesis",
-    "source": "25-writing-the-thesis.md"
+    "source": "25-writing-the-thesis.md",
+    "author": ""
   },
   {
     "title": "What a PhD expects from you",
@@ -205,7 +230,8 @@
     "category": "Method",
     "summary": "The unwritten rules of the doctorate. Own your project, bring questions rather than answers, ask whether a problem is worth solving, and make every expectation with your supervisor explicit.",
     "diagram": "phd-expectations",
-    "source": "26-phd-expectations.md"
+    "source": "26-phd-expectations.md",
+    "author": ""
   },
   {
     "title": "Getting better at research",
@@ -213,7 +239,8 @@
     "category": "Method",
     "summary": "Research is a set of skills that can be trained. Choose your own problems, train your taste by making predictions, read beyond the trending papers, write everything down, shorten the loop between idea and test, and find people who tell you the truth.",
     "diagram": "research-taste",
-    "source": "27-research-taste.md"
+    "source": "27-research-taste.md",
+    "author": ""
   },
   {
     "title": "Skimming a paper in twenty minutes",
@@ -221,7 +248,8 @@
     "category": "Reading",
     "summary": "You cannot read every paper in full. Read the few paragraphs that carry the story, then the figures and the topic sentences, and decide in twenty minutes whether a paper deserves a deep reading.",
     "diagram": "skimming",
-    "source": "28-skimming-a-paper.md"
+    "source": "28-skimming-a-paper.md",
+    "author": ""
   },
   {
     "title": "Understanding peer review",
@@ -229,7 +257,8 @@
     "category": "Publishing",
     "summary": "What peer review is for, where it comes from, what it does well and what it does not. Knowing its limits helps you write papers that pass it, read reports calmly, and review fairly yourself.",
     "diagram": "peer-review",
-    "source": "29-understanding-peer-review.md"
+    "source": "29-understanding-peer-review.md",
+    "author": ""
   },
   {
     "title": "What older papers teach about writing",
@@ -237,7 +266,8 @@
     "category": "Writing",
     "summary": "Papers written a century ago were often easier to read than today's. Keep the precision of modern writing, and take back what older papers did well. Say why you did the work, give one main idea, and state honestly what you do not know.",
     "diagram": "voice",
-    "source": "30-writing-with-a-voice.md"
+    "source": "30-writing-with-a-voice.md",
+    "author": ""
   },
   {
     "title": "Building an academic career",
@@ -245,7 +275,8 @@
     "category": "Careers",
     "summary": "Few doctoral graduates obtain a permanent academic position. Hiring committees decide on evidence, not potential. Know what evidence they look for, finish your projects, plan for the gaps in your record, and decide consciously whether to play.",
     "diagram": "academic-career",
-    "source": "31-academic-career.md"
+    "source": "31-academic-career.md",
+    "author": ""
   },
   {
     "title": "How science justifies its claims",
@@ -253,7 +284,8 @@
     "category": "Philosophy",
     "summary": "Falsification is the scientist's favourite philosophy, but it is not how science works. Theories are tested together with assumptions, supported by evidence in degrees, and replaced in long programmes. Mathematics adds its own path, from examples and conjectures to proofs.",
     "diagram": "justification",
-    "source": "32-how-science-justifies.md"
+    "source": "32-how-science-justifies.md",
+    "author": ""
   },
   {
     "title": "Are our best theories true?",
@@ -261,7 +293,8 @@
     "category": "Philosophy",
     "summary": "Scientific theories predict with astonishing precision, yet history is full of successful theories that turned out false. Structural realism offers a way out. Theories may be wrong about what exists and still right about the mathematical structure of the world.",
     "diagram": "realism",
-    "source": "33-are-theories-true.md"
+    "source": "33-are-theories-true.md",
+    "author": ""
   },
   {
     "title": "Science is a strong-link problem",
@@ -269,7 +302,8 @@
     "category": "Philosophy",
     "summary": "In some problems the worst parts decide the outcome. In others only the best parts matter. Science is mostly of the second kind, and seeing it that way changes how to choose problems, how to judge others' work and how to spend a career.",
     "diagram": "strong-link",
-    "source": "34-strong-link-science.md"
+    "source": "34-strong-link-science.md",
+    "author": ""
   },
   {
     "title": "Thinking on paper: research notebooks",
@@ -277,7 +311,8 @@
     "category": "Philosophy",
     "summary": "Published papers hide how research was done. Notebooks keep it. From Newton's Waste Book to Faraday's numbered diaries, the great experimenters thought on paper. Here is what they did, and a simple notebook practice for your own research.",
     "diagram": "notebooks",
-    "source": "35-research-notebooks.md"
+    "source": "35-research-notebooks.md",
+    "author": ""
   },
   {
     "title": "Mental health during the PhD",
@@ -285,7 +320,8 @@
     "category": "Wellbeing",
     "summary": "Depression and anxiety are common among doctoral students, and much of the risk comes from how the work is organised. Know the evidence, recognise the warning signs early, protect what helps, and ask for help before things become serious.",
     "diagram": "mental-health",
-    "source": "36-mental-health-phd.md"
+    "source": "36-mental-health-phd.md",
+    "author": ""
   },
   {
     "title": "Impostor feelings in research",
@@ -293,7 +329,8 @@
     "category": "Wellbeing",
     "summary": "Many researchers feel they are frauds who will soon be found out, despite clear evidence of their competence. The feeling is common, it is not a diagnosis, and it can be managed. Separate feelings from evidence, keep a record of what you have done, and talk about it.",
     "diagram": "impostor",
-    "source": "37-impostor-feelings.md"
+    "source": "37-impostor-feelings.md",
+    "author": ""
   },
   {
     "title": "Focus, rest and the unconscious work of research",
@@ -301,6 +338,7 @@
     "category": "Wellbeing",
     "summary": "Hard problems are solved in alternation. Concentrated work, then a step back while the mind keeps working, then new insight. Protect deep focus, accept that your time is finite, use breaks deliberately, and sleep on hard problems.",
     "diagram": "incubation",
-    "source": "38-focus-rest-incubation.md"
+    "source": "38-focus-rest-incubation.md",
+    "author": ""
   }
 ]
