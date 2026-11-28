@@ -1,0 +1,23 @@
+# Runs on every pull request: checks the new guide or section and builds the site with it.
+name: Check contribution
+
+on:
+  pull_request:
+    paths: ['guides/**', 'scripts/**', 'assets/**']
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install markdown
+      - name: Check the front matter of guides and sections
+        run: python3 scripts/check_contribution.py
+      - name: Build the site
+        run: python3 scripts/build.py
