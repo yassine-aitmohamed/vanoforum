@@ -28,11 +28,16 @@
 
     <div class="step">
       <h3 class="step-h"><i>02</i>About you</h3>
-      <p class="hint">Your name is printed on the page. Affiliation and link are optional.</p>
+      <p class="hint">Your name, and your photo if you add one, are printed on the page. Affiliation, link and photo are optional.</p>
       <div class="fields">
         <div class="field"><label for="f-name">Your name <em>*</em></label><input type="text" id="f-name" autocomplete="name" placeholder="First and last name"></div>
         <div class="field"><label for="f-aff">Affiliation <small>(optional)</small></label><input type="text" id="f-aff" placeholder="University, lab or country"></div>
         <div class="field wide"><label for="f-url">Website or ORCID <small>(optional, your name links to it)</small></label><input type="url" id="f-url" placeholder="https://"></div>
+        <div class="field wide"><label for="photo-pick">Profile photo <small>(optional, shown next to your name)</small></label>
+          <div class="photo-row"><span class="photo-prev" id="photo-prev" aria-hidden="true">?</span>
+            <button type="button" class="btn small ghost" id="photo-pick">Choose a photo</button><button type="button" class="linkish" id="photo-x" hidden>Remove</button>
+            <small>JPG or PNG. It is cropped to a square and made small (160 pixels), so it stays light.</small></div>
+          <input type="file" id="photo" accept="image/jpeg,image/png,image/webp" hidden></div>
       </div>
     </div>
 

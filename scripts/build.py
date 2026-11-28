@@ -4,7 +4,7 @@
 Usage: python3 scripts/build.py
 Requires: pip install markdown
 """
-import html, json, re
+import base64, html, json, re
 from pathlib import Path
 
 import markdown
@@ -38,6 +38,28 @@ def all_categories(guides):
             cats.append((g['category'], g['category']))
             known.add(g['category'])
     return cats
+
+
+# The editor of the site: his photo appears on his guides and in the footer.
+EDITOR = {'name': 'Yassine Ait Mohamed', 'photo': 'assets/img/yassine.jpg', 'url': 'https://yassine-aitmohamed.github.io'}
+
+
+def save_photo(meta, source):
+    """A contributor photo arrives as a data URI in the front matter (author_photo); store it as an image file
+    in assets/contributors/ and put the path back in the Markdown file, so that the repository stays readable."""
+    photo = meta.get('author_photo', '')
+    m = re.match(r'data:image/(jpeg|jpg|png|webp);base64,(.+)$', photo)
+    if not m:
+        return
+    ext = 'jpg' if m.group(1) in ('jpeg', 'jpg') else m.group(1)
+    name = re.sub(r'[^a-z0-9]+', '-', meta.get('author', 'contributor').lower()).strip('-') or 'contributor'
+    out = ROOT / 'assets' / 'contributors' / f'{name}.{ext}'
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_bytes(base64.b64decode(m.group(2)))
+    rel = f'assets/contributors/{name}.{ext}'
+    meta['author_photo'] = rel
+    text = source.read_text(encoding='utf-8')
+    source.write_text(text.replace(photo, rel, 1), encoding='utf-8')
 
 
 TOOLS = [
@@ -138,7 +160,7 @@ def sections(md, toc):
 
 def credit_marker(meta):
     """Invisible marker placed under the heading of a contributed section, turned into a badge by build_guides."""
-    vals = [meta.get(k, '').replace('|', '/').replace('--', '–') for k in ('author', 'affiliation', 'author_url')]
+    vals = [meta.get(k, '').replace('|', '/').replace('--', '–') for k in ('author', 'affiliation', 'author_url', 'author_photo')]
     return '<!-- contributed-by: ' + ' | '.join(vals) + ' -->'
 
 
@@ -154,6 +176,7 @@ def add_sections(guides):
     by = {g['slug']: g for g in guides}
     for f in sorted(p for p in folder.glob('*.md') if p.name != 'README.md'):
         meta, body = front_matter(f.read_text(encoding='utf-8'))
+        save_photo(meta, f)
         g = by.get(meta.get('guide', ''))
         if not g or not meta.get('title') or not meta.get('author'):
             print(f'warning: {f.name} skipped (needs guide, title and author)')
@@ -169,7 +192,7 @@ def add_sections(guides):
         parts[pos - 1] = parts[pos - 1].rstrip() + '\n\n'
         parts.insert(pos, block)
         g['body_md'] = ''.join(parts)
-        g.setdefault('contributors', []).append({'name': meta['author'], 'aff': meta.get('affiliation', ''), 'url': meta.get('author_url', ''), 'section': meta['title']})
+        g.setdefault('contributors', []).append({'name': meta['author'], 'aff': meta.get('affiliation', ''), 'url': meta.get('author_url', ''), 'photo': meta.get('author_photo', ''), 'section': meta['title']})
 
 
 def load_guides():
@@ -178,6 +201,7 @@ def load_guides():
         meta, body = front_matter(f.read_text(encoding='utf-8'))
         meta['source'] = f.name
         meta['body_md'] = body
+        save_photo(meta, f)
         if meta.get('category_description'):
             CAT_DESC.setdefault(meta['category'], meta['category_description'])
         guides.append(meta)
@@ -229,6 +253,8 @@ def page(title, body, rel='', intensity='0.5', offset='0', description='', activ
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <link rel="stylesheet" href="{rel}assets/css/site.css">
+<link rel="stylesheet" href="{rel}assets/css/day.css">
+<script>try {{ var t = localStorage.getItem('vf:theme'); if (t) document.documentElement.dataset.theme = JSON.parse(t); }} catch (e) {{}}</script>
 <link rel="alternate" type="application/atom+xml" title="VanoForum: new guides" href="{SITE}feed.xml">
 </head>
 <body data-root="{rel}">
@@ -237,13 +263,14 @@ def page(title, body, rel='', intensity='0.5', offset='0', description='', activ
 <header class="top">
   <a class="brand" href="{rel}index.html">{MARK}<span>{SITE_TITLE}</span></a>
   <button type="button" class="search-btn" data-search aria-label="Search the guides"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M13 13l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Search guides</span><kbd>/</kbd></button>
+  <button type="button" class="theme-btn" data-theme-toggle aria-label="Switch between day and night mode">Day mode</button>
   <button type="button" class="menu-btn" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span><span></span><span></span></button>
   <nav id="site-nav">{links}<a class="gh" href="{REPO}" target="_blank" rel="noopener" aria-label="GitHub repository">GitHub</a></nav>
 </header>
 {body}
 <footer class="foot">
   <div class="foot-in">
-    <p><b>{SITE_TITLE}</b> · an open forum for researchers, by <a href="https://yassine-aitmohamed.github.io" target="_blank" rel="noopener">Yassine Ait Mohamed</a>. Guides and sheets under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, code under MIT. <a href="{SITE}feed.xml">Atom feed</a> · <a href="{rel}contribute.html">Contribute</a></p>
+    <p class="foot-by"><img class="avatar" src="{rel}{EDITOR['photo']}" alt="" loading="lazy"><span><b>{SITE_TITLE}</b> · an open forum for researchers, by <a href="https://yassine-aitmohamed.github.io" target="_blank" rel="noopener">Yassine Ait Mohamed</a>. Guides and sheets under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, code under MIT. <a href="{SITE}feed.xml">Atom feed</a> · <a href="{rel}contribute.html">Contribute</a></span></p>
     <p class="about-field">The background is an exact solution of the Schrödinger equation: a superposition of eigenstates of the two-dimensional harmonic oscillator with frequency ratio √2, so the motion never repeats. Hue is the phase of ψ, brightness is |ψ|², the faint curves are level sets of |ψ|², and the particles follow Bohmian trajectories, dx/dt = Im(∇ψ/ψ).</p>
   </div>
 </footer>
@@ -301,6 +328,12 @@ def initials(name):
     return ''.join(w[0].upper() for w in name.split()[:2]) or '?'
 
 
+def avatar(name, photo='', rel='', cls='avatar'):
+    if photo and (ROOT / photo).exists():
+        return f'<img class="{cls}" src="{rel}{html.escape(photo)}" alt="" loading="lazy">'
+    return f'<span class="{cls}">{html.escape(initials(name))}</span>'
+
+
 def person(name, url):
     n = html.escape(name)
     return f'<a href="{html.escape(url)}" target="_blank" rel="noopener"><b>{n}</b></a>' if url.startswith('http') else f'<b>{n}</b>'
@@ -317,8 +350,8 @@ def wrap_contrib(body_html):
         if not m:
             out.append(piece)
             continue
-        name, aff, url = ([x.strip() for x in m.group(3).split('|')] + ['', ''])[:3]
-        badge = (f'<p class="contrib-badge"><span class="avatar">{html.escape(initials(name))}</span>'
+        name, aff, url, photo = ([x.strip() for x in m.group(3).split('|')] + ['', '', ''])[:4]
+        badge = (f'<p class="contrib-badge">{avatar(name, photo, "../")}'
                  f'<span>Section contributed by {person(name, url)}{" · " + html.escape(aff) if aff else ""}</span></p>')
         out.append(f'<div class="contrib-section">{m.group(1)}{badge}{piece[m.end():]}</div>')
         ids.add(m.group(2))
@@ -361,11 +394,13 @@ def build_guides(guides):
               (' · with sections by ' + html.escape(', '.join(dict.fromkeys(names))) if names else ''))
         toc_by = (f'<p class="toc-h">{"Written by" if g.get("author") else "Contributors"}</p><p class="by">'
                   + '<br>'.join(html.escape(n) for n in dict.fromkeys(names)) + '</p>') if names else ''
-        byline = ''
         if g.get('author'):
-            byline = (f'<div class="byline"><span class="avatar">{html.escape(initials(g["author"]))}</span><span class="who">Written by '
+            byline = (f'<div class="byline">{avatar(g["author"], g.get("author_photo", ""), "../")}<span class="who">Written by '
                       f'{person(g["author"], g.get("author_url", ""))}{"<small>" + html.escape(g["affiliation"]) + "</small>" if g.get("affiliation") else ""}</span>'
                       f'<span class="role">Contributor</span></div>')
+        else:
+            byline = (f'<div class="byline">{avatar(EDITOR["name"], EDITOR["photo"], "../")}<span class="who">Written by '
+                      f'{person(EDITOR["name"], EDITOR["url"])}<small>Editor of VanoForum</small></span><span class="role">Editor</span></div>')
         svg = g.get('diagram') and (ROOT / 'assets' / 'diagrams' / f'{g["diagram"]}.svg').exists()
         diagram = f'<figure class="diagram"><img src="../assets/diagrams/{g["diagram"]}.svg" alt="Diagram: {html.escape(g["title"])}" loading="lazy"></figure>' if svg else ''
         body = f'''<div class="progress" aria-hidden="true"><span></span></div>
