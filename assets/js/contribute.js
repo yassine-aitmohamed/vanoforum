@@ -9,7 +9,8 @@
   const LIVE = !!CFG.repo;
 
   let DATA = { categories: [], guides: [] };
-  const state = { mode: 'new', source: 'file', file: null, fileMd: '', fileName: '' };
+  const state = { mode: 'new', source: 'file', file: null, fileMd: '', fileName: '', photo: '' };
+  const EDITOR = CFG.editor || { name: 'Yassine Ait Mohamed', photo: 'assets/img/yassine.jpg', aff: 'Editor of VanoForum' };
 
   /* ---------- data ---------- */
   fetch(CFG.data || 'guides.json').then(r => r.json()).then(d => {
@@ -104,6 +105,43 @@
   }
   $('#f-sectitle').addEventListener('input', () => { clearTimeout(simTimer); simTimer = setTimeout(checkSection, 250); });
   $('#f-guide').addEventListener('change', checkSection);
+
+  /* ---------- profile photo: cropped to a square and reduced in the browser ---------- */
+  function setPhotoPreview() {
+    const prev = $('#photo-prev');
+    if (!prev) return;
+    prev.innerHTML = state.photo ? `<img src="${state.photo}" alt="">` : esc(initials($('#f-name').value || '?'));
+    $('#photo-x').hidden = !state.photo;
+    $('#photo-pick').textContent = state.photo ? 'Change the photo' : 'Choose a photo';
+  }
+  if ($('#photo-pick')) {
+    $('#photo-pick').addEventListener('click', () => $('#photo').click());
+    $('#photo-x').addEventListener('click', () => { state.photo = ''; $('#photo').value = ''; setPhotoPreview(); });
+    $('#f-name').addEventListener('input', setPhotoPreview);
+    $('#photo').addEventListener('change', () => {
+      const f = $('#photo').files[0];
+      if (!f) return;
+      if (!/^image\/(jpeg|png|webp)$/.test(f.type)) return showErrors(['The photo must be a JPG, PNG or WebP image.']);
+      if (f.size > 15 * 1024 * 1024) return showErrors(['The photo is larger than 15 MB.']);
+      const img = new Image();
+      img.onload = () => {
+        const S = 160, c = document.createElement('canvas');
+        c.width = c.height = S;
+        const side = Math.min(img.naturalWidth, img.naturalHeight);
+        const sx = (img.naturalWidth - side) / 2, sy = Math.max(0, (img.naturalHeight - side) * 0.3);   // keep the face, a bit above the centre
+        c.getContext('2d').drawImage(img, sx, sy, side, side, 0, 0, S, S);
+        state.photo = c.toDataURL('image/jpeg', 0.82);
+        URL.revokeObjectURL(img.src);
+        setPhotoPreview();
+      };
+      img.onerror = () => showErrors(['This image could not be read.']);
+      img.src = URL.createObjectURL(f);
+    });
+    setPhotoPreview();
+  }
+  function avatarHtml(name, photo) {
+    return photo ? `<img class="avatar" src="${esc(photo)}" alt="">` : `<span class="avatar">${esc(initials(name))}</span>`;
+  }
 
   /* ---------- counters ---------- */
   $('#f-summary').addEventListener('input', () => { $('#sum-count').textContent = $('#f-summary').value.length + ' / 280'; });
@@ -207,6 +245,7 @@
     d.name = need('#f-name', 'Write your name: it is shown on the page.');
     d.aff = $('#f-aff').value.trim();
     d.url = $('#f-url').value.trim();
+    d.photo = state.photo;
     if (state.mode === 'new') {
       d.title = need('#f-title', 'Give the guide a title.');
       d.category = need('#f-category', 'Choose a category, or create a new one.');
@@ -238,19 +277,19 @@
     const nn = String(g.length + 1).padStart(2, '0');
     const slug = slugify(d.title);
     const fm = ['---', 'title: ' + d.title, 'slug: ' + slug, 'category: ' + d.category].concat(d.newcat ? ['category_new: yes'].concat(d.newcatDesc ? ['category_description: ' + d.newcatDesc] : []) : []).concat(['summary: ' + d.summary.replace(/\s+/g, ' '),
-      'author: ' + d.name]).concat(d.aff ? ['affiliation: ' + d.aff] : []).concat(d.url ? ['author_url: ' + d.url] : []).concat(['---', '']).join('\n');
+      'author: ' + d.name]).concat(d.aff ? ['affiliation: ' + d.aff] : []).concat(d.url ? ['author_url: ' + d.url] : []).concat(d.photo ? ['author_photo: ' + d.photo] : []).concat(['---', '']).join('\n');
     return { path: `guides/${nn}-${slug}.md`, text: fm + '\n' + d.md.trim() + '\n', body: d.md, slug };
   }
   function sectionFile(d) {
     const g = DATA.guides.find(x => x.slug === d.slug);
     const parts = sections(g.body);
     const k = Math.min(d.after + 1, parts.length - 1);
-    const credit = `<!-- contributed-by: ${[d.name, d.aff, d.url].map(x => x.replace(/\|/g, '/')).join(' | ')} -->`;
+    const credit = `<!-- contributed-by: ${[d.name, d.aff, d.url, d.photo].map(x => (x || '').replace(/\|/g, '/')).join(' | ')} -->`;
     const snippet = `## ${d.sectitle}\n${credit}\n\n${d.md.trim()}\n\n`;
     const body = parts.slice(0, k + 1).map(p => p.text).join('').replace(/\s*$/, '\n\n') + snippet + parts.slice(k + 1).map(p => p.text).join('');
     // The section is a file of its own: build.py inserts it into the guide, with the name of its author.
     const fm = ['---', 'guide: ' + g.slug, 'title: ' + d.sectitle, 'after: ' + parts[k].title, 'author: ' + d.name]
-      .concat(d.aff ? ['affiliation: ' + d.aff] : []).concat(d.url ? ['author_url: ' + d.url] : []).concat(['---', '']).join('\n');
+      .concat(d.aff ? ['affiliation: ' + d.aff] : []).concat(d.url ? ['author_url: ' + d.url] : []).concat(d.photo ? ['author_photo: ' + d.photo] : []).concat(['---', '']).join('\n');
     return { path: `guides/sections/${g.slug}--${slugify(d.sectitle)}.md`, text: fm + '\n' + d.md.trim() + '\n', body, guide: g };
   }
 
@@ -268,7 +307,7 @@
 
   function byline(d, role) {
     const who = d.url ? `<a href="${esc(d.url)}" target="_blank" rel="noopener"><b>${esc(d.name)}</b></a>` : `<b>${esc(d.name)}</b>`;
-    return `<div class="byline"><span class="avatar">${esc(initials(d.name))}</span><span class="who">${role} ${who}${d.aff ? `<small>${esc(d.aff)}</small>` : ''}</span><span class="role">Contributor</span></div>`;
+    return `<div class="byline">${avatarHtml(d.name, d.photo)}<span class="who">${role} ${who}${d.aff ? `<small>${esc(d.aff)}</small>` : ''}</span><span class="role">Contributor</span></div>`;
   }
 
   function renderPreview(d, out) {
@@ -295,7 +334,7 @@
     <h1>${esc(g.title)}</h1>
     <p class="lead">${esc(g.summary)}</p>
     <p class="gmeta">${minutes} min read${tasks ? ` · ${tasks}-item checklist` : ''} · ${isNew ? 'by ' + esc(d.name) : 'with a section by ' + esc(d.name)}</p>
-    ${isNew ? byline(d, 'Written by') : ''}
+    ${isNew ? byline(d, 'Written by') : `<div class="byline">${avatarHtml(EDITOR.name, EDITOR.photo)}<span class="who">Written by <b>${esc(EDITOR.name)}</b><small>${esc(EDITOR.aff)}</small></span><span class="role">Editor</span></div>`}
     ${diagram}
     <div class="gbody">${mdToHtml(body)}</div>
     ${credit}
@@ -328,14 +367,14 @@
     const marks = [];
     while (walker.nextNode()) if (/^\s*contributed-by:/.test(walker.currentNode.nodeValue)) marks.push(walker.currentNode);
     for (const c of marks) {
-      const [name, aff] = c.nodeValue.replace(/^\s*contributed-by:\s*/, '').split('|').map(x => x.trim());
+      const [name, aff, , photo] = c.nodeValue.replace(/^\s*contributed-by:\s*/, '').split('|').map(x => x.trim());
       let h = c.previousSibling;
       while (h && h.nodeType !== 1) h = h.previousSibling;
       const box = document.createElement('div');
       box.className = 'contrib-section';
       const badge = document.createElement('p');
       badge.className = 'contrib-badge';
-      badge.innerHTML = `<span class="avatar">${esc(initials(name))}</span><span>Section contributed by <b>${esc(name)}</b>${aff ? ' · ' + esc(aff) : ''}</span>`;
+      badge.innerHTML = `${avatarHtml(name, photo)}<span>Section contributed by <b>${esc(name)}</b>${aff ? ' · ' + esc(aff) : ''}</span>`;
       if (h && h.tagName === 'H2') {
         h.parentNode.insertBefore(box, h);
         let n = h;

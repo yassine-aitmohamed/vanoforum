@@ -224,6 +224,28 @@
   }
 
   /* abstract checker (guide: Writing the abstract) */
+  /* day and night themes, as on yassine-aitmohamed.github.io; the choice is kept in this browser */
+  function theme() {
+    var btn = $('[data-theme-toggle]');
+    if (!btn) return;
+    var root = document.documentElement;
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function isLight() { return root.getAttribute('data-theme') === 'light'; }
+    function label() { btn.textContent = isLight() ? 'Night mode' : 'Day mode'; }
+    label();
+    btn.addEventListener('click', function () {
+      var next = isLight() ? 'dark' : 'light';
+      function apply() { root.setAttribute('data-theme', next); store.set('theme', next); label(); }
+      if (!document.startViewTransition || reduce) { apply(); return; }
+      var r = btn.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+      var rad = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+      document.startViewTransition(apply).ready.then(function () {
+        root.animate({ clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + rad + 'px at ' + x + 'px ' + y + 'px)'] },
+          { duration: 700, easing: 'cubic-bezier(.2,.7,.2,1)', pseudoElement: '::view-transition-new(root)' });
+      }).catch(function () {});
+    });
+  }
+
   function abstractChecker() {
     var ta = $('#ac-in');
     if (!ta) return;
@@ -265,7 +287,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    math(); toc(); menu(); markDots(); guidePage(); chips(); searchUI(); abstractChecker();
+    math(); toc(); menu(); markDots(); guidePage(); chips(); searchUI(); abstractChecker(); theme();
   });
   window.addEventListener('load', math);
 })();
