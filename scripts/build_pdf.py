@@ -103,15 +103,19 @@ PREAMBLE = r'''\documentclass[10pt]{article}
 def sheet(i, n, g, body):
     color = CAT_COLOR.get(g['category'], 'royal')
     title, items = checklist(body)
+    if not items:  # a guide without a checklist (often a new contribution): list its sections instead
+        title, items = 'In this guide', [k for k in sections(body) if k.lower() not in ('notes', 'references')] or [g['summary']]
     kp = key_points(body)
-    svg = ROOT / 'assets' / 'diagrams' / f"{g['diagram']}.svg"
+    svg = ROOT / 'assets' / 'diagrams' / f"{g.get('diagram', '')}.svg"
+    has_svg = bool(g.get('diagram')) and svg.exists()
     tex = PREAMBLE + r'\begin{document}' + '\n'
     tex += (r'{\sffamily\footnotesize\color{gray}\textcolor{' + color + r'}{\textbf{VANOFORUM}} \quad SHEET ' + f'{i}/{n}' +
             r' \quad ' + g['category'].upper() + r'\hfill ' + SITE.replace('https://', '') + r'}\par\vspace{2mm}' + '\n')
     tex += r'{\raggedright\sffamily\bfseries\fontsize{21}{25}\selectfont\color{ink} ' + tex_escape(g['title']) + r'\par}\vspace{1.5mm}' + '\n'
     tex += r'{\color{' + color + r'}\rule{28mm}{1.2pt}}\par\vspace{1mm}' + '\n'
     tex += r'{\large\color{ink} ' + tex_escape(g['summary']) + r'\par}\vspace{3mm}' + '\n'
-    tex += r'\begin{center}\includegraphics[width=\linewidth,height=0.30\textheight,keepaspectratio]{diagram.pdf}\end{center}\vspace{1mm}' + '\n'
+    if has_svg:
+        tex += r'\begin{center}\includegraphics[width=\linewidth,height=0.30\textheight,keepaspectratio]{diagram.pdf}\end{center}\vspace{1mm}' + '\n'
     tex += r'\begin{multicols}{2}' + '\n'
     if kp:
         tex += r'{\sffamily\bfseries\small\color{' + color + r'} KEY POINTS}\par\vspace{1mm}' + '\n'
@@ -126,11 +130,12 @@ def sheet(i, n, g, body):
         tex += r'\item ' + tex_escape(it) + '\n'
     tex += r'\end{itemize}' + '\n' + r'\end{multicols}' + '\n'
     tex += (r'\vfill{\sffamily\scriptsize\color{gray} ' + SITE.replace('https://', '') + '/guides/' + g['slug'] +
-            r'.html \hfill Yassine Ait Mohamed · CC BY 4.0}' + '\n')
+            r'.html \hfill ' + tex_escape(g.get('author') or 'Yassine Ait Mohamed') + r' · CC BY 4.0}' + '\n')
     tex += r'\end{document}' + '\n'
     with tempfile.TemporaryDirectory() as d:
         d = Path(d)
-        subprocess.run(['rsvg-convert', '-f', 'pdf', '-o', str(d / 'diagram.pdf'), str(svg)], check=True)
+        if has_svg:
+            subprocess.run(['rsvg-convert', '-f', 'pdf', '-o', str(d / 'diagram.pdf'), str(svg)], check=True)
         (d / 'sheet.tex').write_text(tex, encoding='utf-8')
         r = subprocess.run(['xelatex', '-interaction=nonstopmode', '-halt-on-error', 'sheet.tex'], cwd=d, capture_output=True, text=True)
         if r.returncode != 0:
@@ -187,11 +192,15 @@ def handbook(guides):
         d = Path(d)
         md = ''
         for g in guides:
-            svg = ROOT / 'assets' / 'diagrams' / f"{g['diagram']}.svg"
-            pdf = d / f"{g['diagram']}.pdf"
-            subprocess.run(['rsvg-convert', '-f', 'pdf', '-o', str(pdf), str(svg)], check=True)
+            svg = ROOT / 'assets' / 'diagrams' / f"{g.get('diagram', '')}.svg"
+            fig = ''
+            if g.get('diagram') and svg.exists():
+                pdf = d / f"{g['diagram']}.pdf"
+                subprocess.run(['rsvg-convert', '-f', 'pdf', '-o', str(pdf), str(svg)], check=True)
+                fig = f"![]({pdf.name}){{width=100%}}\n\n"
             body = g['body']
-            md += f"# {g['title']}\n\n*{g['summary']}*\n\n![]({pdf.name}){{width=100%}}\n\n{body}\n\n"
+            by = f"*By {g['author']}.*\n\n" if g.get('author') else ''
+            md += f"# {g['title']}\n\n*{g['summary']}*\n\n{by}{fig}{body}\n\n"
         md = re.sub(r'\]\(((?!https?://)[^)]+?)\.html\)', r'](#)', md)
         md = md.replace('](#)', ']()')
         (d / 'handbook.md').write_text(md, encoding='utf-8')
@@ -211,11 +220,10 @@ def handbook(guides):
 
 
 if __name__ == '__main__':
-    guides = []
-    for f in sorted((ROOT / 'guides').glob('*.md')):
-        meta, body = front_matter(f.read_text(encoding='utf-8'))
-        meta['body'] = body
-        guides.append(meta)
+    import build as site  # same guides as the website, with the contributed sections inserted
+    guides = site.load_guides()
+    for g in guides:
+        g['body'] = re.sub(r'<!-- contributed-by: (.*?) -->', lambda m: '*Section contributed by ' + ' · '.join(x.strip() for x in m.group(1).split('|')[:2] if x.strip()) + '.*', g['body_md'])
     for i, g in enumerate(guides, 1):
         p = sheet(i, len(guides), g, g['body'])
         print(g['slug'], p, 'page(s)')

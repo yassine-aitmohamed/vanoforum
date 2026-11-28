@@ -1,0 +1,106 @@
+<!-- Contribution page. Built into contribute.html by scripts/build.py from this template; the logic is in assets/js/contribute.js and assets/js/convert.js. -->
+<script>window.VF_CONFIG = { repo: '%REPO%', data: 'guides/contribute.json', guideBase: 'guides/' };</script>
+<!-- 2. The contribution form -->
+<div class="view" id="view-form">
+<main id="main">
+<section class="band first">
+  <div class="band-in cform">
+    <h2 class="page-h">Contribute to VanoForum</h2>
+    <p class="sub">Write your text in Word or LaTeX, as you usually do. The site turns it into a page with the layout, fonts and formulas of the other guides, and your name is shown on what you wrote. The editors review every contribution before it goes online.</p>
+
+    <aside class="before" aria-labelledby="before-h">
+      <h3 id="before-h">Before you write</h3>
+      <ul>
+        <li><b>Check what already exists.</b> Search the guides first. If your topic is already covered, add a section to that guide instead of writing a new one, so that readers find everything in one place.</li>
+        <li><b>Bring something new:</b> the rules of your country or your field, a worked example, a mistake you made and how you fixed it.</li>
+        <li><b>Write what you know first-hand,</b> in plain English and short sentences. Link every rule, deadline or programme to its official source.</li>
+        <li><b>Do not copy</b> text from other websites, books or guides, even with small changes.</li>
+      </ul>
+    </aside>
+
+    <div class="step">
+      <h3 class="step-h"><i>01</i>What do you want to contribute?</h3>
+      <div class="choice">
+        <label><input type="radio" name="mode" value="new" checked><span><b>A new guide</b><small>A complete guide on a topic the site does not cover yet.</small></span></label>
+        <label><input type="radio" name="mode" value="section"><span><b>A section in an existing guide</b><small>Your experience, an example or the rules of your country or field.</small></span></label>
+      </div>
+    </div>
+
+    <div class="step">
+      <h3 class="step-h"><i>02</i>About you</h3>
+      <p class="hint">Your name is printed on the page. Affiliation and link are optional.</p>
+      <div class="fields">
+        <div class="field"><label for="f-name">Your name <em>*</em></label><input type="text" id="f-name" autocomplete="name" placeholder="First and last name"></div>
+        <div class="field"><label for="f-aff">Affiliation <small>(optional)</small></label><input type="text" id="f-aff" placeholder="University, lab or country"></div>
+        <div class="field wide"><label for="f-url">Website or ORCID <small>(optional, your name links to it)</small></label><input type="url" id="f-url" placeholder="https://"></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <h3 class="step-h"><i>03</i><span id="step3-h">About the guide</span></h3>
+      <p class="hint" id="step3-hint"></p>
+      <div class="fields" id="fields-new">
+        <div class="field wide"><label for="f-title">Title <em>*</em> <small>(in sentence case)</small></label><input type="text" id="f-title" placeholder="How to write a referee report"><div class="similar" id="similar" hidden></div></div>
+        <div class="field"><label for="f-category">Category <em>*</em></label><select id="f-category"></select></div>
+        <div class="field" id="newcat-name" hidden><label for="f-newcat">Name of the new category <em>*</em></label><input type="text" id="f-newcat" maxlength="40" placeholder="Biology research"></div>
+        <div class="field wide" id="newcat-desc" hidden><label for="f-newcat-desc">What belongs in it? <small>(optional, one sentence shown on the home page)</small></label><input type="text" id="f-newcat-desc" maxlength="140" placeholder="Lab work, experiments and publishing in the life sciences."></div>
+        <div class="field wide"><label for="f-summary">Summary <em>*</em> <small>(one or two sentences: what will the reader be able to do?)</small></label><textarea id="f-summary" maxlength="280"></textarea><span class="count" id="sum-count">0 / 280</span></div>
+      </div>
+      <div class="fields" id="fields-section" hidden>
+        <div class="field wide"><label for="f-guide">Guide <em>*</em></label><select id="f-guide"></select></div>
+        <div class="field"><label for="f-sectitle">Title of your section <em>*</em></label><input type="text" id="f-sectitle" placeholder="The same question in Germany"><div class="similar" id="similar-sec" hidden></div></div>
+        <div class="field"><label for="f-after">Place</label><select id="f-after"><option value="">Choose a guide first</option></select></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <h3 class="step-h"><i>04</i>Your text</h3>
+      <div class="tabs" role="tablist"><button type="button" data-tab="file" aria-selected="true">Upload a file</button><button type="button" data-tab="write" aria-selected="false">Write here</button></div>
+      <div id="pane-file">
+        <div class="drop" id="drop" tabindex="0" role="button" aria-label="Upload a Word or LaTeX file">
+          <div class="formats"><span class="fmt docx">.docx</span><span class="fmt tex">.tex</span></div>
+          <b>Drop your Word or LaTeX file here</b>
+          <span>or click to choose it · headings, lists, tables, theorems and formulas are kept</span>
+        </div>
+        <input type="file" id="file" accept=".docx,.tex,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+        <div class="fileinfo" id="fileinfo" hidden><button type="button" class="x" id="file-x">Remove ✕</button><b id="file-name"></b><ul id="file-notes"></ul></div>
+      </div>
+      <div id="pane-write" hidden>
+        <textarea id="write-text" spellcheck="true" placeholder="## First section&#10;&#10;Short sentences, one idea per paragraph. Formulas in LaTeX: $\omega = \sum_i dq_i \wedge dp_i$.&#10;&#10;- A point&#10;- Another point&#10;&#10;## Checklist&#10;&#10;- [ ] A step the reader can check."></textarea>
+        <p class="write-help">Use <code>## Title</code> for sections, <code>**bold**</code>, <code>*italic*</code>, <code>- item</code> for lists and <code>$…$</code> or <code>$$…$$</code> for formulas. You can also paste LaTeX directly (<code>\section</code>, <code>\begin{theorem}</code>…).</p>
+      </div>
+      <label class="agree"><input type="checkbox" id="f-agree"><span>I wrote this text, and I agree that it is published on VanoForum under CC BY 4.0 with my name.</span></label>
+    </div>
+
+    <div class="errors" id="errors" role="alert" hidden></div>
+    <div class="go"><button type="button" class="btn" id="generate">Generate the page</button><p>You see the page before anything is sent.</p></div>
+  </div>
+</section>
+</main>
+</div>
+
+<!-- 3. The generated page -->
+<div class="view" id="view-preview" hidden>
+  <div class="pbar"><p><b>Preview</b>This is how your page will look on VanoForum.</p>
+    <div class="acts"><button type="button" class="btn ghost" id="edit">← Edit</button><button type="button" class="btn ghost" id="show-md">See the file</button><button type="button" class="btn" id="send">Send for review</button></div></div>
+  <div id="preview-host"></div>
+</div>
+
+<div class="dlg" id="dlg-md" hidden><div class="dlg-in" role="dialog" aria-modal="true" aria-labelledby="md-h">
+  <div class="dlg-h"><h3 id="md-h">The file added to the site</h3><button type="button" data-close>Close ✕</button></div>
+  <div class="dlg-b"><p class="path" id="md-path"></p><pre id="md-code"></pre></div>
+  <div class="dlg-f"><span class="copied" id="copied"></span><button type="button" class="btn ghost" id="copy-md">Copy</button></div>
+</div></div>
+<div class="dlg" id="dlg-send" hidden><div class="dlg-in" role="dialog" aria-modal="true" aria-labelledby="send-h">
+  <div class="dlg-h"><h3 id="send-h">Send for review</h3><button type="button" data-close>Close ✕</button></div>
+  <div class="dlg-b" id="send-body"></div>
+  <div class="dlg-f"><button type="button" class="btn" data-close>OK</button></div>
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.13.0/mammoth.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/turndown@7.2.0/lib/turndown.browser.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/turndown-plugin-gfm@1.0.2/dist/turndown-plugin-gfm.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script src="assets/js/convert.js"></script>
+<script src="assets/js/contribute.js"></script>

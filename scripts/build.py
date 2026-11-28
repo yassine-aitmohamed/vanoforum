@@ -18,6 +18,28 @@ YEAR = '2026'
 
 CATEGORIES = [('Reading', 'Reading papers'), ('Writing', 'Writing papers'), ('Publishing', 'Publishing'), ('Method', 'Research method'), ('Careers', 'PhD and careers'), ('Philosophy', 'Science and philosophy'), ('Wellbeing', 'Mind and wellbeing')]
 
+# Contributors may propose a new category: it is any category name not in this list.
+# New categories get a neutral colour (t-custom) and a block of their own on the home page.
+CAT_DESC = {}
+
+
+def cat_key(c):
+    return re.sub(r'[^a-z0-9]+', '-', c.lower()).strip('-')
+
+
+def cat_class(c):
+    return 't-' + c.lower() if c in dict(CATEGORIES) else 't-custom'
+
+
+def all_categories(guides):
+    cats, known = list(CATEGORIES), {k for k, _ in CATEGORIES}
+    for g in guides:
+        if g['category'] not in known:
+            cats.append((g['category'], g['category']))
+            known.add(g['category'])
+    return cats
+
+
 TOOLS = [
     ('VanoAtlas', 'vanoatlas', 'A local research workspace: projects, tasks, meetings, daily routine, notes, papers and LaTeX in one private app.', 'macOS · Windows · Linux'),
     ('VanoLeaf', 'VanoLeaf-LaTeX-Editor', 'A LaTeX editor in the spirit of Overleaf that runs on your own computer: file tree, PDF preview, click-to-jump, offline, and no compile timeout.', 'macOS · Windows · Linux'),
@@ -114,15 +136,56 @@ def sections(md, toc):
     return out
 
 
+def credit_marker(meta):
+    """Invisible marker placed under the heading of a contributed section, turned into a badge by build_guides."""
+    vals = [meta.get(k, '').replace('|', '/').replace('--', '–') for k in ('author', 'affiliation', 'author_url')]
+    return '<!-- contributed-by: ' + ' | '.join(vals) + ' -->'
+
+
+def add_sections(guides):
+    """Insert the sections of guides/sections/*.md into their guide, with the name of their author.
+
+    Front matter of a section file: guide (slug of the guide), title, after (title of the section
+    it follows; empty means before the checklist or the summary), author, affiliation, author_url.
+    """
+    folder = ROOT / 'guides' / 'sections'
+    if not folder.is_dir():
+        return
+    by = {g['slug']: g for g in guides}
+    for f in sorted(p for p in folder.glob('*.md') if p.name != 'README.md'):
+        meta, body = front_matter(f.read_text(encoding='utf-8'))
+        g = by.get(meta.get('guide', ''))
+        if not g or not meta.get('title') or not meta.get('author'):
+            print(f'warning: {f.name} skipped (needs guide, title and author)')
+            continue
+        block = f"## {meta['title']}\n{credit_marker(meta)}\n\n{body.strip()}\n\n"
+        parts = re.split(r'(?m)^(?=## )', g['body_md'])
+        heads = [p.split('\n', 1)[0][3:].strip() for p in parts[1:]]
+        after = meta.get('after', '').strip()
+        if after in heads:
+            pos = heads.index(after) + 2
+        else:
+            pos = next((i for i, h in enumerate(heads) if re.match(r'(checklist|summary|in short)', h, re.I)), len(heads)) + 1
+        parts[pos - 1] = parts[pos - 1].rstrip() + '\n\n'
+        parts.insert(pos, block)
+        g['body_md'] = ''.join(parts)
+        g.setdefault('contributors', []).append({'name': meta['author'], 'aff': meta.get('affiliation', ''), 'url': meta.get('author_url', ''), 'section': meta['title']})
+
+
 def load_guides():
     guides = []
     for f in sorted((ROOT / 'guides').glob('*.md')):
         meta, body = front_matter(f.read_text(encoding='utf-8'))
         meta['source'] = f.name
         meta['body_md'] = body
+        if meta.get('category_description'):
+            CAT_DESC.setdefault(meta['category'], meta['category_description'])
+        guides.append(meta)
+    add_sections(guides)
+    for meta in guides:
+        body = meta['body_md']
         meta['minutes'] = max(1, round(len(plain(body).split()) / 220))
         meta['tasks'] = len(re.findall(r'^- \[[ x]\] ', body, flags=re.M))
-        guides.append(meta)
     for n, (name, _, slugs) in enumerate(PATHS):
         for k, s in enumerate(slugs):
             for g in guides:
@@ -133,7 +196,7 @@ def load_guides():
 
 def page(title, body, rel='', intensity='0.5', offset='0', description='', active='', path=''):
     nav = [('Guides', f'{rel}index.html#guides', 'guides'), ('Sheets', f'{rel}index.html#sheets', 'sheets'), ('Science & mind', f'{rel}index.html#mind', 'mind'),
-           ('Resources', f'{rel}resources.html', 'resources'), ('Tools', f'{rel}tools.html', 'tools'), ('Forum', FORUM, 'forum')]
+           ('Resources', f'{rel}resources.html', 'resources'), ('Tools', f'{rel}tools.html', 'tools'), ('Forum', FORUM, 'forum'), ('Contribute', f'{rel}contribute.html', 'contribute')]
     def link(n, u, k):
         cls = ' class="on"' if k == active else ''
         ext = ' target="_blank" rel="noopener"' if u.startswith('http') else ''
@@ -180,7 +243,7 @@ def page(title, body, rel='', intensity='0.5', offset='0', description='', activ
 {body}
 <footer class="foot">
   <div class="foot-in">
-    <p><b>{SITE_TITLE}</b> · an open forum for researchers, by <a href="https://yassine-aitmohamed.github.io" target="_blank" rel="noopener">Yassine Ait Mohamed</a>. Guides and sheets under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, code under MIT. <a href="{SITE}feed.xml">Atom feed</a> · <a href="{REPO}/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contribute</a></p>
+    <p><b>{SITE_TITLE}</b> · an open forum for researchers, by <a href="https://yassine-aitmohamed.github.io" target="_blank" rel="noopener">Yassine Ait Mohamed</a>. Guides and sheets under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, code under MIT. <a href="{SITE}feed.xml">Atom feed</a> · <a href="{rel}contribute.html">Contribute</a></p>
     <p class="about-field">The background is an exact solution of the Schrödinger equation: a superposition of eigenstates of the two-dimensional harmonic oscillator with frequency ratio √2, so the motion never repeats. Hue is the phase of ψ, brightness is |ψ|², the faint curves are level sets of |ψ|², and the particles follow Bohmian trajectories, dx/dt = Im(∇ψ/ψ).</p>
   </div>
 </footer>
@@ -194,8 +257,8 @@ def page(title, body, rel='', intensity='0.5', offset='0', description='', activ
 
 
 def guide_card(g, rel=''):
-    return (f'<a class="card" href="{rel}guides/{g["slug"]}.html" data-cat="{g["category"].lower()}" data-slug="{g["slug"]}">'
-            f'<span class="tag t-{g["category"].lower()}">{html.escape(g["category"])}</span>'
+    return (f'<a class="card" href="{rel}guides/{g["slug"]}.html" data-cat="{cat_key(g["category"])}" data-slug="{g["slug"]}">'
+            f'<span class="tag {cat_class(g["category"])}">{html.escape(g["category"])}</span>'
             f'<h3>{html.escape(g["title"])}</h3><p>{html.escape(g["summary"])}</p>'
             f'<span class="more"><span>Read the guide →</span><span class="meta">{g["minutes"]} min</span></span></a>')
 
@@ -234,11 +297,55 @@ def discussion(g):
             f'<a class="btn ghost" href="{FORUM}/new?category=q-a" target="_blank" rel="noopener">Ask a new question</a></div></section>')
 
 
+def initials(name):
+    return ''.join(w[0].upper() for w in name.split()[:2]) or '?'
+
+
+def person(name, url):
+    n = html.escape(name)
+    return f'<a href="{html.escape(url)}" target="_blank" rel="noopener"><b>{n}</b></a>' if url.startswith('http') else f'<b>{n}</b>'
+
+
+CONTRIB_RE = re.compile(r'(<h2 id="([^"]+)">.*?</h2>)\s*<!-- contributed-by: (.*?) -->', re.S)
+
+
+def wrap_contrib(body_html):
+    """Wrap each contributed section in a box with the name of its author. Returns the html and the ids of those sections."""
+    out, ids = [], set()
+    for piece in re.split(r'(?=<h2[ >])', body_html):
+        m = CONTRIB_RE.match(piece)
+        if not m:
+            out.append(piece)
+            continue
+        name, aff, url = ([x.strip() for x in m.group(3).split('|')] + ['', ''])[:3]
+        badge = (f'<p class="contrib-badge"><span class="avatar">{html.escape(initials(name))}</span>'
+                 f'<span>Section contributed by {person(name, url)}{" · " + html.escape(aff) if aff else ""}</span></p>')
+        out.append(f'<div class="contrib-section">{m.group(1)}{badge}{piece[m.end():]}</div>')
+        ids.add(m.group(2))
+    return ''.join(out), ids
+
+
+def credits(g):
+    lines = []
+    if g.get('author'):
+        aff = ', ' + html.escape(g['affiliation']) if g.get('affiliation') else ''
+        lines.append(f'<p>This guide was written by {person(g["author"], g.get("author_url", ""))}{aff}, and is published under CC BY 4.0.</p>')
+    for c in g.get('contributors', []):
+        aff = ', ' + html.escape(c['aff']) if c['aff'] else ''
+        lines.append(f'<p>Section “{html.escape(c["section"])}” by {person(c["name"], c["url"])}{aff}.</p>')
+    if not lines:
+        return ''
+    if not g.get('author'):
+        lines.insert(0, '<p>Guide by Yassine Ait Mohamed.</p>')
+    return '<section class="credits"><h2>Contributors</h2>' + ''.join(lines) + '</section>'
+
+
 def build_guides(guides):
     for i, g in enumerate(guides):
         body_html, toc = md_to_html(g['body_md'])
+        body_html, new_ids = wrap_contrib(body_html)
         g['toc'] = toc
-        toc_html = ''.join(f'<li><a href="#{t["id"]}">{html.escape(t["name"])}</a></li>' for t in toc)
+        toc_html = ''.join(f'<li><a href="#{t["id"]}">{html.escape(t["name"])}{"<span class=dot></span>" if t["id"] in new_ids else ""}</a></li>' for t in toc)
         toc_html += '<li><a href="#discussion">Discussion</a></li>'
         prev_g = guides[i - 1] if i > 0 else None
         next_g = guides[i + 1] if i + 1 < len(guides) else None
@@ -249,22 +356,36 @@ def build_guides(guides):
         tasks = f' · <span data-checkcount>{g["tasks"]}-item checklist</span>' if g['tasks'] else ''
         widget = WIDGETS.get(g['slug'], '')
         edit = f'{REPO}/edit/main/guides/{g["source"]}'
+        names = ([g['author']] if g.get('author') else []) + [c['name'] for c in g.get('contributors', [])]
+        by = (f' · by {html.escape(g["author"])}' if g.get('author') else
+              (' · with sections by ' + html.escape(', '.join(dict.fromkeys(names))) if names else ''))
+        toc_by = (f'<p class="toc-h">{"Written by" if g.get("author") else "Contributors"}</p><p class="by">'
+                  + '<br>'.join(html.escape(n) for n in dict.fromkeys(names)) + '</p>') if names else ''
+        byline = ''
+        if g.get('author'):
+            byline = (f'<div class="byline"><span class="avatar">{html.escape(initials(g["author"]))}</span><span class="who">Written by '
+                      f'{person(g["author"], g.get("author_url", ""))}{"<small>" + html.escape(g["affiliation"]) + "</small>" if g.get("affiliation") else ""}</span>'
+                      f'<span class="role">Contributor</span></div>')
+        svg = g.get('diagram') and (ROOT / 'assets' / 'diagrams' / f'{g["diagram"]}.svg').exists()
+        diagram = f'<figure class="diagram"><img src="../assets/diagrams/{g["diagram"]}.svg" alt="Diagram: {html.escape(g["title"])}" loading="lazy"></figure>' if svg else ''
         body = f'''<div class="progress" aria-hidden="true"><span></span></div>
 <main id="main" class="guide" data-guide="{g["slug"]}">
   <aside class="toc"><div class="toc-in"><p class="toc-h">On this page</p><ol>{toc_html}</ol>
-    <p class="toc-h">Guide {i + 1} of {len(guides)}</p>
+    {toc_by}<p class="toc-h">Guide {i + 1} of {len(guides)}</p>
     <a class="btn small" href="../sheets/{g["slug"]}.pdf">One-page sheet (PDF)</a>
     <a class="btn small ghost" href="#discussion">Discuss this guide</a>
     <a class="edit" href="{edit}" target="_blank" rel="noopener">Suggest an edit on GitHub</a></div></aside>
   <article class="panel prose">
-    <p class="crumbs"><a href="../index.html#guides">Guides</a> · <span class="tag t-{g["category"].lower()}">{html.escape(g["category"])}</span></p>
+    <p class="crumbs"><a href="../index.html#guides">Guides</a> · <span class="tag {cat_class(g["category"])}">{html.escape(g["category"])}</span></p>
     <h1>{html.escape(g["title"])}</h1>
     <p class="lead">{html.escape(g["summary"])}</p>
-    <p class="gmeta">{g["minutes"]} min read{tasks} · <span class="readstate" data-readstate>Not read yet</span></p>
+    <p class="gmeta">{g["minutes"]} min read{tasks}{by} · <span class="readstate" data-readstate>Not read yet</span></p>
+    {byline}
     {path_nav(guides, g)}
-    <figure class="diagram"><img src="../assets/diagrams/{g["diagram"]}.svg" alt="Diagram: {html.escape(g["title"])}" loading="lazy"></figure>
+    {diagram}
     {body_html}
     {widget}
+    {credits(g)}
     <div class="end-actions"><button type="button" class="btn" data-markread>Mark as read</button><a class="btn ghost" href="../sheets/{g["slug"]}.pdf">Download the one-page sheet (PDF)</a></div>
     {discussion(g)}
     {pn}
@@ -302,16 +423,17 @@ def path_card(guides, n, path):
 
 def build_index(guides):
     groups = ''
-    for key, label in CATEGORIES:
+    cats = [c for c in all_categories(guides) if any(g['category'] == c[0] for g in guides)]
+    for key, label in cats:
         gs = [g for g in guides if g['category'] == key]
-        if gs:
-            groups += (f'<div class="gblock" data-group="{key.lower()}"><h3 class="group">{html.escape(label)}</h3><div class="grid">'
-                       + ''.join(guide_card(g) for g in gs) + '</div></div>')
+        desc = f'<p class="sub">{html.escape(CAT_DESC[key])}</p>' if key in CAT_DESC else ''
+        groups += (f'<div class="gblock" data-group="{cat_key(key)}"><h3 class="group">{html.escape(label)}</h3>{desc}<div class="grid">'
+                   + ''.join(guide_card(g) for g in gs) + '</div></div>')
     chips = '<button type="button" class="chip on" data-filter="all">All</button>' + ''.join(
-        f'<button type="button" class="chip" data-filter="{k.lower()}">{html.escape(l)}</button>' for k, l in CATEGORIES)
+        f'<button type="button" class="chip" data-filter="{cat_key(k)}">{html.escape(l)}</button>' for k, l in cats)
     paths = ''.join(path_card(guides, n, p_) for n, p_ in enumerate(PATHS))
     sheets = ''.join(f'<li><a href="sheets/{g["slug"]}.pdf"><span class="pdf">PDF</span>{html.escape(g["title"])}</a></li>' for g in guides)
-    diagrams = ''.join(f'<a class="thumb" href="assets/diagrams/{g["diagram"]}.svg" target="_blank" rel="noopener"><img src="assets/diagrams/{g["diagram"]}.svg" alt="{html.escape(g["title"])}" loading="lazy"></a>' for g in guides)
+    diagrams = ''.join(f'<a class="thumb" href="assets/diagrams/{g["diagram"]}.svg" target="_blank" rel="noopener"><img src="assets/diagrams/{g["diagram"]}.svg" alt="{html.escape(g["title"])}" loading="lazy"></a>' for g in guides if g.get('diagram') and (ROOT / 'assets' / 'diagrams' / f'{g["diagram"]}.svg').exists())
     tools = ''.join(tool_card(t) for t in TOOLS[:3])
     mind = ''.join(f'<h3 class="group">{html.escape(l)}</h3><div class="grid">' + ''.join(guide_card(g) for g in guides if g['category'] == k) + '</div>'
                    for k, l in CATEGORIES if k in ('Philosophy', 'Wellbeing'))
@@ -399,9 +521,13 @@ def build_index(guides):
   <div class="band-in">
     <h2>Write with us</h2>
     <p class="sub">VanoForum grows with the experience of its readers. Every guide is a Markdown file in the repository, and every contribution is credited.</p>
+    <div class="contrib-cta">
+      <div><b>Share what you know, in Word or LaTeX</b><span>Upload your text and VanoForum turns it into a page in the style of the site, with your name on it.</span></div>
+      <div class="cta"><a class="btn" href="contribute.html">Contribute a guide</a><a class="btn ghost" href="contribute.html#section">Add a section to a guide</a></div>
+    </div>
     <div class="grid three">
       <a class="card" href="{REPO}/blob/main/CONTRIBUTING.md#fix-a-guide" target="_blank" rel="noopener"><h3>Fix or improve a guide</h3><p>Every guide has a “Suggest an edit” link. Correct a mistake, add an example or update a link, and send it as a pull request.</p><span class="more"><span>How to edit →</span></span></a>
-      <a class="card" href="{REPO}/blob/main/CONTRIBUTING.md#write-a-new-guide" target="_blank" rel="noopener"><h3>Write a new guide</h3><p>Know how admissions work in your country, or how your field publishes? Start from the guide template and propose it in the Ideas category.</p><span class="more"><span>The guide template →</span></span></a>
+      <a class="card" href="contribute.html"><h3>Write a new guide</h3><p>Know how admissions work in your country, or how your field publishes? Upload your text in Word or LaTeX with the button above.</p><span class="more"><span>Contribute a guide →</span></span></a>
       <a class="card" href="{FORUM}/categories/ideas" target="_blank" rel="noopener"><h3>Suggest a resource or a tool</h3><p>A portal, a scholarship, an essay or a tool that helped you. Post it in Ideas and it can join the Resources page.</p><span class="more"><span>Open Ideas →</span></span></a>
     </div>
     <p class="sub small">The forum follows a short <a href="{REPO}/blob/main/CODE_OF_CONDUCT.md" target="_blank" rel="noopener">code of conduct</a>: be precise, be kind, credit others.</p>
@@ -456,6 +582,16 @@ def build_tools():
 </section>
 </main>'''
     (ROOT / 'tools.html').write_text(page('Tools · ' + SITE_TITLE, body, intensity='0.55', active='tools', path='tools.html'), encoding='utf-8')
+
+
+def build_contribute(guides):
+    """The page where readers turn a Word or LaTeX file into a guide, and the data it needs."""
+    data = {'categories': all_categories(guides),
+            'guides': [{k: g.get(k, '') for k in ('title', 'slug', 'category', 'summary', 'diagram', 'minutes', 'source')} | {'body': g['body_md']} for g in guides]}
+    (ROOT / 'guides' / 'contribute.json').write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
+    body = (ROOT / 'scripts' / 'contribute_template.html').read_text(encoding='utf-8').replace('%REPO%', REPO)
+    (ROOT / 'contribute.html').write_text(page('Contribute · ' + SITE_TITLE, body, intensity='0.5', active='contribute', path='contribute.html',
+        description='Write a guide or a section for VanoForum in Word or LaTeX: the site turns it into a page in its own style, with your name on it.'), encoding='utf-8')
 
 
 RESOURCES = [
@@ -526,10 +662,11 @@ if __name__ == '__main__':
     build_resources()
     build_search(gs)
     build_404()
-    (ROOT / 'guides' / 'index.json').write_text(json.dumps([{k: g[k] for k in ('title', 'slug', 'category', 'summary', 'diagram', 'source')} for g in gs], indent=2), encoding='utf-8')
+    (ROOT / 'guides' / 'index.json').write_text(json.dumps([{k: g.get(k, '') for k in ('title', 'slug', 'category', 'summary', 'diagram', 'source', 'author')} for g in gs], indent=2), encoding='utf-8')
+    build_contribute(gs)
     import datetime
     today = datetime.date.today().isoformat()
-    urls = [('', '1.0'), ('resources.html', '0.8'), ('tools.html', '0.8')] + [(f'guides/{g["slug"]}.html', '0.9') for g in gs] + [('sheets/vanoforum-research-handbook.pdf', '0.7')] + [(f'sheets/{g["slug"]}.pdf', '0.5') for g in gs]
+    urls = [('', '1.0'), ('resources.html', '0.8'), ('tools.html', '0.8'), ('contribute.html', '0.6')] + [(f'guides/{g["slug"]}.html', '0.9') for g in gs] + [('sheets/vanoforum-research-handbook.pdf', '0.7')] + [(f'sheets/{g["slug"]}.pdf', '0.5') for g in gs]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     sm += ''.join(f'  <url><loc>{SITE}{u}</loc><lastmod>{today}</lastmod><priority>{p}</priority></url>\n' for u, p in urls)
     sm += '</urlset>\n'
