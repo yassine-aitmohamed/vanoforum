@@ -440,3 +440,18 @@ button.btn { cursor: pointer; font-family: var(--sans); }
 .similar a, .similar button { font: 500 13.5px var(--sans); color: var(--sky-light); background: none; border: 0; padding: 0; cursor: pointer; }
 .similar button:hover { text-decoration: underline; text-underline-offset: 3px; }
 .prose .contrib-badge { font-family: var(--sans); font-size: 14px; line-height: 1.4; margin-top: 4px; }
+
+/* ---------- v4: profile photos ---------- */
+img.avatar { object-fit: cover; padding: 0; background: var(--panel-solid); }
+.byline img.avatar { box-shadow: 0 0 0 2px var(--panel-solid), 0 0 0 3.5px rgba(63,163,221,.6); }
+.contrib-badge img.avatar { width: 26px; height: 26px; }
+.foot-by { display: flex; align-items: center; gap: 12px; }
+.foot-by .avatar { width: 40px; height: 40px; border-radius: 50%; flex: none; box-shadow: 0 0 0 2px var(--bg), 0 0 0 3.5px rgba(63,163,221,.6); }
+html[data-theme="light"] .byline img.avatar, html[data-theme="light"] .foot-by .avatar { box-shadow: 0 0 0 2px #F2EAD6, 0 0 0 3.5px #1880c0; }
+.photo-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.photo-prev { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; overflow: hidden; flex: none; font: 600 20px var(--sans); color: #fff; background: linear-gradient(135deg, var(--royal), var(--sky)); box-shadow: 0 0 0 2px var(--panel-solid), 0 0 0 3.5px rgba(63,163,221,.6); }
+.photo-prev img { width: 100%; height: 100%; object-fit: cover; }
+.photo-row .btn.small { width: auto; margin: 0; }
+.photo-row small { color: var(--muted); font-size: 13px; flex: 1 1 220px; }
+.linkish { border: 0; background: none; padding: 0; color: var(--sky-light); font: 500 14px var(--sans); cursor: pointer; }
+.linkish[hidden] { display: none; }

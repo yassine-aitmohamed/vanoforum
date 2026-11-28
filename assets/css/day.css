@@ -1,0 +1,126 @@
+/* ---------- Day theme: the palette of yassine-aitmohamed.github.io (cream paper, night-blue ink, royal blue and orange) ---------- */
+html[data-theme="light"] {
+  --bg: #F2EAD6;
+  --panel: rgba(250, 246, 236, .84);
+  --panel-solid: #FAF6EC;
+  --line: rgba(20, 27, 43, .12);
+  --text: #141b2b;
+  --muted: #5f697c;
+  --royal: #2b4fb3;
+  --royal-light: #2b4fb3;
+  --sky: #1880c0;
+  --sky-light: #1d5fa8;
+  --orange: #c45f12;
+  --orange-light: #c45f12;
+  color-scheme: light;
+}
+html[data-theme="light"] body { background: var(--bg); color: var(--text); }
+
+/* background: the same quantum field, inverted into ink on paper as on the personal site */
+html[data-theme="light"] .quantum { background: transparent; filter: invert(1) hue-rotate(180deg) saturate(.9); mix-blend-mode: multiply; opacity: .55; }
+html[data-theme="light"] .quantum.quantum-fallback { background: none; }
+
+/* header and navigation */
+html[data-theme="light"] .top { background: linear-gradient(180deg, rgba(242, 234, 214, .95), rgba(242, 234, 214, .78)); border-bottom-color: var(--line); }
+html[data-theme="light"] .brand .mark { color: #5f697c; }
+html[data-theme="light"] .top nav a { color: #5f697c; }
+html[data-theme="light"] .top nav a:hover, html[data-theme="light"] .top nav a.on { color: #141b2b; background: rgba(20, 27, 43, .06); }
+html[data-theme="light"] .search-btn, html[data-theme="light"] .menu-btn { background: rgba(255, 255, 255, .5); }
+html[data-theme="light"] kbd { border-color: rgba(20, 27, 43, .2); background: rgba(255, 255, 255, .6); }
+html[data-theme="light"] .menu-btn span { background: #141b2b; }
+
+/* buttons */
+html[data-theme="light"] .btn { color: #fff; }
+html[data-theme="light"] .btn:hover { background: #d66a16; }
+html[data-theme="light"] .btn.ghost { background: rgba(255, 255, 255, .55); color: #141b2b; border-color: rgba(20, 27, 43, .22); }
+html[data-theme="light"] .btn.ghost:hover { background: rgba(255, 255, 255, .9); }
+
+/* hero, panels and cards */
+html[data-theme="light"] .hero .lead { color: #2c3445; }
+html[data-theme="light"] .hero-search { background: rgba(255, 255, 255, .7); border-color: rgba(43, 79, 179, .3); }
+html[data-theme="light"] .band-in, html[data-theme="light"] .panel, html[data-theme="light"] .toc-in { box-shadow: 0 10px 40px rgba(60, 45, 10, .07); }
+html[data-theme="light"] .card, html[data-theme="light"] .cats li, html[data-theme="light"] .pathbox, html[data-theme="light"] .credits,
+html[data-theme="light"] .byline, html[data-theme="light"] .flow li, html[data-theme="light"] .choice label, html[data-theme="light"] .tabs,
+html[data-theme="light"] .chip, html[data-theme="light"] .shint button, html[data-theme="light"] .samples button { background: rgba(255, 255, 255, .55); }
+html[data-theme="light"] a.card:hover { background: rgba(255, 255, 255, .9); border-color: rgba(43, 79, 179, .45); }
+html[data-theme="light"] .chip:hover { border-color: rgba(20, 27, 43, .3); }
+html[data-theme="light"] .chip.on { background: #2b4fb3; border-color: #2b4fb3; color: #fff; }
+html[data-theme="light"] .thumb, html[data-theme="light"] .diagram { border: 1px solid var(--line); }
+html[data-theme="light"] .handbook { background: rgba(196, 95, 18, .07); border-color: rgba(196, 95, 18, .4); }
+html[data-theme="light"] .pdf { color: #fff; background: #c45f12; }
+
+/* category tags */
+html[data-theme="light"] .t-reading { color: #1667a0; border-color: rgba(24, 128, 192, .45); background: rgba(24, 128, 192, .08); }
+html[data-theme="light"] .t-writing { color: #a84f0c; border-color: rgba(196, 95, 18, .45); background: rgba(196, 95, 18, .08); }
+html[data-theme="light"] .t-publishing { color: #2b4fb3; border-color: rgba(43, 79, 179, .4); background: rgba(43, 79, 179, .08); }
+html[data-theme="light"] .t-careers { color: #a84f0c; border-color: rgba(24, 128, 192, .4); background: rgba(24, 128, 192, .07); }
+html[data-theme="light"] .t-philosophy { color: #1d5fa8; border-color: rgba(43, 79, 179, .4); background: rgba(43, 79, 179, .1); }
+html[data-theme="light"] .t-wellbeing { color: #9a4a10; border-color: rgba(214, 106, 22, .45); background: rgba(214, 106, 22, .1); }
+html[data-theme="light"] .t-method { color: #3a4356; border-color: rgba(20, 27, 43, .25); background: rgba(20, 27, 43, .05); }
+html[data-theme="light"] .t-custom, html[data-theme="light"] .newcat-note { color: #1f7a45; border-color: rgba(31, 122, 69, .4); background: rgba(31, 122, 69, .08); }
+html[data-theme="light"] .newcat-note { background: none; }
+
+/* learning paths */
+html[data-theme="light"] .steps a { color: #2c3445; }
+html[data-theme="light"] .steps i { background: #FAF6EC; }
+html[data-theme="light"] .steps li.here a { color: #141b2b; }
+html[data-theme="light"] .steps li + li::before { background: rgba(20, 27, 43, .25); }
+
+/* guide pages */
+html[data-theme="light"] .prose .lead { color: #2c3445; }
+html[data-theme="light"] .prose p, html[data-theme="light"] .prose li, html[data-theme="light"] .prose td { color: #2c3445; }
+html[data-theme="light"] .prose strong, html[data-theme="light"] .prose b { color: #141b2b; }
+html[data-theme="light"] .prose h2, html[data-theme="light"] .prose h3 { color: #141b2b; }
+html[data-theme="light"] .prose code { background: rgba(20, 27, 43, .07); }
+html[data-theme="light"] .prose pre { background: rgba(255, 255, 255, .6); }
+html[data-theme="light"] .prose blockquote { background: rgba(24, 128, 192, .07); }
+html[data-theme="light"] .prose blockquote.thm { background: rgba(43, 79, 179, .07); border-left-color: #2b4fb3; }
+html[data-theme="light"] .prose li.task.done::after { border-color: #fff; }
+html[data-theme="light"] .prose li.task.done { color: #5f697c; }
+html[data-theme="light"] .toc li a:hover, html[data-theme="light"] .toc li a.on { color: #141b2b; }
+html[data-theme="light"] .progress span { background: linear-gradient(90deg, #c45f12, #1880c0, #2b4fb3); }
+html[data-theme="light"] .widget { background: rgba(196, 95, 18, .05); }
+html[data-theme="light"] .widget textarea { background: rgba(255, 255, 255, .7); }
+html[data-theme="light"] .ac-out li.warn { background: rgba(196, 95, 18, .1); }
+
+/* contributors */
+html[data-theme="light"] .byline .who b, html[data-theme="light"] .contrib-badge b { color: #141b2b; }
+html[data-theme="light"] .toc .by { color: #2c3445; }
+html[data-theme="light"] .contrib-section { background: rgba(196, 95, 18, .05); }
+html[data-theme="light"] .contrib-badge { color: #7a3d0c; background: rgba(196, 95, 18, .08); }
+html[data-theme="light"] .prose .credits p { color: #2c3445; }
+
+/* search dialog */
+html[data-theme="light"] .sbox { background: rgba(60, 50, 30, .35); }
+html[data-theme="light"] .sbox-in { border-color: rgba(43, 79, 179, .25); box-shadow: 0 30px 80px rgba(60, 45, 10, .25); }
+html[data-theme="light"] .sbox-head input { background: #fff; }
+html[data-theme="light"] .sres li a:hover, html[data-theme="light"] .sres li[aria-selected] a { background: rgba(43, 79, 179, .08); }
+html[data-theme="light"] .sres mark { background: rgba(196, 95, 18, .22); color: #141b2b; }
+
+/* contribute page */
+html[data-theme="light"] .before { background: rgba(24, 128, 192, .07); border-color: rgba(24, 128, 192, .35); }
+html[data-theme="light"] .before h3 { color: #1d5fa8; }
+html[data-theme="light"] .before li, html[data-theme="light"] .agree, html[data-theme="light"] .fileinfo ul, html[data-theme="light"] .pbar p,
+html[data-theme="light"] .dlg-b p, html[data-theme="light"] .field label { color: #2c3445; }
+html[data-theme="light"] .before b, html[data-theme="light"] .similar li b { color: #141b2b; }
+html[data-theme="light"] .field input[type=text], html[data-theme="light"] .field input[type=url], html[data-theme="light"] .field select,
+html[data-theme="light"] .field textarea, html[data-theme="light"] #write-text { background: rgba(255, 255, 255, .75); }
+html[data-theme="light"] .tabs button[aria-selected=true] { background: #2b4fb3; color: #fff; }
+html[data-theme="light"] .drop { background: rgba(24, 128, 192, .05); border-color: rgba(24, 128, 192, .45); }
+html[data-theme="light"] .fmt.docx { background: rgba(24, 128, 192, .14); color: #1667a0; }
+html[data-theme="light"] .fmt.tex { background: rgba(43, 79, 179, .14); color: #2b4fb3; }
+html[data-theme="light"] .fileinfo { background: rgba(24, 128, 192, .07); }
+html[data-theme="light"] .errors, html[data-theme="light"] .similar { color: #7a3d0c; background: rgba(196, 95, 18, .08); }
+html[data-theme="light"] .contrib-cta { background: linear-gradient(120deg, rgba(196, 95, 18, .1), rgba(24, 128, 192, .06)); }
+html[data-theme="light"] .pbar { background: rgba(250, 246, 236, .95); }
+html[data-theme="light"] .dlg { background: rgba(60, 50, 30, .35); }
+html[data-theme="light"] .dlg-b pre { background: #fff; color: #2c3445; }
+html[data-theme="light"] .flow li::before { color: #fff; background: #c45f12; }
+
+/* the day/night switch, as on the personal site */
+.theme-btn { flex: none; height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255, 255, 255, .04); color: var(--muted); font: 13px var(--mono); cursor: pointer; white-space: nowrap; }
+.theme-btn:hover { color: var(--text); border-color: rgba(124, 198, 240, .5); }
+html[data-theme="light"] .theme-btn { background: rgba(255, 255, 255, .55); }
+html[data-theme="light"] .theme-btn:hover { border-color: rgba(43, 79, 179, .45); }
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+@media (max-width: 900px) { .theme-btn { height: 42px; padding: 0 12px; } }
